@@ -32,7 +32,7 @@ Aplikasi `ReadHub` tidak hanya dirancang untuk memfasilitasi akses mudah ke berb
 
 # 💼  Daftar Modul 💼
 1. **Home Page** <br> 
-Modul ini adalah halaman awal dari aplikasi atau situs web Anda. Ini adalah halaman pertama yang akan dilihat oleh pengguna ketika mereka mengakses platform Anda. Biasanya, halaman ini menyediakan gambaran umum tentang apa yang dapat diakses di situs web atau aplikasi, seperti tautan ke fitur-fitur penting, berita terbaru, atau promo khusus.
+Modul ini adalah halaman awal dari aplikasi ReadHub Mobile. Ini adalah halaman pertama yang akan dilihat oleh pengguna ketika mereka mengakses platform Anda. Halaman ini menyediakan gambaran umum tentang apa yang dapat diakses di aplikasi mobile, seperti tautan ke fitur-fitur penting, berita terbaru, atau promo khusus.
 
 2. **Login, Register, Logout** <br>
 Modul Login memungkinkan pengguna yang sudah terdaftar untuk masuk dengan menggunakan email atau nama pengguna beserta kata sandi, sementara modul Register memungkinkan pengguna baru untuk membuat akun dengan memberikan informasi pribadi dan kata sandi. Modul Logout memungkinkan pengguna untuk keluar dari akun mereka, menjaga keamanan dan privasi data mereka. Ini adalah tiga modul kunci untuk manajemen akun pengguna di platform Anda.
@@ -80,7 +80,7 @@ Modul ini Bersikian profile dari user,
 
 - Registered User
   
-  Registered user dapat mengakses semua page yaitu Home Page, list category, detail & review, borrow book, discussion forum, favorite, dan profile dalam web ReadHub-mobile.
+  Registered user dapat mengakses semua page yaitu Home Page, list category, detail & review, borrow book, discussion forum, favorite, dan profile dalam aplikasi ReadHub-mobile.
 
 <br>
 
