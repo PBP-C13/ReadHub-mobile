@@ -32,27 +32,27 @@ Aplikasi `ReadHub` tidak hanya dirancang untuk memfasilitasi akses mudah ke berb
 
 # 💼  Daftar Modul 💼
 1. **Home Page** <br> 
-Modul ini adalah halaman awal dari aplikasi atau situs web Anda. Ini adalah halaman pertama yang akan dilihat oleh pengguna ketika mereka mengakses platform Anda. Biasanya, halaman ini menyediakan gambaran umum tentang apa yang dapat diakses di situs web atau aplikasi, seperti tautan ke fitur-fitur penting, berita terbaru, atau promo khusus.
+Modul ini adalah halaman awal dari aplikasi ReadHub Mobile. Ini adalah halaman pertama yang akan dilihat oleh pengguna ketika mereka mengakses platform Anda. Halaman ini menyediakan gambaran umum tentang apa yang dapat diakses di aplikasi mobile, seperti tautan ke fitur-fitur penting, berita terbaru, atau promo khusus.
 
 2. **Login, Register, Logout** <br>
 Modul Login memungkinkan pengguna yang sudah terdaftar untuk masuk dengan menggunakan email atau nama pengguna beserta kata sandi, sementara modul Register memungkinkan pengguna baru untuk membuat akun dengan memberikan informasi pribadi dan kata sandi. Modul Logout memungkinkan pengguna untuk keluar dari akun mereka, menjaga keamanan dan privasi data mereka. Ini adalah tiga modul kunci untuk manajemen akun pengguna di platform Anda.
 
-3.  List Category Buku  <br>
+3.  **Book List Category**  <br>
 Modul ini berisi daftar kategori atau genre buku yang tersedia di platform Anda. Pengguna dapat menavigasi ke kategori tertentu untuk menemukan buku yang sesuai dengan minat mereka.
 
-4. Detail & Review Buku <br>
+4. **Book Detail & Review** <br>
 Modul ini memberikan informasi rinci tentang sebuah buku, seperti judul, pengarang, deskripsi, dan sampul buku. Pengguna dapat mengeksplorasi detail buku sebelum memutuskan untuk meminjam atau membelinya.  Modul ini memungkinkan pengguna untuk memberikan ulasan dan penilaian tentang buku yang telah mereka baca. Ini membantu pengguna lain dalam memilih buku yang cocok untuk mereka.
 
-5. Meminjam Buku <br>
+5. **Borrow Book** <br>
 Modul ini memungkinkan pengguna untuk meminjam buku dari perpustakaan digital atau toko buku online. 
 
-6. Forum Diskusi Buku <br>
+6. **Book Discussion Forum** <br>
 Modul ini memungkinkan pengguna untuk berpartisipasi dalam diskusi online tentang buku. Pengguna dapat membuat topik diskusi, mengomentari topik yang ada, atau berinteraksi dengan komunitas pembaca lainnya untuk berbagi pandangan, saran, atau ulasan buku.
 
-7. Favorit Buku <br>
+7. **Favorite Book** <br>
 Modul ini memungkinkan pengguna untuk menandai atau menyimpan buku-buku favorit mereka. Ini memudahkan pengguna untuk mengingat dan mengakses buku-buku yang mereka minati tanpa harus mencarinya kembali.
 
-8. Profile<br>
+8. **Profile**<br>
 Modul ini Bersikian profile dari user, 
 
 <br>
@@ -74,13 +74,13 @@ Modul ini Bersikian profile dari user,
 
   Super admin dapat mengakses semua fitur aplikasi dalam segi administrasi tanpa memandang hak akses.
 
-- Non Registered User
+- Guest User
 
-  Non registered user atau visitor hanya dapat melihat homepage list semua buku namun tidak dapat mengakses fitur lainnya seperti detail buku, wishlist/favorit buku dan pinjam buku
+  Non registered user atau guest hanya dapat melihat homepage list semua buku namun tidak dapat mengakses fitur lainnya seperti detail & review, borrow book, discussion forum, favorite, dan profile.
 
 - Registered User
   
-  Registered user dapat mengakses semua page dan mengakses semua fitur yang ada dalam web ReadHub-mobile.
+  Registered user dapat mengakses semua page yaitu Home Page, list category, detail & review, borrow book, discussion forum, favorite, dan profile dalam aplikasi ReadHub-mobile.
 
 <br>
 
