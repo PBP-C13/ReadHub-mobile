@@ -69,6 +69,8 @@ flutter:
   - assets/images/Background Splash.png
   - assets/images/Onboarding Screen.png
   - assets/images/Auth.png
+  - assets/images/Community.png
+  - assets/images/Profile.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

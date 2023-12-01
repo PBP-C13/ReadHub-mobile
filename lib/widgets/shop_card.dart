@@ -50,6 +50,9 @@ class ShopCard extends StatelessWidget {
           } else if (item.name == "Explore") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ExploreScreen()));
+          } else if (item.name == "Detail Book") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ExploreScreen()));
 
           } else if (item.name == "My Book") {
             Navigator.push(context,
