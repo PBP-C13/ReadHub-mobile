@@ -20,9 +20,13 @@ class SplashScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Warna.background,
-      body: Stack(children: [
-        Image.asset('assets/images/Background Splash.png'),
-      ]),
+      body: Stack(
+        children: [
+          Center(
+            child: Image.asset('assets/images/Background Splash.png'),
+          ),
+        ],
+      ),
     );
   }
 }
