@@ -113,17 +113,20 @@ class CommunityForumWidget extends StatelessWidget {
                                 margin: EdgeInsets.fromLTRB(0, 0 , 10 , 0 ),
                                 // height: contentWidth,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  color: Warna.backgroundlight,
                                   borderRadius: BorderRadius.circular(6.0704197884),
                                 ),
                                 child: Align(
                                   alignment: Alignment.topCenter,
-                                  child: SizedBox(
+                                  child: Container(
                                     width: 84,
                                     height: 128,
-                                    child: Image.network(
-                                      forum.bookImage,
-                                      fit: BoxFit.cover,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12.0), 
+                                      image: DecorationImage(
+                                        image: NetworkImage(forum.bookImage),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),

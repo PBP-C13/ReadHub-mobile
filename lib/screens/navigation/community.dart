@@ -76,7 +76,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       Container(
                         color: Warna.blue,
                         width: screenWidth,
-                        height: screenHeight / 3.5,
+                        height: screenHeight / 3.8,
                         child: Image.asset(
                           'assets/images/Community.png', 
                           fit: BoxFit.cover,
