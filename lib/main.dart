@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readhub/screens/splash.dart';
+import 'package:readhub/screens/home.dart';
+import 'package:readhub/screens/category.dart';
 
 void main() {
   runApp(const MyApp());
