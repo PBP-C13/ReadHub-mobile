@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:readhub/screens/onboarding.dart';
+import 'package:readhub/screens/auth/onboarding.dart';
 import 'package:readhub/styles/colors.dart';
 
 class SplashScreen extends StatelessWidget {
