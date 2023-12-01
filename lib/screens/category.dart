@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:readhub/styles/colors.dart';
+import 'package:readhub/widgets/book_card.dart';
 
-class BookItem {
-  final String name;
-  final IconData icon;
 
-  BookItem(this.name, this.icon);
-}
 
 class CategoryScreen extends StatelessWidget {
 
@@ -49,10 +45,10 @@ class CategoryScreen extends StatelessWidget {
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                // children: items.map((ShopItem item) {
-                //   // Iterasi untuk setiap item
-                //   return ShopCard(item);
-                // }).toList(),
+                children: items.map((BookItem item) {
+                  // Iterasi untuk setiap item
+                  return BookItem(item);
+                }).toList(),
               ),
             ],
           ),
