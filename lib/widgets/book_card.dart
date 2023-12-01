@@ -10,15 +10,15 @@ class BookItem {
   BookItem(this.imageUrl, this.title, this.author);
 }
 
-class ShopCard extends StatelessWidget {
+class BookCard extends StatelessWidget {
   final BookItem item;
 
-  const ShopCard(this.item, {super.key}); // Constructor
+  const BookCard(this.item, {super.key}); // Constructor
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Warna.cardBook, // Menggunakan fungsi getButtonColor
+      color: Warna.lightcyan, // Menggunakan fungsi getButtonColor
       child: InkWell(
         // Area responsive terhadap sentuhan
         onTap: () {
