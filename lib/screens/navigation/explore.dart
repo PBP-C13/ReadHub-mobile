@@ -9,6 +9,8 @@ import 'package:readhub/screens/navigation/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:readhub/models/book.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -76,52 +78,116 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ],
                   );
               } else {
-                  return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) => Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
+                TextEditingController myController = TextEditingController();
+                  return Column(
+                    children: [
+                      // Bagian Pertama: Teks dan Kolom Input
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Search Book",
+                              style: TextStyle(
+                                color: Warna.white,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8.0),
+                            // Tambahkan kolom input atau teks sesuai kebutuhan
+                            // Contoh:
+                            TextField(
+                              controller: myController,
+                              decoration: InputDecoration(
+                                labelText: 'Masukkan judul buku',
+                                labelStyle: TextStyle(color: Colors.white), // Warna label
+                                hintStyle: TextStyle(color: Colors.white), // Warna hint text
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white), // Warna garis pinggir
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white), // Warna garis pinggir saat aktif
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white), // Warna garis pinggir saat fokus
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white), // Warna teks input
+                            ),
+                            const SizedBox(height: 8.0),
+                            
+                            ElevatedButton(
+                              onPressed: () {
+                                // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
+                              },
+                              child: Text("Cari"),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Bagian Kedua: GridView dengan Card-Card Buku
+                      Expanded(
+                        child: GridView.builder(
+                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 250.0,
+                            crossAxisSpacing: 1.0,
+                            mainAxisSpacing: 1.0,
+                            childAspectRatio: 0.7,
+                          ),
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => Card(
+                            color: Warna.lightcyan,
+                            elevation: 4.0,
+                            margin: const EdgeInsets.all(8.0),
+                            child: Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                    Image.network(
-                                    "${snapshot.data![index].fields.imageUrl}",
-                                    width: 50.0,
-                                    height: 50.0,
-                                    // Atur properti lain sesuai kebutuhan
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 16.0),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${snapshot.data![index].fields.bookTitle}",
+                                          style: const TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8.0),
+                                        Text(
+                                          "${snapshot.data![index].fields.bookAuthors.length > 25 ? snapshot.data![index].fields.bookAuthors.substring(0, 25) + '...' : snapshot.data![index].fields.bookAuthors}",
+                                          style: const TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8.0),
+                                        Text(
+                                          "${snapshot.data![index].fields.imageUrl}",
+                                          style: const TextStyle(
+                                            fontSize: 15.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(height: 8.0), // Spasi antara gambar dan teks
-                                  Text(
-                                  "${snapshot.data![index].fields.bookTitle}",
-                                  style: const TextStyle(
-                                      fontSize: 18.0,
-                                      color: Warna.white,
-                                      fontWeight: FontWeight.bold,
-                                  ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    "${snapshot.data![index].fields.bookAuthors}",
-                                    style: const TextStyle(
-                                      fontSize: 15.0,
-                                      color: Warna.white,
-                                      fontWeight: FontWeight.bold,
-                                      ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                      "${snapshot.data![index].fields.genres}",
-                                    style: const TextStyle(
-                                      fontSize: 15.0,
-                                      color: Warna.white,
-                                      fontWeight: FontWeight.bold,
-                                  ),
-                                  )
-                              ],
+                                ],
                               ),
-                          ));
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
                   }
               }
           }));
