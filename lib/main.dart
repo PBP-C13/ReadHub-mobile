@@ -4,6 +4,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readhub/screens/auth/splash.dart';
 import 'package:readhub/screens/navigation/community.dart';
+import 'package:readhub/screens/navigation/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: Homescreen(),
       ),
     );
   }
