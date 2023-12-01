@@ -151,6 +151,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
+                                        SizedBox(
+                                            width: double.infinity, // Agar gambar mengisi lebar Card
+                                            height: 150.0, // Sesuaikan tinggi gambar sesuai kebutuhan
+                                            child: Image.network(
+                                              "${snapshot.data![index].fields.imageUrl}",
+                                              fit: BoxFit.cover, // Agar gambar diatur sesuai dimensi kotak
+                                            ),
+                                          ),
+                                        SizedBox(height: 16.0),
                                         Text(
                                           "${snapshot.data![index].fields.bookTitle}",
                                           style: const TextStyle(
@@ -169,14 +178,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                           ),
                                         ),
                                         const SizedBox(height: 8.0),
-                                        Text(
-                                          "${snapshot.data![index].fields.imageUrl}",
-                                          style: const TextStyle(
-                                            fontSize: 15.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ),
