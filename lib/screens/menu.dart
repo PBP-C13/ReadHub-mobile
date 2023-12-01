@@ -1,27 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:readhub/widgets/navbar.dart';
 import 'package:readhub/widgets/shop_card.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:readhub/styles/colors.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   final List<ShopItem> items = [
-    ShopItem("Lihat Produk", Icons.checklist),
-    ShopItem("Tambah Produk", Icons.add_shopping_cart),
-    ShopItem("Logout", Icons.logout),
+    ShopItem("Home", Icons.home, Warna.blue),
+    ShopItem("Community", Icons.people, Warna.blue),
+    ShopItem("Explore", Icons.explore, Warna.blue),
+    ShopItem("My Book", Icons.book, Warna.blue),
+    ShopItem("Profile", Icons.person, Warna.blue),
+    ShopItem("Detail", Icons.details, Warna.blue),
+    ShopItem("Borrow Book", Icons.library_books, Warna.blue),
+    ShopItem("Onboarding", Icons.directions_run, Warna.blue),
+    ShopItem("Logout", Icons.logout, Warna.cyan), 
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: const Text(
-            'Shopping Art',
+            'Navigation',
           ),
-          backgroundColor: Colors.indigo,
-          foregroundColor: Colors.white,
+          backgroundColor: Warna.blue,
+          foregroundColor: Warna.background,
+          automaticallyImplyLeading: false, 
         ),
+        backgroundColor: Warna.background,
+        bottomNavigationBar: BottomNavBar(index: 4),
           // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
-
           body: SingleChildScrollView(
             // Widget wrapper yang dapat discroll
             child: Padding(
@@ -33,11 +45,12 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 // Widget Text untuk menampilkan tulisan dengan alignment center dan style yang sesuai
                 child: Text(
-                  'PBP Shop', // Text yang menandakan toko
+                  'ReadHub', // Text yang menandakan toko
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    color: Warna.white,
                   ),
                 ),
               ),

@@ -19,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Warna.background,
-      bottomNavigationBar: BottomNavBar(index: 4),
+      // bottomNavigationBar: BottomNavBar(index: 4),
     );
   }
 }
