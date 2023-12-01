@@ -138,7 +138,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ),
                           itemCount: snapshot.data!.length,
                           itemBuilder: (_, index) => Card(
-                            color: Warna.lightcyan,
+                            color: Warna.backgroundlight,
                             elevation: 4.0,
                             margin: const EdgeInsets.all(8.0),
                             child: Padding(
