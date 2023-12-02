@@ -19,7 +19,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
   Future<List<Forum>> fetchProduct(request) async {
     var response = await request.get(
-      'http://127.0.0.1:8000/community/get-product/'
+      'https://readhub-c13-tk.pbp.cs.ui.ac.id/community/get-product/'
     );
 
     List<Forum> listProduct = [];
