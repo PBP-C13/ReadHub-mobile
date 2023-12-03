@@ -185,10 +185,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         Expanded(
                                           child: ElevatedButton(
                                             onPressed: () {
-                                             // Navigate to the second page when the button is pressed
+                                              // Get the selected book
+                                              Book selectedBook = snapshot.data![index];
+
+                                              // Navigate to the second page and pass the selected book's data
                                               Navigator.push(
                                                 context,
-                                                MaterialPageRoute(builder: (context) => DetailScreen()),
+                                                MaterialPageRoute(
+                                                  builder: (context) => DetailScreen(book: selectedBook),
+                                                ),
                                               );
                                             },
                                             child: Text(
