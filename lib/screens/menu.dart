@@ -16,7 +16,7 @@ class MyHomePage extends StatelessWidget {
     ShopItem("Detail", Icons.details, Warna.blue),
     ShopItem("Borrow Book", Icons.library_books, Warna.blue),
     ShopItem("Onboarding", Icons.directions_run, Warna.blue),
-    ShopItem("Logout", Icons.logout, Warna.cyan), 
+    ShopItem("Logout", Icons.logout, const Color.fromARGB(255, 57, 187, 252)), 
   ];
 
   @override

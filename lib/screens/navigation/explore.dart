@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:readhub/models/book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:readhub/screens/flow/detail.dart';
 
 
 class ExploreScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Future<List<Book>> fetchProduct() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
-        'http://localhost:8000/json/');
+        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
@@ -56,10 +57,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
     return Scaffold(
       backgroundColor: Warna.background,
       bottomNavigationBar: BottomNavBar(index: 1),
-      appBar: AppBar(
-        title:
-            const Text('CATEGORY', style: TextStyle(color: Colors.black)),
-      ),
+      // appBar: AppBar(
+      //   title:
+      //       const Text('CATEGORY', style: TextStyle(color: Colors.black)),
+      // ),
       body: FutureBuilder(
           future: fetchProduct(),
           builder: (context, AsyncSnapshot snapshot) {
@@ -79,116 +80,160 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   );
               } else {
                 TextEditingController myController = TextEditingController();
-                  return Column(
-                    children: [
-                      // Bagian Pertama: Teks dan Kolom Input
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Search Book",
-                              style: TextStyle(
-                                color: Warna.white,
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8.0),
-                            // Tambahkan kolom input atau teks sesuai kebutuhan
-                            // Contoh:
-                            TextField(
-                              controller: myController,
-                              decoration: InputDecoration(
-                                labelText: 'Masukkan judul buku',
-                                labelStyle: TextStyle(color: Colors.white), // Warna label
-                                hintStyle: TextStyle(color: Colors.white), // Warna hint text
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white), // Warna garis pinggir
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white), // Warna garis pinggir saat aktif
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white), // Warna garis pinggir saat fokus
-                                ),
-                              ),
-                              style: TextStyle(color: Colors.white), // Warna teks input
-                            ),
-                            const SizedBox(height: 8.0),
-                            
-                            ElevatedButton(
-                              onPressed: () {
-                                // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
-                              },
-                              child: Text("Cari"),
-                            ),
-                          ],
+                return CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      backgroundColor:Warna.blue,
+                      expandedHeight: 200.0,
+                      floating: false,
+                      pinned: true,
+                      flexibleSpace: FlexibleSpaceBar(
+                        title: Text(
+                          "Explore Book",
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        background: Image.asset(
+                          'assets/images/Community.png', 
+                          fit: BoxFit.cover,
                         ),
                       ),
-
-                      // Bagian Kedua: GridView dengan Card-Card Buku
-                      Expanded(
-                        child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 250.0,
-                            crossAxisSpacing: 1.0,
-                            mainAxisSpacing: 1.0,
-                            childAspectRatio: 0.7,
+                    ),
+                    SliverPadding(
+                      padding: EdgeInsets.all(16.0),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate([
+                          // Kolom input atau teks sesuai kebutuhan
+                          TextField(
+                            controller: myController,
+                            decoration: InputDecoration(
+                              labelText: 'Masukkan judul buku',
+                              labelStyle: TextStyle(color: Warna.white),
+                              hintStyle: TextStyle(color: Warna.white),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Warna.white),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Warna.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Warna.white),
+                              ),
+                            ),
+                            style: TextStyle(color: Warna.white),
+                            
                           ),
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (_, index) => Card(
-                            color: Warna.backgroundlight,
-                            elevation: 4.0,
-                            margin: const EdgeInsets.all(8.0),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 16.0),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                          const SizedBox(height: 8.0),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
+                            },
+                            child: Text("Cari"),
+                          ),
+                        ]),
+                      ),
+                    ),
+                      SliverGrid(
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 250.0,
+                          crossAxisSpacing: 1.0,
+                          mainAxisSpacing: 1.0,
+                          childAspectRatio: 0.7,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return Card(
+                              color: Warna.lightcyan,
+                              elevation: 4.0,
+                              margin: const EdgeInsets.all(8.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 150.0,
+                                      child: Image.network(
+                                        "${snapshot.data![index].fields.imageUrl}",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(height: 16.0),
+                                    Text(
+                                      "${snapshot.data![index].fields.bookTitle.length > 25 ? snapshot.data![index].fields.bookTitle.substring(0, 25) + '...' : snapshot.data![index].fields.bookTitle}",
+                                      style: const TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Text(
+                                      "${snapshot.data![index].fields.bookAuthors.length > 25 ? snapshot.data![index].fields.bookAuthors.substring(0, 25) + '...' : snapshot.data![index].fields.bookAuthors}",
+                                      style: const TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Row(
                                       children: [
-                                        SizedBox(
-                                            width: double.infinity, // Agar gambar mengisi lebar Card
-                                            height: 150.0, // Sesuaikan tinggi gambar sesuai kebutuhan
-                                            child: Image.network(
-                                              "${snapshot.data![index].fields.imageUrl}",
-                                              fit: BoxFit.cover, // Agar gambar diatur sesuai dimensi kotak
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              // Get the selected book
+                                              Book selectedBook = snapshot.data![index];
+
+                                              // Navigate to the second page and pass the selected book's data
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => DetailScreen(book: selectedBook),
+                                                ),
+                                              );
+                                            },
+                                            child: Text(
+                                              "Detail Book",
+                                              style: const TextStyle(
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
                                           ),
-                                        SizedBox(height: 16.0),
-                                        Text(
-                                          "${snapshot.data![index].fields.bookTitle}",
-                                          style: const TextStyle(
-                                            fontSize: 18.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(width: 8.0), // Jarak antara tombol
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              // Aksi yang ingin dilakukan saat tombol kedua ditekan
+                                            },
+                                            child: Text(
+                                              "Add Favorit",
+                                              style: const TextStyle(
+                                                fontSize: 10.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                          ),
                                           ),
                                         ),
-                                        const SizedBox(height: 8.0),
-                                        Text(
-                                          "${snapshot.data![index].fields.bookAuthors.length > 25 ? snapshot.data![index].fields.bookAuthors.substring(0, 25) + '...' : snapshot.data![index].fields.bookAuthors}",
-                                          style: const TextStyle(
-                                            fontSize: 15.0,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 8.0),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
+                          childCount: snapshot.data!.length,
                         ),
                       ),
-                    ],
-                  );
+                  ],
+                );
                   }
               }
           }));
