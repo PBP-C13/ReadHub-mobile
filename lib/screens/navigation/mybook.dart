@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:readhub/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/widgets/navbar.dart';
