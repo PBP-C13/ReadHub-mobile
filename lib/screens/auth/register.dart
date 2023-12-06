@@ -289,7 +289,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     }
                     // Registration logic, send registration request to your server API
                     final response = await http.post(
-                      Uri.parse('http://127.0.0.1:8000/auth/register/'),
+                      Uri.parse('https://readhub-c13-tk.pbp.cs.ui.ac.id/auth/register/'),
                       body: {
                         'username': username,
                         'password1': password,

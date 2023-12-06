@@ -214,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     // Cek kredensial
                     final response = await request
-                        .login("http://127.0.0.1:8000/auth/login/", {
+                        .login("https://readhub-c13-tk.pbp.cs.ui.ac.id/auth/login/", {
                       'username': username,
                       'password': password,
                     });

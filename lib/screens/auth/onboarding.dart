@@ -112,10 +112,10 @@ class Onboarding extends StatelessWidget {
                             child: Text(
                               'Login ReadHub',
                               style: GoogleFonts.poppins(
-                                fontSize: 16 * ffem,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w700,
                                 height: 1.5 * ffem / fem,
-                                color: Color(0xffffffff),
+                                color: Warna.white,
                               ),
                             ),
                           ),
