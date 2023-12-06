@@ -14,7 +14,7 @@ class CreateForum extends StatefulWidget {
 
 class _CreateForumState extends State<CreateForum> {
   final _formKey = GlobalKey<FormState>();
-  String _name = "";
+  String _forum = "";
   String _description = "";
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _CreateForumState extends State<CreateForum> {
                           ),
                           onChanged: (String? value) {
                           setState(() {
-                              _name = value!;
+                              _forum = value!;
                           });
                           },
                           validator: (String? value) {
@@ -103,9 +103,9 @@ class _CreateForumState extends State<CreateForum> {
                                     if (_formKey.currentState!.validate()) {
       
                                         final response = await request.postJson(
-                                        "http://127.0.0.1:8000/create-flutter/",
+                                        "http://127.0.0.1:8000/community/create-flutter/",
                                         jsonEncode(<String, String>{
-                                            'name': _name,
+                                            'name': _forum,
                                             'description': _description,
                                         }));
                                         if (response['status'] == 'success') {
@@ -123,7 +123,7 @@ class _CreateForumState extends State<CreateForum> {
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text('Nama: $_name'),
+                                                        Text('Nama: $_forum'),
                                                         Text('Deskripsi: $_description'),
                                                       ],
                                                     ),
