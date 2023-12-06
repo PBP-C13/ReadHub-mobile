@@ -11,6 +11,7 @@ class CommunityForumWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final contentWidth = screenHeight - 28 * 2;
+    final screenWidth =MediaQuery.of(context).size.width;
 
     return Container(
       width: contentWidth,
@@ -97,7 +98,7 @@ class CommunityForumWidget extends StatelessWidget {
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 10 , 10 , 10),
-                        width: contentWidth,
+                        width: screenWidth,
                         // height: 190 ,
                         decoration: BoxDecoration(
                           color: Color(0xff23264f),
@@ -133,14 +134,14 @@ class CommunityForumWidget extends StatelessWidget {
                               ),
                               Container(
                                 margin: EdgeInsets.fromLTRB(0, 8 , 0 , 8 ),
-                                width: 240 ,
+                                width: screenWidth-screenWidth/2.5 ,
                                 // height:contentWidth,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                       margin: EdgeInsets.fromLTRB(0 , 0 , 0, 8 ),
-                                      width: contentWidth-40,
+                                      width: screenWidth-40,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [

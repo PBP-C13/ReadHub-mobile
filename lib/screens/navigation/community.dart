@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readhub/widgets/create_forum.dart';
+import 'package:readhub/screens/other/create_forum.dart';
 import 'package:readhub/widgets/navbar.dart';
 import 'package:readhub/widgets/community_forum.dart';
 import 'package:readhub/models/forum.dart';
