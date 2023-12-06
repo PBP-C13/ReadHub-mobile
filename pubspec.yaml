@@ -79,6 +79,8 @@ flutter:
   - assets/images/Auth.png
   - assets/images/Community.png
   - assets/images/Profile.png
+  - assets/icons/check-square-fill.png
+  - assets/images/YourBook.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
