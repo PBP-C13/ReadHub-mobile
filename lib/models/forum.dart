@@ -36,6 +36,8 @@ class Forum {
         bookGenre: List<String>.from(json["book_genre"].map((x) => x)),
     );
 
+  get pk => null;
+
     Map<String, dynamic> toJson() => {
         "name": name,
         "forum_id": forumId,
