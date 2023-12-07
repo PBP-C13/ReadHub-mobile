@@ -41,6 +41,7 @@ class _MyBookScreenState extends State<MyBookScreen> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       backgroundColor: Warna.blue,
+
       body: FutureBuilder(
         future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {

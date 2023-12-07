@@ -20,11 +20,12 @@ class _HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
+
     return Scaffold(
       backgroundColor: Warna.background,
       bottomNavigationBar: BottomNavBar(index: 0),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+        padding: const EdgeInsets.fromLTRB(28, 76, 28, 0), // Padding kiri, atas, kanan menjadi 28, dan atas menjadi 64
         child: Container(
           width: double.infinity,
           child: Column(
@@ -39,7 +40,7 @@ class _HomescreenState extends State<Homescreen> {
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 21),
                       width: double.infinity,
-                      height: 56,
+                      height: 68,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -49,7 +50,7 @@ class _HomescreenState extends State<Homescreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: screenWidth - (screenWidth / 2.25),
+                                  // width: screenWidth - (screenWidth / 2.25),
                                   margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
                                   child: Text(
                                     'Welcome,',
@@ -64,7 +65,7 @@ class _HomescreenState extends State<Homescreen> {
                                 Text(
                                   'Arya Wijaya! 👋🏻',
                                   style: GoogleFonts.poppins(
-                                    fontSize: 20,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w700,
                                     height: 1.4,
                                     color: Color(0xffffffff),
@@ -73,43 +74,40 @@ class _HomescreenState extends State<Homescreen> {
                               ],
                             ),
                           ),
-                          Container(
-                            width: 56,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Color(0xff3fbcfc),
-                              shape: BoxShape.circle,
+                          Spacer(),
+                         Container(
+                          width: 64,
+                          height: 64, // Set the height and width to the same value for a square shape
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18), // Optional: Add some rounded corners to the container
+                          ),
+                          child: TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
                             ),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: SizedBox(
-                                width: 278.55,
-                                height: 278.55,
-                                child: TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  child: Image.network(
-                                    'assets/images/Profile.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(28), // Radius to create a circular effect inside the square
+                              child: Image.asset(
+                                'assets/images/Profile.png',
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
+                        ),
                         ],
                       ),
                     ),
+                    SizedBox(height: 12),
                     Container(
                       padding: EdgeInsets.fromLTRB(16, 26, 16, 26),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Color(0xff2a4cf1),
+                        color: Warna.blue,
                         borderRadius: BorderRadius.circular(25),
                         image: DecorationImage(
+                          image: AssetImage('assets/images/Explore card.png'),
                           fit: BoxFit.cover,
-                          image: NetworkImage('assets/images/Explore card.png'),
                         ),
                       ),
                       child: Column(
@@ -118,12 +116,12 @@ class _HomescreenState extends State<Homescreen> {
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 16),
                             constraints: BoxConstraints(
-                              maxWidth: 162,
+                              maxWidth: 190,
                             ),
                             child: Text(
                               'Explore Buku Favoritmu!',
                               style: GoogleFonts.poppins(
-                                fontSize: 24,
+                                fontSize: 26,
                                 fontWeight: FontWeight.w800,
                                 height: 1.3333333333,
                                 color: Color(0xffffffff),
@@ -167,15 +165,17 @@ class _HomescreenState extends State<Homescreen> {
                   ],
                 ),
               ),
+              SizedBox(height: 12),
               Container(
                 width: double.infinity,
-                height: 52,
+                height: 64,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Spacer(),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                      padding: EdgeInsets.fromLTRB(18.32, 15, 120, 13),
+                      padding: EdgeInsets.fromLTRB(18.32, 15, 36, 13),
                       height: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xff292c4f),
@@ -185,14 +185,14 @@ class _HomescreenState extends State<Homescreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 15.05, 0.38),
-                            width: 15.64,
-                            height: 15.72,
-                            child: Image.network(
-                              '[Image url]',
-                              width: 15.64,
-                              height: 15.72,
-                            ),
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            width: 28,
+                            height: 28,
+                             child: Icon(
+                                Icons.search, 
+                                color: Colors.white, 
+                                size: 28, 
+                              ),
                           ),
                           Container(
                             width: 200,
@@ -215,12 +215,13 @@ class _HomescreenState extends State<Homescreen> {
                         padding: EdgeInsets.zero,
                       ),
                       child: Container(
-                        width: 52,
-                        height: 52,
-                        child: Image.network(
-                          '[Image url]',
-                          width: 52,
-                          height: 52,
+                        width: 56,
+                        height: 56,
+                        child: ClipRRect(
+                          child: Image.asset(
+                            'assets/icons/Filter.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),

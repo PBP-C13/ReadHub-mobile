@@ -10,11 +10,11 @@ List<BorrowedBook> borrowedBookFromJson(String str) => List<BorrowedBook>.from(j
 String borrowedBookToJson(List<BorrowedBook> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class BorrowedBook {
-    int user;
-    Book book;
-    int borrowDuration;
-    DateTime borrowDate;
-    DateTime returnDate;
+    int? user;
+    Book? book;
+    int? borrowDuration;
+    DateTime? borrowDate;
+    DateTime? returnDate;
 
     BorrowedBook({
         required this.user,
@@ -34,9 +34,9 @@ class BorrowedBook {
 
     Map<String, dynamic> toJson() => {
         "user": user,
-        "book": book.toJson(),
+        "book": book?.toJson(),
         "borrow_duration": borrowDuration,
-        "borrow_date": "${borrowDate.year.toString().padLeft(4, '0')}-${borrowDate.month.toString().padLeft(2, '0')}-${borrowDate.day.toString().padLeft(2, '0')}",
-        "return_date": "${returnDate.year.toString().padLeft(4, '0')}-${returnDate.month.toString().padLeft(2, '0')}-${returnDate.day.toString().padLeft(2, '0')}",
+        "borrow_date": "${borrowDate?.year.toString().padLeft(4, '0')}-${borrowDate?.month.toString().padLeft(2, '0')}-${borrowDate?.day.toString().padLeft(2, '0')}",
+        "return_date": "${returnDate?.year.toString().padLeft(4, '0')}-${returnDate?.month.toString().padLeft(2, '0')}-${returnDate?.day.toString().padLeft(2, '0')}",
     };
 }

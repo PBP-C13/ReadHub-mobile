@@ -76,7 +76,7 @@ class MyBookCard extends StatelessWidget {
                                           Container(
                                             margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 6 * fem),
                                             child: Text(
-                                              borrowedBook.book.fields.bookTitle,
+                                              borrowedBook.book!.fields.bookTitle,
                                               style: TextStyle(
                                                 fontSize: 14 * ffem,
                                                 fontWeight: FontWeight.w600,
@@ -86,7 +86,7 @@ class MyBookCard extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'by: ${borrowedBook.book.fields.bookAuthors}',
+                                            'by: ${borrowedBook.book?.fields.bookAuthors}',
                                             style: TextStyle(
                                               fontSize: 12 * ffem,
                                               fontWeight: FontWeight.w500,
