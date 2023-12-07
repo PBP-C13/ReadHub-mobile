@@ -14,7 +14,7 @@ class MyBookCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(16, 20, 13, 20),
       width: 400,
-      height: 600,
+      height: 400,
       decoration: BoxDecoration(
         color: Color(0xff23264f),
         borderRadius: BorderRadius.circular(20),
@@ -68,7 +68,7 @@ class MyBookCard extends StatelessWidget {
                               Container(
                                 margin: EdgeInsets.fromLTRB(0, 11, 0, 11),
                                 width: 193,
-                                height: 200,
+                                height: 100,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -90,9 +90,7 @@ class MyBookCard extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-
                                             'by: ${borrowedBook.book.bookAuthors}',
-
                                             style: TextStyle(
                                               fontSize: 12 ,
                                               fontWeight: FontWeight.w500,
@@ -307,7 +305,7 @@ class MyBookCard extends StatelessWidget {
                             ),
                             Container(
                               width: 110,
-                              height: screenHeight,
+                              height: 200,
                               child: Center(
                                 child: Text(
                                   'Kembalikan Buku',
