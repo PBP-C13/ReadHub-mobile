@@ -82,24 +82,30 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 TextEditingController myController = TextEditingController();
                 return CustomScrollView(
                   slivers: [
-                    SliverAppBar(
-                      backgroundColor:Warna.blue,
-                      expandedHeight: 200.0,
-                      floating: false,
-                      pinned: true,
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: Text(
-                          "Explore Book",
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        background: Image.asset(
-                          'assets/images/Community.png', 
+                   SliverToBoxAdapter(
+                    child: Container(
+                      height: 280.0,
+                      decoration: BoxDecoration(
+                        color: Warna.blue,
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/Explorepage.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
+                      child: Center(
+                        // child: Padding(
+                          // padding: EdgeInsets.only(bottom: 30),
+                          child: Text(
+                            "Explore",
+                            style: GoogleFonts.poppins(
+                              fontSize: 56,
+                              fontWeight: FontWeight.bold,
+                              color: Warna.white,
+                            ),
+                          // ),
+                        ),
+                      ),
+                    ),
                     ),
                     SliverPadding(
                       padding: EdgeInsets.all(16.0),
@@ -137,23 +143,25 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                       SliverGrid(
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 250.0,
+                          maxCrossAxisExtent: 240.0,
                           crossAxisSpacing: 1.0,
                           mainAxisSpacing: 1.0,
-                          childAspectRatio: 0.7,
+                          childAspectRatio: 0.59,
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             return Card(
-                              color: Warna.lightcyan,
+                              color: Warna.backgroundlight,
                               elevation: 4.0,
                               margin: const EdgeInsets.all(8.0),
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: Column(
+                                  
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
+                                      
                                       width: double.infinity,
                                       height: 150.0,
                                       child: Image.network(

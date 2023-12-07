@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readhub/models/borrowed_book.dart';
@@ -21,9 +21,9 @@ class MyBookScreen extends StatefulWidget {
 
 class _MyBookScreenState extends State<MyBookScreen> {
 
-  Future<List<BorrowedBook>> fetchProductBorrow(request) async {
+  Future<List<BorrowedBook>> fetchProduct(request) async {
     var response = await request.get(
-      'http://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/get_borrowed_book_json/'
+      'https://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/get_borrowed_book_json/'
     );
 
     List<BorrowedBook> listProduct = [];
@@ -40,25 +40,9 @@ class _MyBookScreenState extends State<MyBookScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final request = context.watch<CookieRequest>();
     return Scaffold(
-
       backgroundColor: Warna.background,
-       appBar: AppBar(
-        title: Text(
-          'Your Book',
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            height: 1.5,
-            color: Warna.white,
-          ),
-        ),
-        backgroundColor: Warna.backgrounddark,
-        foregroundColor: Warna.white,
-        automaticallyImplyLeading: false,
-      ),
-
       body: FutureBuilder(
-        future: fetchProductBorrow(request),
+        future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return const Center(child: CircularProgressIndicator());
@@ -84,14 +68,15 @@ class _MyBookScreenState extends State<MyBookScreen> {
                           fit: BoxFit.fill,
                         ),
                       ),
+                      // SizedBox(height: 28.0),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) {
                            return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 8.0),
-                          child: MyBookCard(borrowedBook: snapshot.data![index]),
+                          padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 12.0),
+                          child: MyBookCard(borrowedBook: snapshot.data![index])
                         );
                       },
                     ),

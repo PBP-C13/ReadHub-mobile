@@ -18,7 +18,7 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Warna.lightcyan, // Menggunakan fungsi getButtonColor
+      color: Warna.backgroundlight, 
       child: InkWell(
         // Area responsive terhadap sentuhan
         onTap: () {
@@ -34,7 +34,7 @@ class BookCard extends StatelessWidget {
         child: Container(
           // Container untuk menyimpan Icon dan Text
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), // Set the border radius here
+            borderRadius: BorderRadius.circular(16), // Set the border radius here
           ),
           padding: const EdgeInsets.all(8),
           child: Center(

@@ -80,7 +80,12 @@ flutter:
   - assets/images/Auth.png
   - assets/images/Community.png
   - assets/images/Profile.png
+  - assets/images/YourBook.png
+  - assets/images/book_explore.png
+  - assets/images/Explorepage.png
   - assets/icons/Filter.png
+  - assets/icons/check-square-fill.png
+  -
 
   # - assets\images\Profile.png
   # - assets\images\Community.png

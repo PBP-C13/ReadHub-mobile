@@ -90,7 +90,6 @@ Future<void> _deleteforum (BuildContext context, CookieRequest request,  Forum f
                                 PopupMenuItem(
                                   value: 'delete',
                                   child: Container(
-                                    // color: Warna.backgroundlight, // Set background color here
                                     child: Row(
                                       children: [
                                         Icon(Icons.delete, color: Colors.red),
