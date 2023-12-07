@@ -16,11 +16,9 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
-
   Future<List<Forum>> fetchProduct(request) async {
-    var response = await request.get(
-      'https://readhub-c13-tk.pbp.cs.ui.ac.id/community/get-product/'
-    );
+    var response = await request
+        .get('https://readhub-c13-tk.pbp.cs.ui.ac.id/community/get-product/');
 
     List<Forum> listProduct = [];
     for (var d in response) {
@@ -78,7 +76,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         width: screenWidth,
                         height: screenHeight / 3.8,
                         child: Image.asset(
-                          'assets/images/Community.png', 
+                          'assets/images/Community.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -88,12 +86,14 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) {
-                           return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                          child: CommunityForumWidget(forum: snapshot.data![index]),
-                        );
-                      },
-                    ),
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 28.0),
+                            child: CommunityForumWidget(
+                                forum: snapshot.data![index]),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   Positioned(
@@ -102,7 +102,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                     child: FloatingActionButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CreateForum(), 
+                          builder: (context) => CreateForum(),
                         ));
                       },
                       child: Icon(Icons.add, color: Colors.white),

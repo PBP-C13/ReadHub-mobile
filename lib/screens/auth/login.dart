@@ -8,7 +8,6 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 void main() {
   runApp(const LoginApp());
 }
@@ -47,22 +46,25 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-         title: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 28.0, left: 8.0, right: 8.0, bottom: 8.0), // Adjusted padding here
-            child: Text(
-              'Login ReadHub',
-              style: GoogleFonts.poppins(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-                height: 1.5,
-                color: Warna.white,
+          title: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 28.0,
+                  left: 8.0,
+                  right: 8.0,
+                  bottom: 8.0), // Adjusted padding here
+              child: Text(
+                'Login ReadHub',
+                style: GoogleFonts.poppins(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                  height: 1.5,
+                  color: Warna.white,
+                ),
               ),
             ),
           ),
-          ),
-          backgroundColor:Warna.blue
-      ),
+          backgroundColor: Warna.blue),
       backgroundColor: Warna.blue,
       body: Stack(
         children: [
@@ -89,27 +91,27 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                 child: TextField(
+                  child: TextField(
                     controller: _usernameController,
                     style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        height: 1.5,
-                        color: Warna.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      height: 1.5,
+                      color: Warna.white,
                     ),
                     decoration: InputDecoration(
                       labelText: 'Username',
-                       prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10), 
-                          child:Container(
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Container(
                           padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(right: 10), 
+                          margin: EdgeInsets.only(right: 10),
                           decoration: BoxDecoration(
-                            color: Warna.lightcyan, 
-                            shape: BoxShape.circle, 
+                            color: Warna.lightcyan,
+                            shape: BoxShape.circle,
                           ),
                           child: Icon(Icons.person, color: Warna.cyan),
-                          ),
+                        ),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -131,25 +133,25 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 28.0),
                   child: TextField(
                     controller: _passwordController,
-                     style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        height: 1.5,
-                        color: Warna.white,
-                        ),
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      height: 1.5,
+                      color: Warna.white,
+                    ),
                     decoration: InputDecoration(
                       labelText: 'Password',
-                       prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10), 
-                          child:Container(
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Container(
                           padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(right: 10), 
+                          margin: EdgeInsets.only(right: 10),
                           decoration: BoxDecoration(
-                            color: Warna.lightcyan, 
-                            shape: BoxShape.circle, 
+                            color: Warna.lightcyan,
+                            shape: BoxShape.circle,
                           ),
                           child: Icon(Icons.lock, color: Warna.cyan),
-                          ),
+                        ),
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -194,13 +196,12 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'Forgot Password?',
                           style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            height: 1.5,
-                            color: Warna.white,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Warna.white
-                            ),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              height: 1.5,
+                              color: Warna.white,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Warna.white),
                         ),
                       ),
                     ),
@@ -213,8 +214,8 @@ class _LoginPageState extends State<LoginPage> {
                     String password = _passwordController.text;
 
                     // Cek kredensial
-                    final response = await request
-                        .login("https://readhub-c13-tk.pbp.cs.ui.ac.id/auth/login/", {
+                    final response = await request.login(
+                        "https://readhub-c13-tk.pbp.cs.ui.ac.id/auth/login/", {
                       'username': username,
                       'password': password,
                     });
@@ -256,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.w700,
                       height: 1.5,
                       color: Warna.white,
-                      ),
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(385, 64),
@@ -264,41 +265,38 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 20.0),
-                    Text(
-                      'Belum Punya Akun',
-                      style: GoogleFonts.poppins(
+                Text(
+                  'Belum Punya Akun',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    color: Warna.white,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterPage()),
+                    );
+                  },
+                  child: Text(
+                    'Register',
+                    style: GoogleFonts.poppins(
                         fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         height: 1.5,
                         color: Warna.white,
-                        ),
-                        ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    RegisterPage()),
-                          );
-                        },
-                        child: Text(
-                          'Register',
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            height: 1.5,
-                            color: Warna.white,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Warna.white
-                            ),
-                        ),
-                      ),
-                    ],
+                        decoration: TextDecoration.underline,
+                        decorationColor: Warna.white),
                   ),
                 ),
               ],
             ),
-          );
+          ),
+        ],
+      ),
+    );
   }
 }
