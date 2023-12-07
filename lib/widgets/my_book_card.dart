@@ -90,7 +90,9 @@ class MyBookCard extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
+
                                             'by: ${borrowedBook.book.bookAuthors}',
+
                                             style: TextStyle(
                                               fontSize: 12 ,
                                               fontWeight: FontWeight.w500,

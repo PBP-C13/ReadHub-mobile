@@ -40,6 +40,7 @@ class _MyBookScreenState extends State<MyBookScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final request = context.watch<CookieRequest>();
     return Scaffold(
+
       backgroundColor: Warna.background,
        appBar: AppBar(
         title: Text(
@@ -55,6 +56,7 @@ class _MyBookScreenState extends State<MyBookScreen> {
         foregroundColor: Warna.white,
         automaticallyImplyLeading: false,
       ),
+
       body: FutureBuilder(
         future: fetchProductBorrow(request),
         builder: (context, AsyncSnapshot snapshot) {
