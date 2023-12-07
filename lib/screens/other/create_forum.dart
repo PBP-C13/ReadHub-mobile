@@ -1,170 +1,199 @@
 import 'package:flutter/material.dart';
+import 'package:readhub/models/user.dart';
 import 'package:readhub/screens/navigation/community.dart';
-import 'dart:convert'; 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:readhub/styles/colors.dart';
+import 'package:readhub/models/book.dart';
 
 class CreateForum extends StatefulWidget {
-    const CreateForum({super.key});
+  const CreateForum({super.key});
 
-    @override
-    State<CreateForum> createState() => _CreateForumState();
+  @override
+  State<CreateForum> createState() => _CreateForumState();
 }
+
 
 class _CreateForumState extends State<CreateForum> {
   final _formKey = GlobalKey<FormState>();
-  String _forum = "";
-  String _description = "";
+  String _forumText = "";
+  String? _selectedBook;
+  List<DropdownMenuItem<String>> _dropdownMenuItems = [];
+
+
+  @override
+  void initState() {
+    //  _loadBooks();
+    super.initState();
+    _loadBooks();
+  }
+
+  // Fungsi untuk memuat daftar buku
+  Future<void> _loadBooks() async {
+    // TODO: Ganti dengan URL yang sesuai untuk mengambil daftar buku
+    var url = 'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/';
+    var response = await http.get(Uri.parse(url));
+    print(json.decode(response.body));
+    if (response.statusCode == 200) {
+      List<dynamic> books = json.decode(response.body);
+        List<Book> result = [];
+          for (var d in books) {
+            if (d != null) {
+              result.add(Book.fromJson(d));
+            }
+          }
+      setState(() {
+        _dropdownMenuItems = result.map((Book book) {
+          return DropdownMenuItem(
+            value: book.pk.toString(),
+            child: Text(
+              book.fields.bookTitle,
+              overflow: TextOverflow.ellipsis, 
+              style: TextStyle(color: Warna.white), 
+            ),
+          );
+        }).toList();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-  final request = context.watch<CookieRequest>();
-  return Scaffold(
-    backgroundColor: Warna.background,
-    appBar: AppBar(
-    title: const Center(),
-    backgroundColor: Warna.background,
-    iconTheme: IconThemeData(color: Colors.white),
-    leading: Padding(
-      padding: EdgeInsets.only(left: 20), // Add padding of 28 pixels to the left
-      child: IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: () {
-          Navigator.of(context).pop(); // This line will navigate back
-        },
+    final request = context.watch<CookieRequest>();
+    return Scaffold(
+      backgroundColor: Warna.background,
+      appBar: AppBar(
+        title: const Center(),
+        backgroundColor: Warna.background,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
       ),
-    ),
-  ),
-    body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Form(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Form(
           key: _formKey,
           child: SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                      Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                          decoration: InputDecoration(
-                          hintText: "Forum",
-                          labelText: "Forum",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          ),
-                          onChanged: (String? value) {
-                          setState(() {
-                              _forum = value!;
-                          });
-                          },
-                          validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                              return "Forum tidak boleh kosong!";
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Input untuk forum
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: "Forum",
+                      labelText: "Forum",
+                      hintStyle: TextStyle(color: Warna.abu),
+                      labelStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _forumText = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return "Forum tidak boleh kosong!";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                // Dropdown untuk buku
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 16,
+                    child: DropdownButtonFormField<String>(
+                      value: _selectedBook,
+                      items: _dropdownMenuItems,
+                      decoration: InputDecoration(
+                        labelText: "Buku",
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.white), 
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        filled: true, // Menambahkan ini
+                        fillColor: Warna.background, // Menambahkan ini
+                      ),
+                      dropdownColor: Warna.background, 
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedBook = newValue;
+                        });
+                      },
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Pilih buku!";
+                        }
+                        return null;
+                      },
+                       icon: Container(), // This hides the dropdown button
+                        isExpanded: true, // This ensures the dropdown fills the width of its parent
+                        itemHeight: 60, // Adjust the height of each dropdown item
+                        style: TextStyle(color: Warna.white), // Style of the dropdown items
+                      ),
+                    ),
+                  ),
+                // Tombol simpan
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          var data = {
+                            'user': userlogin,
+                            'Forum': _forumText,
+                            'book': _selectedBook,
+                          };
+                          final response = await request.postJson(
+                            "https://readhub-c13-tk.pbp.cs.ui.ac.id/community/create-flutter/",
+                            jsonEncode(data),
+                        );
+                          if (response['status'] == 'success') {
+                            Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => const CommunityScreen()));
+                          } else {
+                            // Tampilkan pesan error
+                            // TODO: Implementasi pesan error
                           }
-                          return null;
-                          },
+                        }
+                      },
+                      child: const Text(
+                        "Save",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      ),
-                      Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                          decoration: InputDecoration(
-                          hintText: "Buku",
-                          labelText: "Buku",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          ),
-                          onChanged: (String? value) {
-                          setState(() {
-                              // TODO: Tambahkan variabel yang sesuai
-                              _description = value!;
-                          });
-                          },
-                          validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                              return "Buku tidak boleh kosong!";
-                          }
-                          return null;
-                          },
-                      ),
-                      ),
-                      Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(Colors.indigo),
-                                  ),
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-      
-                                        final response = await request.postJson(
-                                        "http://127.0.0.1:8000/community/create-flutter/",
-                                        jsonEncode(<String, String>{
-                                            'name': _forum,
-                                            'description': _description,
-                                        }));
-                                        if (response['status'] == 'success') {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                            content: Text("Produk baru berhasil disimpan!"),
-                                            ));
-                                            // ignore: use_build_context_synchronously
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return AlertDialog(
-                                                  title: const Text('Produk berhasil tersimpan'),
-                                                  content: SingleChildScrollView(
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text('Nama: $_forum'),
-                                                        Text('Deskripsi: $_description'),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  actions: [
-                                                    TextButton(
-                                                      child: const Text('OK'),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                            // ignore: use_build_context_synchronously
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => CommunityScreen()),
-                                            );
-                                        } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                content:
-                                                    Text("Terdapat kesalahan, silakan coba lagi."),
-                                            ));
-                                        }
-                                    }
-                                },
-                                  child: const Text(
-                                      "Save",
-                                      style: TextStyle(color: Colors.white),
-                                  ),
-                              ),
-                          ),
-                      ),
-                    ]
-                  )
-              ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-    ),
+        ),
+      ),
     );
   }
 }
