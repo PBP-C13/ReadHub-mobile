@@ -1,3 +1,4 @@
+import 'package:readhub/models/user.dart';
 import 'package:readhub/screens/menu.dart';
 import 'package:readhub/main.dart';
 import 'package:readhub/screens/auth/register.dart';
@@ -218,6 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                       'username': username,
                       'password': password,
                     });
+                    userlogin=response['username'];
 
                     if (request.loggedIn) {
                       String message = response['message'];
