@@ -23,7 +23,7 @@ class _MyBookScreenState extends State<MyBookScreen> {
 
   Future<List<BorrowedBook>> fetchProductBorrow(request) async {
     var response = await request.get(
-      'http://localhost:8000/borrow_flow/get_borrowed_book_json/'
+      'http://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/get_borrowed_book_json/'
     );
 
     List<BorrowedBook> listProduct = [];
