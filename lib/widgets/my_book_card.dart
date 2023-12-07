@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readhub/models/borrowed_book.dart';
+import 'package:readhub/styles/colors.dart';
 
 class MyBookCard extends StatelessWidget {
    final BorrowedBook borrowedBook;
@@ -7,90 +8,93 @@ class MyBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double fem = 1.0; // Replace with your actual value
-    final double ffem = 1.0; // Replace with your actual value
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      padding: EdgeInsets.fromLTRB(16 * fem, 20 * fem, 13 * fem, 20 * fem),
-      width: double.infinity,
-      height: 366 * fem,
+      padding: EdgeInsets.fromLTRB(16, 20, 13, 20),
+      width: 400,
+      height: 600,
       decoration: BoxDecoration(
         color: Color(0xff23264f),
-        borderRadius: BorderRadius.circular(20 * fem),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: screenWidth,
+        height: screenHeight,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 24 * fem),
-              width: double.infinity,
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 24),
+              width: screenWidth,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 24 * fem),
-                    width: double.infinity,
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 24),
+                    width: screenWidth,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 24 * fem),
-                          width: double.infinity,
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 24),
+                          width: screenWidth,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 10 * fem, 0 * fem),
-                                height: double.infinity,
+                                margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                height: 125.6,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff13142a),
-                                  borderRadius: BorderRadius.circular(6.0704197884 * fem),
+                                  color: Warna.background,
+                                  borderRadius: BorderRadius.circular(6.0704197884),
                                 ),
                                 child: Align(
                                   alignment: Alignment.topCenter,
-                                  child: SizedBox(
-                                    width: 84.48 * fem,
-                                    height: 125.46 * fem,
-                                    // child: Image.network(
-                                    //   borrowedBook.book.fields.imageUrl,
-                                    //   fit: BoxFit.cover,
-                                    // ),
+                                  child: Container(
+                                    width: 84.48,
+                                    height: 125.46,
+                                    decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    image: DecorationImage(
+                                      image: NetworkImage(borrowedBook.book.imageUrl),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                   ),
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(0 * fem, 11 * fem, 0 * fem, 11 * fem),
-                                width: 193 * fem,
-                                height: double.infinity,
+                                margin: EdgeInsets.fromLTRB(0, 11, 0, 11),
+                                width: 193,
+                                height: 200,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 10 * fem),
+                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 6 * fem),
+                                            margin: EdgeInsets.fromLTRB(0, 0, 0, 6),
                                             child: Text(
-                                              borrowedBook.book.fields.bookTitle,
+                                              borrowedBook.book.bookTitle,
                                               style: TextStyle(
-                                                fontSize: 14 * ffem,
+                                                fontSize: 14 ,
                                                 fontWeight: FontWeight.w600,
-                                                height: 1.4285714286 * ffem / fem,
+                                                height: 1.4285714286 ,
                                                 color: Color(0xffffffff),
                                               ),
                                             ),
                                           ),
                                           Text(
-                                            'by: ${borrowedBook.book.fields.bookAuthors}',
+                                            'by: ${borrowedBook.book.bookAuthors}',
                                             style: TextStyle(
-                                              fontSize: 12 * ffem,
+                                              fontSize: 12 ,
                                               fontWeight: FontWeight.w500,
-                                              height: 1.5 * ffem / fem,
+                                              height: 1.5 ,
                                               color: Color(0xff818181),
                                             ),
                                           ),
@@ -98,65 +102,65 @@ class MyBookCard extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
-                                      width: double.infinity,
-                                      height: 24 * fem,
+                                      width: screenWidth,
+                                      height: 24,
                                       child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Container(
-                                            width: 57 * fem,
-                                            height: double.infinity,
+                                            width: 57,
+                                            height: screenHeight,
                                             decoration: BoxDecoration(
                                               color: Color(0xff3fbcfc),
-                                              borderRadius: BorderRadius.circular(999 * fem),
+                                              borderRadius: BorderRadius.circular(999),
                                             ),
                                             child: Center(
                                               child: Text(
                                                 'Fantasy',
                                                 style: TextStyle(
-                                                  fontSize: 10 * ffem,
+                                                  fontSize: 10 ,
                                                   fontWeight: FontWeight.w500,
-                                                  height: 1.6 * ffem / fem,
+                                                  height: 1.6 ,
                                                   color: Color(0xffffffff),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: 4 * fem),
+                                          SizedBox(width: 4),
                                           Container(
-                                            width: 78 * fem,
-                                            height: double.infinity,
+                                            width: 78,
+                                            height: screenHeight,
                                             decoration: BoxDecoration(
                                               color: Color(0xff3fbcfc),
-                                              borderRadius: BorderRadius.circular(999 * fem),
+                                              borderRadius: BorderRadius.circular(999),
                                             ),
                                             child: Center(
                                               child: Text(
                                                 'Young Adult',
                                                 style: TextStyle(
-                                                  fontSize: 10 * ffem,
+                                                  fontSize: 10 ,
                                                   fontWeight: FontWeight.w500,
-                                                  height: 1.6 * ffem / fem,
+                                                  height: 1.6 ,
                                                   color: Color(0xffffffff),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: 4 * fem),
+                                          SizedBox(width: 4),
                                           Container(
-                                            width: 50 * fem,
-                                            height: double.infinity,
+                                            width: 50,
+                                            height: screenHeight,
                                             decoration: BoxDecoration(
                                               color: Color(0xff3fbcfc),
-                                              borderRadius: BorderRadius.circular(999 * fem),
+                                              borderRadius: BorderRadius.circular(999),
                                             ),
                                             child: Center(
                                               child: Text(
                                                 'Fiction',
                                                 style: TextStyle(
-                                                  fontSize: 10 * ffem,
+                                                  fontSize: 10 ,
                                                   fontWeight: FontWeight.w500,
-                                                  height: 1.6 * ffem / fem,
+                                                  height: 1.6 ,
                                                   color: Color(0xffffffff),
                                                 ),
                                               ),
@@ -172,35 +176,35 @@ class MyBookCard extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          width: double.infinity,
-                          height: 48 * fem,
+                          width: screenWidth,
+                          height: 48,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 18 * fem, 0 * fem),
-                                height: double.infinity,
+                                margin: EdgeInsets.fromLTRB(0, 0, 18, 0),
+                                height: screenHeight,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 8 * fem),
+                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
                                       child: Text(
                                         'Tanggal Peminjaman ',
                                         style: TextStyle(
-                                          fontSize: 12 * ffem,
+                                          fontSize: 12 ,
                                           fontWeight: FontWeight.w600,
-                                          height: 1.3333333333 * ffem / fem,
+                                          height: 1.3333333333 ,
                                           color: Color(0xffffffff),
                                         ),
                                       ),
                                     ),
                                     Text(
-                                      borrowedBook.borrowDate as String,
+                                      borrowedBook.borrowDate.toString(),
                                       style: TextStyle(
-                                        fontSize: 16 * ffem,
+                                        fontSize: 16 ,
                                         fontWeight: FontWeight.w600,
-                                        height: 1.5 * ffem / fem,
+                                        height: 1.5 ,
                                         color: Color(0xffffffff),
                                       ),
                                     ),
@@ -208,28 +212,28 @@ class MyBookCard extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                height: double.infinity,
+                                height: screenHeight,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 8 * fem),
+                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
                                       child: Text(
                                         'Tanggal Pengembalian ',
                                         style: TextStyle(
-                                          fontSize: 12 * ffem,
+                                          fontSize: 12 ,
                                           fontWeight: FontWeight.w600,
-                                          height: 1.3333333333 * ffem / fem,
+                                          height: 1.3333333333 ,
                                           color: Color(0xffffffff),
                                         ),
                                       ),
                                     ),
                                     Text(
-                                      borrowedBook.returnDate as String,
+                                      borrowedBook.returnDate.toString(),
                                       style: TextStyle(
-                                        fontSize: 16 * ffem,
+                                        fontSize: 16 ,
                                         fontWeight: FontWeight.w600,
-                                        height: 1.5 * ffem / fem,
+                                        height: 1.5 ,
                                         color: Color(0xffffffff),
                                       ),
                                     ),
@@ -247,25 +251,25 @@ class MyBookCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 10 * fem),
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                           child: Text(
                             'Pengembalian Buku',
                             style: TextStyle(
-                              fontSize: 12 * ffem,
+                              fontSize: 12 ,
                               fontWeight: FontWeight.w600,
-                              height: 1.3333333333 * ffem / fem,
+                              height: 1.3333333333 ,
                               color: Color(0xffffffff),
                             ),
                           ),
                         ),
                         Container(
-                          constraints: BoxConstraints(maxWidth: 265 * fem),
+                          constraints: BoxConstraints(maxWidth: 265),
                           child: Text(
                             'Buku ini harus dikembalikan dengan keadaan Sama seperti semula',
                             style: TextStyle(
-                              fontSize: 14 * ffem,
+                              fontSize: 14 ,
                               fontWeight: FontWeight.w600,
-                              height: 1.4285714286 * ffem / fem,
+                              height: 1.4285714286 ,
                               color: Color(0xffffffff),
                             ),
                           ),
@@ -274,41 +278,41 @@ class MyBookCard extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 3 * fem, 0 * fem),
+                    margin: EdgeInsets.fromLTRB(0, 0, 3, 0),
                     child: TextButton(
                       onPressed: () {},
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(78.17 * fem, 12 * fem, 75.93 * fem, 12 * fem),
-                        width: double.infinity,
-                        height: 40 * fem,
+                        padding: EdgeInsets.fromLTRB(78.17, 12, 75.93, 12),
+                        width: screenWidth,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: Color(0xff2a4cf1),
-                          borderRadius: BorderRadius.circular(20 * fem),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 9.4 * fem, 0 * fem),
-                              width: 13.5 * fem,
-                              height: 13.5 * fem,
+                              margin: EdgeInsets.fromLTRB(0, 0, 9.4, 0),
+                              width: 13.5,
+                              height: 13.5,
                               child: Image.network(
                                 'assets/icons/check-square-fill.png',
-                                width: 13.5 * fem,
-                                height: 13.5 * fem,
+                                width: 13.5,
+                                height: 13.5,
                               ),
                             ),
                             Container(
-                              width: 110 * fem,
-                              height: double.infinity,
+                              width: 110,
+                              height: screenHeight,
                               child: Center(
                                 child: Text(
                                   'Kembalikan Buku',
                                   style: TextStyle(
-                                    fontSize: 12 * ffem,
+                                    fontSize: 12 ,
                                     fontWeight: FontWeight.w700,
-                                    height: 1.3333333333 * ffem / fem,
+                                    height: 1.3333333333 ,
                                     color: Color(0xffffffff),
                                   ),
                                 ),
@@ -326,5 +330,6 @@ class MyBookCard extends StatelessWidget {
         ),
       ),
     );
+    
   }
 }
