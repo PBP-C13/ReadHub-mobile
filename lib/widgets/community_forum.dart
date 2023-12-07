@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -26,6 +26,8 @@ Future<void> _deleteforum (BuildContext context, CookieRequest request,  Forum f
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final contentWidth = screenWidth - 28 * 2;
+    final request = context.watch<CookieRequest>();
+
 
     return Container(
       width: contentWidth,
@@ -103,7 +105,7 @@ Future<void> _deleteforum (BuildContext context, CookieRequest request,  Forum f
                           ),
                         ],
                       ),
-                      SizedBox(height: 4),
+                      SizedBox(height: 16),
                       Container(
                         constraints: BoxConstraints(
                           maxWidth: contentWidth,
@@ -249,7 +251,7 @@ Future<void> _deleteforum (BuildContext context, CookieRequest request,  Forum f
             height: 1.5,
             color: Warna.backgroundlight,
           ),
-          SizedBox(height: 28),
+          SizedBox(height: 36),
         ],
       ),
     );

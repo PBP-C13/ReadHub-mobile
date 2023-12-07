@@ -54,10 +54,10 @@ class MyBookCard extends StatelessWidget {
                                   child: SizedBox(
                                     width: 84.48 * fem,
                                     height: 125.46 * fem,
-                                    child: Image.network(
-                                      borrowedBook.book.fields.imageUrl,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    // child: Image.network(
+                                    //   borrowedBook.book.fields.imageUrl,
+                                    //   fit: BoxFit.cover,
+                                    // ),
                                   ),
                                 ),
                               ),
