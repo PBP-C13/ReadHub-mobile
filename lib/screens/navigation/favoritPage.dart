@@ -8,31 +8,25 @@ import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/screens/navigation/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:readhub/models/favorit.dart';
 import 'package:readhub/models/book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readhub/screens/flow/detail.dart';
 
 
-class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({super.key});
+class FavoritScreen extends StatefulWidget {
+  const FavoritScreen({super.key});
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  State<FavoritScreen> createState() => _FavoritScreenState();
 }
 
-// class Favorit {
-//   final Book book; //objek buku yg difavorit
-//   final String description;
 
-//   Favorit(this.book, this.description);
-// }
-
-
-class _ExploreScreenState extends State<ExploreScreen> {
+class _FavoritScreenState extends State<FavoritScreen> {
   Future<List<Book>> fetchProduct() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
-        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
+        'http://localhost:8000/category/get-book-favorit/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
@@ -88,7 +82,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       pinned: true,
                       flexibleSpace: FlexibleSpaceBar(
                         title: Text(
-                          "Explore Book",
+                          "Favorit Book",
                           style: const TextStyle(
                             color: Colors.black,
                           ),
