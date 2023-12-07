@@ -8,31 +8,25 @@ import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/screens/navigation/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:readhub/models/favorit.dart';
 import 'package:readhub/models/book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readhub/screens/flow/detail.dart';
 
 
-class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({super.key});
+class FavoritScreen extends StatefulWidget {
+  const FavoritScreen({super.key});
 
   @override
-  State<ExploreScreen> createState() => _ExploreScreenState();
+  State<FavoritScreen> createState() => _FavoritScreenState();
 }
 
-// class Favorit {
-//   final Book book; //objek buku yg difavorit
-//   final String description;
 
-//   Favorit(this.book, this.description);
-// }
-
-
-class _ExploreScreenState extends State<ExploreScreen> {
+class _FavoritScreenState extends State<FavoritScreen> {
   Future<List<Book>> fetchProduct() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
-        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
+        'http://localhost:8000/category/get-book-favorit/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
@@ -81,30 +75,24 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 TextEditingController myController = TextEditingController();
                 return CustomScrollView(
                   slivers: [
-                   SliverToBoxAdapter(
-                    child: Container(
-                      height: 280.0,
-                      decoration: BoxDecoration(
-                        color: Warna.blue,
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/Explorepage.png'),
+                    SliverAppBar(
+                      backgroundColor:Warna.blue,
+                      expandedHeight: 200.0,
+                      floating: false,
+                      pinned: true,
+                      flexibleSpace: FlexibleSpaceBar(
+                        title: Text(
+                          "Favorit Book",
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        background: Image.asset(
+                          'assets/images/Community.png', 
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Center(
-                        // child: Padding(
-                          // padding: EdgeInsets.only(bottom: 30),
-                          child: Text(
-                            "Explore",
-                            style: GoogleFonts.poppins(
-                              fontSize: 56,
-                              fontWeight: FontWeight.bold,
-                              color: Warna.white,
-                            ),
-                          // ),
-                        ),
-                      ),
-                    ),
                     ),
                     SliverPadding(
                       padding: EdgeInsets.all(16.0),
@@ -142,25 +130,23 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                     SliverGrid(
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 240.0,
+                          maxCrossAxisExtent: 250.0,
                           crossAxisSpacing: 1.0,
                           mainAxisSpacing: 1.0,
-                          childAspectRatio: 0.59,
+                          childAspectRatio: 0.7,
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                             return Card(
-                              color: Warna.backgroundlight,
+                              color: Warna.lightcyan,
                               elevation: 4.0,
                               margin: const EdgeInsets.all(8.0),
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: Column(
-                                  
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      
                                       width: double.infinity,
                                       height: 150.0,
                                       child: Image.network(
