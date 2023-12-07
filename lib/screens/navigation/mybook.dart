@@ -21,9 +21,9 @@ class MyBookScreen extends StatefulWidget {
 
 class _MyBookScreenState extends State<MyBookScreen> {
 
-  Future<List<BorrowedBook>> fetchProduct(request) async {
+  Future<List<BorrowedBook>> fetchProductBorrow(request) async {
     var response = await request.get(
-      'https://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/get_borrowed_book_json/'
+      'http://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/get_borrowed_book_json/'
     );
 
     List<BorrowedBook> listProduct = [];
@@ -40,10 +40,25 @@ class _MyBookScreenState extends State<MyBookScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      backgroundColor: Warna.blue,
+
+      backgroundColor: Warna.background,
+       appBar: AppBar(
+        title: Text(
+          'Your Book',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            height: 1.5,
+            color: Warna.white,
+          ),
+        ),
+        backgroundColor: Warna.backgrounddark,
+        foregroundColor: Warna.white,
+        automaticallyImplyLeading: false,
+      ),
 
       body: FutureBuilder(
-        future: fetchProduct(request),
+        future: fetchProductBorrow(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return const Center(child: CircularProgressIndicator());
@@ -69,25 +84,14 @@ class _MyBookScreenState extends State<MyBookScreen> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: screenHeight / 1.5,
-                          decoration: const BoxDecoration(
-                            color: Warna.background,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 28.0),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) {
                            return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                          child: MyBookCard(borrowedBook: snapshot.data![index])
+                          padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 8.0),
+                          child: MyBookCard(borrowedBook: snapshot.data![index]),
                         );
                       },
                     ),
