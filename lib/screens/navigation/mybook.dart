@@ -40,21 +40,7 @@ class _MyBookScreenState extends State<MyBookScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      backgroundColor: Warna.background,
-      appBar: AppBar(
-        title: Text(
-          'Your Books',
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            height: 1.5,
-            color: Warna.white,
-          ),
-        ),
-        backgroundColor: Warna.backgrounddark,
-        foregroundColor: Warna.white,
-        automaticallyImplyLeading: false,
-      ),
+      backgroundColor: Warna.blue,
       body: FutureBuilder(
         future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
