@@ -8,7 +8,6 @@ import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/screens/navigation/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:readhub/models/favorit.dart';
 import 'package:readhub/models/book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readhub/screens/flow/detail.dart';
@@ -21,12 +20,19 @@ class FavoritScreen extends StatefulWidget {
   State<FavoritScreen> createState() => _FavoritScreenState();
 }
 
+// class Favorit {
+//   final Book book; //objek buku yg difavorit
+//   final String description;
+
+//   Favorit(this.book, this.description);
+// }
+
 
 class _FavoritScreenState extends State<FavoritScreen> {
   Future<List<Book>> fetchProduct() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
-        'http://localhost:8000/category/get-book-favorit/');
+        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
@@ -50,10 +56,6 @@ class _FavoritScreenState extends State<FavoritScreen> {
     return Scaffold(
       backgroundColor: Warna.background,
       bottomNavigationBar: BottomNavBar(index: 1),
-      // appBar: AppBar(
-      //   title:
-      //       const Text('CATEGORY', style: TextStyle(color: Colors.black)),
-      // ),
       body: FutureBuilder(
           future: fetchProduct(),
           builder: (context, AsyncSnapshot snapshot) {
@@ -74,159 +76,252 @@ class _FavoritScreenState extends State<FavoritScreen> {
               } else {
                 TextEditingController myController = TextEditingController();
                 return CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                      backgroundColor:Warna.blue,
-                      expandedHeight: 200.0,
-                      floating: false,
-                      pinned: true,
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: Text(
-                          "Favorit Book",
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        background: Image.asset(
-                          'assets/images/Community.png', 
+                  slivers:[
+                    SliverToBoxAdapter(
+                    child: Container(
+                      height: 280.0,
+                      decoration: BoxDecoration(
+                        color: Warna.blue,
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/Explorepage.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    SliverPadding(
-                      padding: EdgeInsets.all(16.0),
-                      sliver: SliverList(
-                        delegate: SliverChildListDelegate([
-                          // Kolom input atau teks sesuai kebutuhan
-                          TextField(
-                            controller: myController,
-                            decoration: InputDecoration(
-                              labelText: 'Masukkan judul buku',
-                              labelStyle: TextStyle(color: Warna.white),
-                              hintStyle: TextStyle(color: Warna.white),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Warna.white),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Warna.white),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Warna.white),
-                              ),
+                      child: Center(
+                        // child: Padding(
+                          // padding: EdgeInsets.only(bottom: 30),
+                          child: Text(
+                            "Favorit",
+                            style: GoogleFonts.poppins(
+                              fontSize: 56,
+                              fontWeight: FontWeight.bold,
+                              color: Warna.white,
                             ),
-                            style: TextStyle(color: Warna.white),
-                            
-                          ),
-                          const SizedBox(height: 8.0),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Tambahkan aksi yang ingin dilakukan saat tombol ditekan
-                            },
-                            child: Text("Cari"),
-                          ),
-                        ]),
+                          // ),
+                        ),
                       ),
                     ),
-                    SliverGrid(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 250.0,
-                          crossAxisSpacing: 1.0,
-                          mainAxisSpacing: 1.0,
-                          childAspectRatio: 0.7,
-                        ),
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return Card(
-                              color: Warna.lightcyan,
-                              elevation: 4.0,
-                              margin: const EdgeInsets.all(8.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  SliverPadding(
+                    padding: EdgeInsets.all(16.0),
+                    sliver: SliverList(
+                      delegate: SliverChildListDelegate([
+                        // ... (Input dan Tombol Cari)
+                      ]),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 15),
+                        Container(
+                          width: double.infinity,
+                          height: 64,
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 150.0,
-                                      child: Image.network(
-                                        "${snapshot.data![index].fields.imageUrl}",
-                                        fit: BoxFit.cover,
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                      padding: EdgeInsets.fromLTRB(13, 15, 36, 13),
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xff292c4f),
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                    ),
-                                    SizedBox(height: 16.0),
-                                    Text(
-                                      "${snapshot.data![index].fields.bookTitle.length > 25 ? snapshot.data![index].fields.bookTitle.substring(0, 25) + '...' : snapshot.data![index].fields.bookTitle}",
-                                      style: const TextStyle(
-                                        fontSize: 15.0,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8.0),
-                                    Text(
-                                      "${snapshot.data![index].fields.bookAuthors.length > 25 ? snapshot.data![index].fields.bookAuthors.substring(0, 25) + '...' : snapshot.data![index].fields.bookAuthors}",
-                                      style: const TextStyle(
-                                        fontSize: 12.0,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8.0),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              // Get the selected book
-                                              Book selectedBook = snapshot.data![index];
-
-                                              // Navigate to the second page and pass the selected book's data
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) => DetailScreen(book: selectedBook),
-                                                ),
-                                              );
-                                            },
-                                            child: Text(
-                                              "Detail Book",
-                                              style: const TextStyle(
-                                                fontSize: 10.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              textAlign: TextAlign.center,
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                            width: 28,
+                                            height: 28,
+                                            child: Icon(
+                                              Icons.search, 
+                                              color: Colors.white, 
+                                              size: 28, 
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(width: 8.0), // Jarak antara tombol
-                                        Expanded(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              // Aksi yang ingin dilakukan saat tombol kedua ditekan
-                                            },
-                                            child: Text(
-                                              "Add Favorit",
-                                              style: const TextStyle(
-                                                fontSize: 10.0,
-                                                fontWeight: FontWeight.bold,
+                                          Container(
+                                            width: 200,
+                                            child: TextField(
+                                              style: TextStyle(color: Colors.white), // Atur warna teks menjadi putih
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                focusedBorder: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                errorBorder: InputBorder.none,
+                                                disabledBorder: InputBorder.none,
+                                                contentPadding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 13.0), // Sesuaikan sesuai kebutuhan
+                                                hintText: 'Type here', // Tambahkan teks petunjuk jika diperlukan
+                                                hintStyle: TextStyle(color: Colors.grey),
+                                                alignLabelWithHint: true,
                                               ),
-                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                      ),
+                                      child: Container(
+                                        width: 56,
+                                        height: 56,
+                                        child: ClipRRect(
+                                          child: Image.asset(
+                                            'assets/icons/Filter.png',
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            );
-                          },
-                          childCount: snapshot.data!.length,
+                            ],
+                          ),
                         ),
-                      ),
-                  ],
-                );
+                        SizedBox(height: 35),
+                        
+                        Container(
+                          height: 280, // Sesuaikan tinggi container dengan kebutuhan
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                onTap: () {
+                                  // Get the selected book
+                                    Book selectedBook = snapshot.data![index];
+
+                                    // Navigate to the second page and pass the selected book's data
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailScreen(book: selectedBook),
+                                      ),
+                                    );
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(8.0),
+                                  width: 152.0,
+                                  decoration: BoxDecoration(
+                                    color: Warna.backgroundlight,
+                                    borderRadius: BorderRadius.circular(18.3132534027),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Color(0x05a3a3a3),
+                                        offset: Offset(3.6626505852, 3.6626505852),
+                                        blurRadius: 9.1566267014,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: double.infinity,
+                                        height: 200,
+                                        decoration: BoxDecoration(
+                                          color: Warna.backgroundlight,
+                                          borderRadius: BorderRadius.circular(9.99081707),
+                                        ),
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                              left: 0,
+                                              top: 0,
+                                              right: 0,
+                                              bottom: 0,
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: SizedBox(
+                                                  width: 137.91,
+                                                  height: 185,
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(10.0), // Sesuaikan nilai border radius
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: "${snapshot.data![index].fields.imageUrl}",
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              
+                                              right: 4, // Sesuaikan dengan posisi yang Anda inginkan
+                                              top: 4, // Sesuaikan dengan posisi yang Anda inginkan
+                                              child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: SizedBox(
+                                                  width: 32,
+                                                  height: 32,
+                                                  child: Image.asset(
+                                                    'assets/icons/love.png',
+                                                    width: 32,
+                                                    height: 32,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: double.infinity,
+                                        color: Warna.backgroundlight,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 10), // Tambahkan padding di sini
+                                              margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
+                                              constraints: const BoxConstraints(
+                                                maxWidth: 135,
+                                              ),
+                                              child: Text(
+                                                "${snapshot.data![index].fields.bookTitle.length > 25 ? snapshot.data![index].fields.bookTitle.substring(0, 25) + '...' : snapshot.data![index].fields.bookTitle}",
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  height: 1.3333333333,
+                                                  color: Color(0xffffffff),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(horizontal: 10), // Tambahkan padding di sini
+                                              child: Text(
+                                                "${snapshot.data![index].fields.bookAuthors.length > 20 ? snapshot.data![index].fields.bookAuthors.substring(0, 20) + '...' : snapshot.data![index].fields.bookAuthors}",
+                                                style: TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w500,
+                                                  height: 1.6,
+                                                  color: Color(0xffb6b6b6),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                    ),])
+                  ),
+                ],
+              );
                   }
               }
           }));
