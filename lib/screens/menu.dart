@@ -32,7 +32,6 @@ class MyHomePage extends StatelessWidget {
           automaticallyImplyLeading: false, 
         ),
         backgroundColor: Warna.background,
-        bottomNavigationBar: BottomNavBar(index: 4),
           // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
           body: SingleChildScrollView(
             // Widget wrapper yang dapat discroll

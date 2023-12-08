@@ -85,7 +85,13 @@ flutter:
   - assets/images/Explorepage.png
   - assets/icons/Filter.png
   - assets/icons/check-square-fill.png
-  -
+  - assets/icons/Left Arrow.png
+  - assets/images/Profile Cyan.png
+  - assets/icons/Left Arrow.png
+  - assets/icons/Edit Profile.png
+  - assets/icons/Favorite Book.png
+  - assets/icons/Privacy Policy.png
+  - assets/icons/Logout.png
 
   # - assets\images\Profile.png
   # - assets\images\Community.png
