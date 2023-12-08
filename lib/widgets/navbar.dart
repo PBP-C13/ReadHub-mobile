@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:readhub/screens/menu.dart';
 import 'package:readhub/screens/navigation/community.dart';
 import 'package:readhub/screens/navigation/explore.dart';
 import 'package:readhub/screens/navigation/home.dart';
@@ -16,7 +15,7 @@ List<Widget> widgetOptions = <Widget>[
   ExploreScreen(),
   CommunityScreen(),
   MyBookScreen(),
-  MyHomePage(),
+  ProfileScreen(),
 ];
 
 class BottomNavBar extends StatefulWidget {
@@ -70,7 +69,7 @@ Route _createRoute(Widget page) {
           BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
           BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Community'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'My Book'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Menu'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Warna.white,

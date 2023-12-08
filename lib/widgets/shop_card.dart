@@ -58,9 +58,7 @@ class ShopCard extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const MyBookScreen()));
 
-          } else if (item.name == "Profile") {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ProfileScreen()));
+          
 
           } else if (item.name == "Onboarding") {
           Navigator.push(context,
