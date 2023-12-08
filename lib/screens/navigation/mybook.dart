@@ -6,10 +6,6 @@ import 'package:readhub/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/widgets/my_book_card.dart';
 import 'package:readhub/widgets/navbar.dart';
-import 'package:readhub/screens/navigation/home.dart';
-import 'package:readhub/screens/navigation/explore.dart';
-import 'package:readhub/screens/navigation/mybook.dart';
-import 'package:readhub/screens/navigation/profile.dart';
 
 class MyBookScreen extends StatefulWidget {
   const MyBookScreen({super.key});
@@ -37,10 +33,23 @@ class _MyBookScreenState extends State<MyBookScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final request = context.watch<CookieRequest>();
     return Scaffold(
       backgroundColor: Warna.background,
+      appBar: AppBar(
+        title: Text(
+          'My Book',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            height: 1.5,
+            color: Warna.white,
+          ),
+        ),
+        backgroundColor: Warna.backgrounddark,
+        foregroundColor: Warna.white,
+        automaticallyImplyLeading: false,
+      ),
       body: FutureBuilder(
         future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {

@@ -268,6 +268,7 @@ packages:
     dependency: transitive
     description:
       name: meta
+
       sha256: d584fa6707a52763a52446f02cc621b077888fb63b93bbcb1143a7be5a0c0c04
       url: "https://pub.dev"
     source: hosted
@@ -578,6 +579,7 @@ packages:
     description:
       name: web
       sha256: afe077240a270dcfd2aafe77602b4113645af95d0ad31128cc02bce5ac5d5152
+
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/models/borrowed_book.dart';
 import 'package:readhub/styles/colors.dart';
 
@@ -32,14 +33,14 @@ class MyBookCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 24),
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                     width: screenWidth,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 0, 24),
-                          width: screenWidth,
+                          width: double.infinity,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -67,7 +68,7 @@ class MyBookCard extends StatelessWidget {
                               ),
                               Container(
                                 margin: EdgeInsets.fromLTRB(0, 11, 0, 11),
-                                width: 193,
+                                width: screenWidth / 2,
                                 height: 100,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +82,7 @@ class MyBookCard extends StatelessWidget {
                                             margin: EdgeInsets.fromLTRB(0, 0, 0, 6),
                                             child: Text(
                                               borrowedBook.book.bookTitle,
-                                              style: TextStyle(
+                                              style: GoogleFonts.poppins(
                                                 fontSize: 14 ,
                                                 fontWeight: FontWeight.w600,
                                                 height: 1.4285714286 ,
@@ -91,7 +92,7 @@ class MyBookCard extends StatelessWidget {
                                           ),
                                           Text(
                                             'by: ${borrowedBook.book.bookAuthors}',
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
                                               fontSize: 12 ,
                                               fontWeight: FontWeight.w500,
                                               height: 1.5 ,
@@ -101,235 +102,204 @@ class MyBookCard extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    Container(
-                                      width: screenWidth,
-                                      height: 24,
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 57,
-                                            height: screenHeight,
+                                  Container(
+                                    width: screenWidth / 2,
+                                    height: 24,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: borrowedBook.book.genres.split('|').length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        if (index < 3) {
+                                          String genre = borrowedBook.book.genres.split('|')[index].trim();
+                                          return Container(
+                                            margin: EdgeInsets.only(right: 10),
                                             decoration: BoxDecoration(
                                               color: Color(0xff3fbcfc),
                                               borderRadius: BorderRadius.circular(999),
                                             ),
-                                            child: Center(
-                                              child: Text(
-                                                'Fantasy',
-                                                style: TextStyle(
-                                                  fontSize: 10 ,
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.6 ,
-                                                  color: Color(0xffffffff),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0), // Adjust the padding as needed
+                                              child: Center(
+                                                child: Text(
+                                                  genre,
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 1.6,
+                                                    color: Color(0xffffffff),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(width: 4),
-                                          Container(
-                                            width: 78,
-                                            height: screenHeight,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xff3fbcfc),
-                                              borderRadius: BorderRadius.circular(999),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Young Adult',
-                                                style: TextStyle(
-                                                  fontSize: 10 ,
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.6 ,
-                                                  color: Color(0xffffffff),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 4),
-                                          Container(
-                                            width: 50,
-                                            height: screenHeight,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xff3fbcfc),
-                                              borderRadius: BorderRadius.circular(999),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Fiction',
-                                                style: TextStyle(
-                                                  fontSize: 10 ,
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.6 ,
-                                                  color: Color(0xffffffff),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                          );
+                                        } else {
+                                          return Container(); // Return an empty container for indexes beyond 2 (to show a maximum of 3 genres)
+                                        }
+                                      },
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: screenWidth,
-                          height: 48,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 18, 0),
-                                height: screenHeight,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                                      child: Text(
-                                        'Tanggal Peminjaman ',
-                                        style: TextStyle(
-                                          fontSize: 12 ,
-                                          fontWeight: FontWeight.w600,
-                                          height: 1.3333333333 ,
-                                          color: Color(0xffffffff),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      borrowedBook.borrowDate.toString(),
-                                      style: TextStyle(
-                                        fontSize: 16 ,
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.5 ,
-                                        color: Color(0xffffffff),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: screenHeight,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                                      child: Text(
-                                        'Tanggal Pengembalian ',
-                                        style: TextStyle(
-                                          fontSize: 12 ,
-                                          fontWeight: FontWeight.w600,
-                                          height: 1.3333333333 ,
-                                          color: Color(0xffffffff),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      borrowedBook.returnDate.toString(),
-                                      style: TextStyle(
-                                        fontSize: 16 ,
-                                        fontWeight: FontWeight.w600,
-                                        height: 1.5 ,
-                                        color: Color(0xffffffff),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                          child: Text(
-                            'Pengembalian Buku',
-                            style: TextStyle(
-                              fontSize: 12 ,
-                              fontWeight: FontWeight.w600,
-                              height: 1.3333333333 ,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          constraints: BoxConstraints(maxWidth: 265),
-                          child: Text(
-                            'Buku ini harus dikembalikan dengan keadaan Sama seperti semula',
-                            style: TextStyle(
-                              fontSize: 14 ,
-                              fontWeight: FontWeight.w600,
-                              height: 1.4285714286 ,
-                              color: Color(0xffffffff),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 3, 0),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(78.17, 12, 75.93, 12),
-                        width: screenWidth,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Color(0xff2a4cf1),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 9.4, 0),
-                              width: 13.5,
-                              height: 13.5,
-                              child: Image.network(
-                                'assets/icons/check-square-fill.png',
-                                width: 13.5,
-                                height: 13.5,
-                              ),
-                            ),
-                            Container(
-                              width: 110,
-                              height: 200,
-                              child: Center(
-                                child: Text(
-                                  'Kembalikan Buku',
-                                  style: TextStyle(
-                                    fontSize: 12 ,
-                                    fontWeight: FontWeight.w700,
-                                    height: 1.3333333333 ,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
+                                  )
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: screenWidth,
+                  height: 48,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 40), // Adjust the spacing between the left and right items
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(bottom: 8),
+                              child: Text(
+                                'Tanggal Peminjaman ',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3333333333,
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              borrowedBook.borrowDate.toString().substring(0, 11),
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Spacer(), // This will expand to fill the available space between the left and right items
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(bottom: 8),
+                              child: Text(
+                                'Tanggal Pengembalian ',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.3333333333,
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              borrowedBook.returnDate.toString().substring(0, 11),
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Text(
+                    'Pengembalian Buku',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14 ,
+                      fontWeight: FontWeight.w600,
+                      height: 1.3333333333 ,
+                      color: Color(0xffffffff),
                     ),
                   ),
-                ],
+                ),
+                Container(
+                  constraints: BoxConstraints(maxWidth: 300),
+                  child: Text(
+                    'Buku ini harus dikembalikan dengan keadaan Sama seperti semula',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14 ,
+                      fontWeight: FontWeight.w600,
+                      height: 1.4285714286 ,
+                      color: Color(0xffffffff),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Center(
+            child: Container(
+              margin: EdgeInsets.fromLTRB(0, 14, 3, 0),
+              child: Material(
+                color: Colors.transparent,
+                child: InkResponse(
+                  onTap: () {
+                    // Handle button press action
+                  },
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    width: screenWidth,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Warna.blue,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 9.4, 0),
+                            width: 13.5,
+                            height: 13.5,
+                            child: Image.network(
+                              'assets/icons/check-square-fill.png',
+                              width: 13.5,
+                              height: 13.5,
+                            ),
+                          ),
+                          Text(
+                            'Kembalikan Buku',
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              height: 1.3333333333,
+                              color: Warna.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    ),     
     );
-    
   }
 }
