@@ -33,7 +33,7 @@ class Book {
 }
 
 class Fields {
-    String? bookAuthors;
+    String bookAuthors;
     String? bookDesc;
     dynamic? bookEdition;
     String? bookFormat;
@@ -43,8 +43,8 @@ class Fields {
     int? bookRatingCount;
     int? bookReviewCount;
     String bookTitle;
-    String? genres;
-    String? imageUrl;
+    String genres;
+    String imageUrl;
 
     Fields({
         required this.bookAuthors,
