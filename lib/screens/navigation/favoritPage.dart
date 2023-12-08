@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:readhub/models/book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:readhub/screens/flow/detail.dart';
+import 'package:readhub/screens/flow/detail_book.dart';
 
 
 class FavoritScreen extends StatefulWidget {
