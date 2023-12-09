@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Warna {
   static const white = Color(0xFFffffff);
+  static const semiWhite = Color(0x80FFFFFF);
   static const backgrounddarkbar = Color(0xFF060717);
   static const backgrounddark = Color(0xFF12132A);
   static const background = Color(0xFF161832);

@@ -23,7 +23,6 @@ class ProfileUpper extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              // frame1171275470Ros (485:1134)
               margin: EdgeInsets.fromLTRB(13.5   , 0   , 13.5   , 0   ),
               width: 140,
               height: 140   ,
@@ -35,8 +34,8 @@ class ProfileUpper extends StatelessWidget {
                 // LR3 (485:1135)
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
-                  width: 497.4   ,
-                  height: 497.4   ,
+                  width: 497.4,
+                  height: 497.4 ,
                   child: Image.asset(
                     'assets/images/Profile Cyan.png', // Ganti dengan URL gambar yang sesuai
                     fit: BoxFit.cover,
@@ -48,7 +47,6 @@ class ProfileUpper extends StatelessWidget {
               height: 28  ,
             ),
             Text(
-              // aryawijayad9F (485:1136)
               userlogin,
               style: GoogleFonts.poppins(
                 fontSize: 28   ,
