@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:readhub/models/forum.dart';
+import 'package:readhub/models/book.dart';
+import 'package:readhub/screens/navigation/explore.dart';
 import 'package:readhub/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:readhub/widgets/book_widget.dart';
 import 'package:readhub/widgets/navbar.dart';
-import 'package:readhub/screens/navigation/home.dart';
-import 'package:readhub/screens/navigation/explore.dart';
-import 'package:readhub/screens/navigation/mybook.dart';
-import 'package:readhub/screens/navigation/profile.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key});
@@ -16,6 +16,33 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+
+  List<Book> myBooks = []; // Deklarasikan variabel di luar ListView.builder
+
+  Future<List<Book>> fetchProduct() async {
+    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+    var url = Uri.parse(
+        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
+    var response = await http.get(
+        url,
+        headers: {"Content-Type": "application/json"},
+    );
+
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+    // melakukan konversi data json menjadi object Product
+    List<Book> list_product = [];
+    for (var d in data) {
+        if (d != null) {
+            list_product.add(Book.fromJson(d));
+        }
+    }
+    myBooks = list_product;
+    print(myBooks);
+    return list_product;
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -227,6 +254,26 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(height: 20), // Tambahkan jarak vertikal di sini
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Recommendation Books",
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Warna.white,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    // Container bawah
+                    height: 290,
+                    child: BookListView(books: myBooks),
+                  ),
+                ],
               ),
             ],
           ),

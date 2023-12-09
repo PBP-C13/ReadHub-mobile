@@ -76,18 +76,24 @@ class _RegisterPageState extends State<RegisterPage> {
               fit: BoxFit.fill,
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: screenHeight / 2,
-              decoration: BoxDecoration(
-                color: Warna.background,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+          Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: screenHeight / 1.85,
+                  decoration: const BoxDecoration(
+                    color: Warna.background,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: screenHeight / 3.5),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+            height: screenHeight / 1.75,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -377,8 +383,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
-              ],
-            ),
-          );
+              ),
+            ],
+          ),
+        );
   }
 }

@@ -75,19 +75,25 @@ class _LoginPageState extends State<LoginPage> {
               fit: BoxFit.fill,
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: screenHeight / 2.2,
-              decoration: const BoxDecoration(
-                color: Warna.background,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+          Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: screenHeight / 2,
+                  decoration: const BoxDecoration(
+                    color: Warna.background,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: screenHeight / 2.4),
-            child: Column(
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Container(
+          height: screenHeight / 2,
+          child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -297,7 +303,9 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-        ],
+        ),
+      // ),
+    ],
       ),
     );
   }
