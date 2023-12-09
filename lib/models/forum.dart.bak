@@ -1,19 +1,14 @@
-// To parse this JSON data, do
-//
-//     final forum = forumFromJson(jsonString);
-
 import 'dart:convert';
 
-List<Forum> forumFromJson(String str) => List<Forum>.from(json.decode(str).map((x) => Forum.fromJson(x)));
+Forum forumFromJson(String str) => Forum.fromJson(json.decode(str));
 
-String forumToJson(List<Forum> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String forumToJson(Forum data) => json.encode(data.toJson());
 
 class Forum {
     String name;
     int forumId;
     int likes;
     String forumText;
-    int bookId;
     String bookImage;
     String bookTitle;
     String bookAuthor;
@@ -24,7 +19,6 @@ class Forum {
         required this.forumId,
         required this.likes,
         required this.forumText,
-        required this.bookId,
         required this.bookImage,
         required this.bookTitle,
         required this.bookAuthor,
@@ -36,19 +30,19 @@ class Forum {
         forumId: json["forum_id"],
         likes: json["likes"],
         forumText: json["forum_text"],
-        bookId: json["book_id"],
         bookImage: json["book_image"],
         bookTitle: json["book_title"],
         bookAuthor: json["book_author"],
         bookGenre: List<String>.from(json["book_genre"].map((x) => x)),
     );
 
+  get pk => null;
+
     Map<String, dynamic> toJson() => {
         "name": name,
         "forum_id": forumId,
         "likes": likes,
         "forum_text": forumText,
-        "book_id": bookId,
         "book_image": bookImage,
         "book_title": bookTitle,
         "book_author": bookAuthor,

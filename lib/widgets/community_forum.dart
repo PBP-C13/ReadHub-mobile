@@ -3,14 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:readhub/models/book.dart';
 import 'package:readhub/models/forum.dart';
+import 'package:readhub/screens/flow/detail_book.dart';
 import 'package:readhub/screens/navigation/community.dart';
 import 'package:readhub/styles/colors.dart';
 
 class CommunityForumWidget extends StatelessWidget {
   final Forum forum;
+
   
-  CommunityForumWidget({Key? key, required this.forum}) : super(key: key);
+  CommunityForumWidget({Key? key, required this.forum,}) : super(key: key);
 
   Route _createRoute(Widget page) {
     return PageRouteBuilder(
@@ -41,10 +44,11 @@ class CommunityForumWidget extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final contentWidth = screenWidth - 28 * 2;
     final request = context.watch<CookieRequest>();
+    
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(_createRoute(const CommunityScreen()));
-      },
+      // onTap: () {
+      //   Navigator.of(context).push(_createRoute(const CommunityScreen()));
+      // },
       child: Container(
         width: contentWidth,
         child: Column(
@@ -58,7 +62,7 @@ class CommunityForumWidget extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
-                    width: screenHeight,
+                    width: screenWidth,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -127,7 +131,7 @@ class CommunityForumWidget extends StatelessWidget {
                           child: Text(
                             forum.forumText,
                             style: GoogleFonts.poppins(
-                              fontSize: 15,
+                              fontSize: 14,
                               fontWeight: FontWeight.w500,
                               height: 1.5,
                               color: Colors.white,
@@ -188,7 +192,7 @@ class CommunityForumWidget extends StatelessWidget {
                               ),
                               Container(
                                 margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                                width: screenWidth - screenWidth / 2.5,
+                                width: screenWidth - screenWidth / 2.3,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -224,7 +228,12 @@ class CommunityForumWidget extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        // Tambahkan aksi untuk tombol ini
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) => DetailScreen(book: books[index]),
+                                        //   ),
+                                        // );
                                       },
                                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                                       child: Container(

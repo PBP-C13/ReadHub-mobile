@@ -70,6 +70,7 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
       appBar: AppBar(
         toolbarHeight: kToolbarHeight + 1,
         elevation: 0.0,
+        centerTitle: true, 
         title: Text(
           'Community',
           style: GoogleFonts.poppins(
@@ -94,21 +95,16 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
             fontSize: 16,
             fontWeight: FontWeight.w600, // Medium
           ),
-          indicatorColor: Colors.transparent,
-          indicatorWeight: 0.0, 
-          indicator: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Warna.cyan,
-                width: 5.0,
-              ),
-            ),
-          ),
           tabs: [
             Tab(text: 'All'),
             Tab(text: 'Fantasy'),
             Tab(text: 'Romance'),
           ],
+        indicator: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.white, width: 3.0)),
+        ),
+        indicatorColor: Colors.transparent, // Set indicatorColor ke transparent
+
         ), systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: TabBarView(
@@ -123,6 +119,7 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
     );
   }
 
+  
   Widget buildTabContent(CookieRequest request) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
