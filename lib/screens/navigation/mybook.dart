@@ -45,10 +45,12 @@ class _MyBookScreenState extends State<MyBookScreen> {
             height: 1.5,
             color: Warna.white,
           ),
+          
         ),
-        backgroundColor: Warna.backgrounddark,
+        backgroundColor: Warna.blue,
         foregroundColor: Warna.white,
         automaticallyImplyLeading: false,
+        centerTitle: true, 
       ),
       body: FutureBuilder(
         future: fetchProduct(request),
