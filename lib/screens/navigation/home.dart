@@ -7,6 +7,10 @@ import 'package:readhub/screens/navigation/home.dart';
 import 'package:readhub/screens/navigation/explore.dart';
 import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/screens/navigation/profile.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:readhub/models/book.dart';
+import 'package:readhub/widgets/book_widget.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key});
@@ -16,11 +20,35 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  List<Book> myBooks = []; // Deklarasikan variabel di luar ListView.builder
+  Future<List<Book>> fetchProduct() async {
+
+    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+    var url = Uri.parse(
+        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
+    var response = await http.get(
+        url,
+        headers: {"Content-Type": "application/json"},
+    );
+
+    // melakukan decode response menjadi bentuk json
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+    // melakukan konversi data json menjadi object Product
+    List<Book> list_product = [];
+    for (var d in data) {
+        if (d != null) {
+            list_product.add(Book.fromJson(d));
+        }
+    }
+    myBooks = list_product;
+    return list_product;
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-
-
     return Scaffold(
       backgroundColor: Warna.background,
       bottomNavigationBar: BottomNavBar(index: 0),
@@ -227,6 +255,63 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                   ],
                 ),
+              ),
+              // SizedBox(height: 40),
+              // Container(
+              // padding: EdgeInsets.symmetric(horizontal: 16.0), // Tambahkan padding ke kanan dan kiri
+              // child: Column(
+              //   children: [
+              //     Text(
+              //       "All Books",
+              //       style: GoogleFonts.poppins(
+              //         fontSize: 20,
+              //         fontWeight: FontWeight.bold,
+              //         color: Warna.white,
+              //       )
+              //     ),
+              //     SizedBox(height: 10),
+              //     Container(
+              //       // Container atas
+              //       height: 290,
+              //       child: BookListView(books: myBooks),
+              //     ),
+              //   ]))
+              SizedBox(height: 40),
+              Text(
+                "Fantasy",
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Warna.white,
+                )
+              ),
+              SizedBox(height: 10),
+              Container(
+                // Container bawah
+                height: 290,
+                child: FutureBuilder(
+                    future: fetchProduct(),
+                    builder:  (context, AsyncSnapshot snapshot) {
+                      if (snapshot.data == null) {
+                          return const Center(child: CircularProgressIndicator());
+                      } else {
+                          if (!snapshot.hasData) {
+                          return const Column(
+                              children: [
+                              Text(
+                                  "Tidak ada data produk.",
+                                  style:
+                                      TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                              ),
+                              SizedBox(height: 8),
+                              ],
+                          );
+                          } else {
+                        return Container(// Container bawah
+                              height: 290,
+                              child: BookListView(books: myBooks),);
+                      }}}
+                )
               ),
             ],
           ),

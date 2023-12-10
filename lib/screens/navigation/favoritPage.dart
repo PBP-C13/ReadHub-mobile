@@ -9,6 +9,7 @@ import 'package:readhub/screens/navigation/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:readhub/models/book.dart';
+import 'package:readhub/models/favorit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readhub/screens/flow/detail_book.dart';
 
@@ -29,10 +30,10 @@ class FavoritScreen extends StatefulWidget {
 
 
 class _FavoritScreenState extends State<FavoritScreen> {
-  Future<List<Book>> fetchProduct() async {
+  Future<List<Favorit>> fetchProduct() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
-        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
+        'http://localhost:8000/category/json');
     var response = await http.get(
         url,
         headers: {"Content-Type": "application/json"},
@@ -42,14 +43,40 @@ class _FavoritScreenState extends State<FavoritScreen> {
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     // melakukan konversi data json menjadi object Product
-    List<Book> list_product = [];
+    List<Favorit> list_product = [];
     for (var d in data) {
         if (d != null) {
-            list_product.add(Book.fromJson(d));
+            list_product.add(Favorit.fromJson(d));
         }
     }
     return list_product;
   }
+
+// Future<Book?> getBookById(int bookId) async {
+  
+//     try {
+//       var url = Uri.parse('http://localhost:8000/category/json');
+//       var response = await http.get(url);
+
+//       if (response.statusCode == 200) {
+//         // Jika response sukses, kita konversi JSON menjadi objek Book
+//         var jsonData = jsonDecode(response.body);
+//         var book = Book(
+//           bookId: jsonData['book_id'],
+//           bookTitle: jsonData['book_title'],
+//           bookAuthors: jsonData['book_authors'],
+//           // Tambahkan atribut lain sesuai kebutuhan
+//         );
+//         return book;
+//       } else {
+//         // Jika response tidak sukses, return null atau throw exception sesuai kebijakan Anda
+//         return null;
+//       }
+//     } catch (e) {
+//       // Tangani error, return null atau throw exception sesuai kebijakan Anda
+//       return null;
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +273,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(10.0), // Sesuaikan nilai border radius
                                                     child: CachedNetworkImage(
-                                                      imageUrl: "${snapshot.data![index].fields.imageUrl}",
+                                                      imageUrl: "${snapshot.data![index].fields.books.imageUrl}",
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
@@ -286,7 +313,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                                 maxWidth: 135,
                                               ),
                                               child: Text(
-                                                "${snapshot.data![index].fields.bookTitle.length > 25 ? snapshot.data![index].fields.bookTitle.substring(0, 25) + '...' : snapshot.data![index].fields.bookTitle}",
+                                                "${snapshot.data![index].fields.books.bookTitle.length > 25 ? snapshot.data![index].fields.books.bookTitle.substring(0, 25) + '...' : snapshot.data![index].fields.books.bookTitle}",
                                                 style: TextStyle(
                                                   fontFamily: 'Poppins',
                                                   fontSize: 12,
@@ -299,7 +326,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                             Container(
                                               padding: EdgeInsets.symmetric(horizontal: 10), // Tambahkan padding di sini
                                               child: Text(
-                                                "${snapshot.data![index].fields.bookAuthors.length > 20 ? snapshot.data![index].fields.bookAuthors.substring(0, 20) + '...' : snapshot.data![index].fields.bookAuthors}",
+                                                "${snapshot.data![index].fields.books.bookAuthors.length > 20 ? snapshot.data![index].fields.books.bookAuthors.substring(0, 20) + '...' : snapshot.data![index].fields.books.bookAuthors}",
                                                 style: TextStyle(
                                                   fontFamily: 'Poppins',
                                                   fontSize: 10,
