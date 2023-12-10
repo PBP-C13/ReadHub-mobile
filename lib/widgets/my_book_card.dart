@@ -1,16 +1,46 @@
+// ignore_for_file: unused_element
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:readhub/models/borrowed_book.dart';
+import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/styles/colors.dart';
 
 class MyBookCard extends StatelessWidget {
    final BorrowedBook borrowedBook;
   MyBookCard({Key? key, required this.borrowedBook}) : super(key: key);
 
+  Route _createRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      transitionDuration: Duration(milliseconds: 600), // Durasi transisi
+    );
+  }
+
+  Future<void> _returnBook(BuildContext context, CookieRequest request, BorrowedBook borrowedBook) async {
+    await request.postJson(
+      'https://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/return_book_flutter/${borrowedBook.book.id}/',
+      jsonEncode({
+        "id": borrowedBook.book.id,
+      }),
+    );
+    Navigator.of(context).push(_createRoute(const MyBookScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final request = context.watch<CookieRequest>();
 
     return Container(
       padding: EdgeInsets.fromLTRB(16, 20, 13, 20),
@@ -27,7 +57,7 @@ class MyBookCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 24),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
               width: screenWidth,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +179,7 @@ class MyBookCard extends StatelessWidget {
                 ),
                 Container(
                   width: screenWidth,
-                  height: 48,
+                  height: 80,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -159,9 +189,9 @@ class MyBookCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(bottom: 8),
+                              margin: EdgeInsets.only(bottom: 0),
                               child: Text(
-                                'Tanggal Peminjaman ',
+                                'Tanggal\nPeminjaman ',
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -188,9 +218,9 @@ class MyBookCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(bottom: 8),
+                              margin: EdgeInsets.only(bottom: 0),
                               child: Text(
-                                'Tanggal Pengembalian ',
+                                'Tanggal\nPengembalian ',
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -250,12 +280,13 @@ class MyBookCard extends StatelessWidget {
           ),
           Center(
             child: Container(
-              margin: EdgeInsets.fromLTRB(0, 14, 3, 0),
+              margin: EdgeInsets.fromLTRB(0, 20, 3, 0),
               child: Material(
                 color: Colors.transparent,
                 child: InkResponse(
                   onTap: () {
                     // Handle button press action
+                    _returnBook(context, request, borrowedBook);
                   },
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
