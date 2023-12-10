@@ -92,6 +92,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    bool isFavorite = false;
 
     return Scaffold(
       backgroundColor: Warna.background,
@@ -127,10 +128,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     Container(
                       width: 36,
                       height: 36,
-                      child: Image.network(
-                        '[Image url]',
-                        width: 36,
-                        height: 36,
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        size: 34,
+                        color:  Color(0xff3fbcfc),
                       ),
                     ),
                   ],
@@ -171,7 +172,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      width: 180,
+                      width: 300,
                       height: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +180,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 12),
                             constraints: BoxConstraints(
-                              maxWidth: 180,
+                              maxWidth: 500,
                             ),
                             child:  Text(
                               "${widget.book.fields.bookTitle}",
@@ -193,7 +194,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             ),
                           ),
                            Text(
-                               "by ${widget.book.fields.bookAuthors.length  > 30 ? widget.book.fields.bookAuthors.substring(0,30).replaceAll("|", ", ") + '...' : widget.book.fields.bookAuthors.replaceAll("|", ", ")}",
+                               "by ${widget.book.fields.bookAuthors.length  > 25 ? widget.book.fields.bookAuthors.substring(0,25).replaceAll("|", ", ") + '...' : widget.book.fields.bookAuthors.replaceAll("|", ", ")}",
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 14,
@@ -245,14 +246,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                                 Container(
                                   margin: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                                  width: 160,
+                                  width: 200,
                                   height: 24,
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(right: 8), // Adjusted margin
-                                        width: 65, // Adjusted width
+                                        margin: EdgeInsets.only(right: 8), 
+                                        width: 70, 
                                         height: double.infinity,
                                         decoration: BoxDecoration(
                                           color: Color(0xff3fbcfc),
@@ -260,7 +261,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            widget.book.fields.genres.split('|')[0],
+                                            "${widget.book.fields.genres.split('|')[0]}",
                                             style: TextStyle(
                                               fontFamily: 'Poppins',
                                               fontSize: 10,
@@ -272,7 +273,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         ),
                                       ),
                                       Container(
-                                        width: 60, // Adjusted width
+                                        width: 60, 
                                         height: double.infinity,
                                         decoration: BoxDecoration(
                                           color: Color(0xff3fbcfc),
@@ -304,16 +305,22 @@ class _DetailScreenState extends State<DetailScreen> {
                   ],
                 ),
               ),
+
+// <<< Borrow button >>> //
+
               Container(
                 margin: EdgeInsets.fromLTRB(1, 0, 28, 29),
+                width: 350,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                  
+                  },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                   ),
                   child: Container(
                     padding: EdgeInsets.fromLTRB(96.68, 12, 94.43, 12),
-                    width: 320,
+                    width: 350,
                     height: 40,
                     decoration: BoxDecoration(
                       color: Color(0xff2a4cf1),
@@ -324,16 +331,15 @@ class _DetailScreenState extends State<DetailScreen> {
                       children: [
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 9.39, 0),
-                          width: 13.5,
+                          width: 40,
                           height: 15,
-                          child: Image.network(
-                            '[Image url]',
-                            width: 13.5,
-                            height: 15,
+                          child: Icon(
+                            Icons.lock,
+                            size: 15,
+                            color: Colors.white,
                           ),
                         ),
                         Container(
-                          width: 105,
                           height: double.infinity,
                           child: const Center(
                             child: Text(
@@ -358,6 +364,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
               Container(
                   margin:  EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  width: 700,
                   child:  
                 const Text(
                   'Description Book',
@@ -391,7 +398,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
              Container(
               margin:  EdgeInsets.fromLTRB(0, 0, 15, 14.5),
-              width:  double.infinity,
+              width:  350,
               height:  28,
               child:  
                 Row(
@@ -501,7 +508,7 @@ class _DetailScreenState extends State<DetailScreen> {
 // <<< Similar Book >>> //
 Container(
   margin: EdgeInsets.fromLTRB(2, 0, 0, 0),
-  width: 480,
+  width: 350,
   child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -557,7 +564,7 @@ Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                         Container(
                             margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
                             width: double.infinity,
                             height: 164,
@@ -565,28 +572,39 @@ Container(
                               color: Color(0xff22264f),
                               borderRadius: BorderRadius.circular(9.99081707),
                             ),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: -2.0607910156,
-                                  top: 0,
-                                  child: Align(
-                                    child: Container(
-                                      width: 128,
-                                      height: 190,
-                                      decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage(book.fields.imageUrl),
-                                        fit: BoxFit.cover,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailScreen(book: book),
+                                  ),
+                                );
+                              },
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    left: -2.0607910156,
+                                    top: 0,
+                                    child: Align(
+                                      child: Container(
+                                        width: 128,
+                                        height: 190,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          image: DecorationImage(
+                                            image: NetworkImage(book.fields.imageUrl),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
+
                           Container(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
