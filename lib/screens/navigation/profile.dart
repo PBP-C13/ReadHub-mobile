@@ -40,6 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Warna.blue,
         foregroundColor: Warna.white,
         automaticallyImplyLeading: false,
+        centerTitle: true,
       ),
       bottomNavigationBar: BottomNavBar(index: 4),
       body: Column(
