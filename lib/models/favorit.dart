@@ -1,32 +1,32 @@
 // To parse this JSON data, do
 //
-//     final book = bookFromJson(jsonString);
+//     final favorit = favoritFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Book> bookFromJson(String str) => List<Book>.from(json.decode(str).map((x) => Book.fromJson(x)));
+List<Favorit> favoritFromJson(String str) => List<Favorit>.from(json.decode(str).map((x) => Favorit.fromJson(x)));
 
-String bookToJson(List<Book> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String favoritToJson(List<Favorit> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Book {
-    String model;
+class Favorit {
+    Model model;
     int pk;
     Fields fields;
 
-    Book({
+    Favorit({
         required this.model,
         required this.pk,
         required this.fields,
     });
 
-    factory Book.fromJson(Map<String, dynamic> json) => Book(
-        model: json["model"]!,
+    factory Favorit.fromJson(Map<String, dynamic> json) => Favorit(
+        model: modelValues.map[json["model"]]!,
         pk: json["pk"],
         fields: Fields.fromJson(json["fields"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "model": model,
+        "model": modelValues.reverse[model],
         "pk": pk,
         "fields": fields.toJson(),
     };
@@ -35,13 +35,13 @@ class Book {
 class Fields {
     String bookAuthors;
     String? bookDesc;
-    dynamic? bookEdition;
-    String? bookFormat;
+    String? bookEdition;
+    BookFormat bookFormat;
     String? bookIsbn;
-    String? bookPages;
-    double? bookRating;
-    int? bookRatingCount;
-    int? bookReviewCount;
+    String bookPages;
+    double bookRating;
+    int bookRatingCount;
+    int bookReviewCount;
     String bookTitle;
     String genres;
     String imageUrl;
@@ -65,7 +65,7 @@ class Fields {
         bookAuthors: json["book_authors"],
         bookDesc: json["book_desc"],
         bookEdition: json["book_edition"],
-        bookFormat: json["book_format"],
+        bookFormat: bookFormatValues.map[json["book_format"]]!,
         bookIsbn: json["book_isbn"],
         bookPages: json["book_pages"],
         bookRating: json["book_rating"]?.toDouble(),
@@ -80,7 +80,7 @@ class Fields {
         "book_authors": bookAuthors,
         "book_desc": bookDesc,
         "book_edition": bookEdition,
-        "book_format": bookFormat,
+        "book_format": bookFormatValues.reverse[bookFormat],
         "book_isbn": bookIsbn,
         "book_pages": bookPages,
         "book_rating": bookRating,
@@ -90,4 +90,38 @@ class Fields {
         "genres": genres,
         "image_url": imageUrl,
     };
+}
+
+enum BookFormat {
+    EBOOK,
+    HARDCOVER,
+    MASS_MARKET_PAPERBACK,
+    PAPERBACK
+}
+
+final bookFormatValues = EnumValues({
+    "ebook": BookFormat.EBOOK,
+    "Hardcover": BookFormat.HARDCOVER,
+    "Mass Market Paperback": BookFormat.MASS_MARKET_PAPERBACK,
+    "Paperback": BookFormat.PAPERBACK
+});
+
+enum Model {
+    BOOK_BOOK
+}
+
+final modelValues = EnumValues({
+    "book.book": Model.BOOK_BOOK
+});
+
+class EnumValues<T> {
+    Map<String, T> map;
+    late Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+        reverseMap = map.map((k, v) => MapEntry(v, k));
+        return reverseMap;
+    }
 }

@@ -76,16 +76,28 @@ flutter:
   assets:
   - assets/images/Background Splash.png
   - assets/images/Onboarding Screen.png
+  - assets/images/Explore card.png
   - assets/images/Auth.png
   - assets/images/Community.png
   - assets/images/Profile.png
-  - assets/images/Explore card.png
-  - assets\images\Explore card.png
-  - assets\images\Profile.png
-  - assets\images\Community.png
-  - assets\images\Auth.png
-  - assets\images\Background Splash.png
-  - assets\images\Onboarding Screen.png
+  - assets/images/YourBook.png
+  - assets/images/book_explore.png
+  - assets/images/Explorepage.png
+  - assets/icons/Filter.png
+  - assets/icons/check-square-fill.png
+  - assets/icons/Left Arrow.png
+  - assets/images/Profile Cyan.png
+  - assets/icons/Left Arrow.png
+  - assets/icons/Edit Profile.png
+  - assets/icons/Favorite Book.png
+  - assets/icons/Privacy Policy.png
+  - assets/icons/Logout.png
+
+  # - assets\images\Profile.png
+  # - assets\images\Community.png
+  # - assets\images\Auth.png
+  # - assets\images\Background Splash.png
+  # - assets\images\Onboarding Screen.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

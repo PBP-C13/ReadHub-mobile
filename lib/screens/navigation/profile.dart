@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:readhub/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/widgets/navbar.dart';
-import 'package:readhub/screens/navigation/home.dart';
-import 'package:readhub/screens/navigation/explore.dart';
-import 'package:readhub/screens/navigation/mybook.dart';
-import 'package:readhub/screens/navigation/profile.dart';
+import 'package:readhub/widgets/profile_widget.dart';
+import 'package:readhub/widgets/profileupper.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,8 +15,67 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Warna.background,
+    double screenHeight = MediaQuery.of(context).size.height;
+    double topPadding = MediaQuery.of(context).padding.top;
+    double bottomPadding = MediaQuery.of(context).padding.bottom;
+    double availableHeight = screenHeight - topPadding - bottomPadding ;
+     double appBarHeight = AppBar().preferredSize.height;
+
+     return Scaffold(
+      
+      backgroundColor: Warna.blue,
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Profile',
+            style: GoogleFonts.poppins(
+              fontSize: 32,
+              fontWeight: FontWeight.w700,
+              height: 1.5,
+              color: Warna.white,
+            ),
+          ),
+        ),
+        backgroundColor: Warna.blue,
+        foregroundColor: Warna.white,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
+      bottomNavigationBar: BottomNavBar(index: 4),
+      body: Column(
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter, // Mengatur konten di bagian bawah
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: availableHeight / 2 - appBarHeight*1.7 - appBarHeight*0.3,
+                      child: Container(
+                        color: Warna.blue, // Set the background color here
+                        child: ProfileUpper(),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: availableHeight/2 - appBarHeight*0.5,
+                      child: Container(
+                        color: Warna.blue, // Set the background color here
+                        child: ProfileSection(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+

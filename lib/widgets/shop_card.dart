@@ -58,9 +58,7 @@ class ShopCard extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const MyBookScreen()));
 
-          } else if (item.name == "Profile") {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ProfileScreen()));
+          
 
           } else if (item.name == "Onboarding") {
           Navigator.push(context,
@@ -68,7 +66,7 @@ class ShopCard extends StatelessWidget {
 
           } else if (item.name == "Logout") {
             final response =
-                await request.logout("http://127.0.0.1:8000/auth/logout/");
+                await request.logout("https://readhub-c13-tk.pbp.cs.ui.ac.id/auth/logout/");
             String message = response["message"];
             if (response['status']) {
               String uname = response["username"];

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readhub/models/borrowed_book.dart';
@@ -6,10 +6,6 @@ import 'package:readhub/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/widgets/my_book_card.dart';
 import 'package:readhub/widgets/navbar.dart';
-import 'package:readhub/screens/navigation/home.dart';
-import 'package:readhub/screens/navigation/explore.dart';
-import 'package:readhub/screens/navigation/mybook.dart';
-import 'package:readhub/screens/navigation/profile.dart';
 
 class MyBookScreen extends StatefulWidget {
   const MyBookScreen({super.key});
@@ -37,10 +33,25 @@ class _MyBookScreenState extends State<MyBookScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      backgroundColor: Warna.blue,
+      backgroundColor: Warna.background,
+      appBar: AppBar(
+        title: Text(
+          'My Book',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            height: 1.5,
+            color: Warna.white,
+          ),
+          
+        ),
+        backgroundColor: Warna.blue,
+        foregroundColor: Warna.white,
+        automaticallyImplyLeading: false,
+        centerTitle: true, 
+      ),
       body: FutureBuilder(
         future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
@@ -68,24 +79,14 @@ class _MyBookScreenState extends State<MyBookScreen> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height: screenHeight / 1.5,
-                          decoration: const BoxDecoration(
-                            color: Warna.background,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 28.0),
+                      // SizedBox(height: 28.0),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) {
                            return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 12.0),
                           child: MyBookCard(borrowedBook: snapshot.data![index])
                         );
                       },

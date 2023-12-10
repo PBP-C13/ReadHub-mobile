@@ -30,29 +30,29 @@ class Onboarding extends StatelessWidget {
             bottom: 0,
             child: SingleChildScrollView( // Scrollable container
               child: Container(
-                padding: EdgeInsets.fromLTRB(28 * fem, 36 * fem, 28 * fem, 45 * fem),
+                padding: EdgeInsets.fromLTRB(28   , 36   , 28   , 45   ),
                 decoration: const BoxDecoration(
                   color: Color(0xff161832),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40 * fem),
-                    topRight: Radius.circular(40 * fem),
+                    topLeft: Radius.circular(40   ),
+                    topRight: Radius.circular(40   ),
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      margin: const EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 24 * fem),
+                      margin: const EdgeInsets.fromLTRB(0   , 0   , 0   , 24   ),
                       constraints: const BoxConstraints(
-                        maxWidth: 293 * fem,
+                        maxWidth: 293   ,
                       ),
                       child: RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
                           style: GoogleFonts.poppins(
-                            fontSize: 30 * ffem,
+                            fontSize: 30   ,
                             fontWeight: FontWeight.w800,
-                            height: 1.2 * ffem / fem,
+                            height: 1.2    / fem,
                             color: Color(0xffffffff),
                           ),
                           children: [
@@ -71,24 +71,24 @@ class Onboarding extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 22 * fem),
+                      margin: const EdgeInsets.fromLTRB(0   , 0   , 0   , 22   ),
                       constraints: const BoxConstraints(
-                        maxWidth: 280 * fem,
+                        maxWidth: 280   ,
                       ),
                       child: Text(
                         'Ayo explore dan pinjam buku dengan mudah dan cepat',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                          fontSize: 16 * ffem,
+                          fontSize: 16   ,
                           fontWeight: FontWeight.w500,
-                          height: 1.2875 * ffem / fem,
-                          letterSpacing: 0.4 * fem,
+                          height: 1.2875    / fem,
+                          letterSpacing: 0.4   ,
                           color: Color(0xffb6b6b6),
                         ),
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 12 * fem),
+                      margin: const EdgeInsets.fromLTRB(0   , 0   , 0   , 12   ),
                       child: TextButton(
                         
                         onPressed: () {
@@ -101,12 +101,12 @@ class Onboarding extends StatelessWidget {
                           padding: EdgeInsets.zero,
                         ),
                         child: Container(
-                          padding: const EdgeInsets.fromLTRB(98 * fem, 20 * fem, 98 * fem, 20 * fem),
+                          padding: const EdgeInsets.fromLTRB(98   , 20   , 98   , 20   ),
                           width: double.infinity,
-                          height: 64 * fem,
+                          height: 64   ,
                           decoration: BoxDecoration(
                             color: Color(0xff2a4cf1),
-                            borderRadius: BorderRadius.circular(24 * fem),
+                            borderRadius: BorderRadius.circular(24   ),
                           ),
                           child: Center(
                             child: Text(
@@ -114,7 +114,7 @@ class Onboarding extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
-                                height: 1.5 * ffem / fem,
+                                height: 1.5    / fem,
                                 color: Warna.white,
                               ),
                             ),
@@ -137,7 +137,7 @@ class Onboarding extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.fromLTRB(86, 20, 86, 20),
                         width: double.infinity,
-                        height: 64 * fem,
+                        height: 64   ,
                         decoration: BoxDecoration(
                           color: Color(0x332a4cf1),
                           borderRadius: BorderRadius.circular(24),
@@ -146,9 +146,9 @@ class Onboarding extends StatelessWidget {
                           child: Text(
                             'Register ReadHub',
                             style: GoogleFonts.poppins(
-                              fontSize: 16 * ffem,
+                              fontSize: 16   ,
                               fontWeight: FontWeight.w700,
-                              height: 1.5 * ffem / fem,
+                              height: 1.5    / fem,
                               color: Warna.blue,
                             ),
                           ),
