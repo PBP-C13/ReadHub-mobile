@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:readhub/screens/flow/borrow.dart';
 import 'package:readhub/styles/colors.dart';
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
@@ -313,7 +314,12 @@ class _DetailScreenState extends State<DetailScreen> {
                 width: 350,
                 child: TextButton(
                   onPressed: () {
-                  
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BorrowScreen(book: widget.book),
+                      ),
+                    );
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
