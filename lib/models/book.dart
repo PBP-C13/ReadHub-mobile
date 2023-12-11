@@ -35,7 +35,7 @@ class Book {
 class Fields {
     String bookAuthors;
     String? bookDesc;
-    dynamic? bookEdition;
+    dynamic bookEdition;
     String? bookFormat;
     String? bookIsbn;
     String? bookPages;

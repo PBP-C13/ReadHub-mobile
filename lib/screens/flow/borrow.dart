@@ -165,7 +165,7 @@ class _BorrowScreenState extends State<BorrowScreen> {
                               ),
                               SizedBox(width: 20),
                               Text(
-                                '$_days Hari', // I WANT TO UPDATE THIS EVERYTIME THE BUTTON IS CLICKED
+                                '$_days hari', // I WANT TO UPDATE THIS EVERYTIME THE BUTTON IS CLICKED
                                 style: GoogleFonts.poppins(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
@@ -215,7 +215,7 @@ class _BorrowScreenState extends State<BorrowScreen> {
                       }));
                     if(response['status'] == 'success'){
                       ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text("Buku berhasil dipinjam!"),
+                        .showSnackBar(SnackBar(content: Text("Berhasil meminjam buku ${_book.fields.bookTitle}!"),
                         ));
                         Navigator.push(
                           context,
