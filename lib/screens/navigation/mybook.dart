@@ -21,7 +21,6 @@ class _MyBookScreenState extends State<MyBookScreen> {
     var response = await request.get(
       'https://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/get_borrowed_book_json/'
     );
-
     List<BorrowedBook> listProduct = [];
     for (var d in response) {
       if (d != null) {

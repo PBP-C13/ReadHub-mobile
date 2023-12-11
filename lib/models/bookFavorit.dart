@@ -1,43 +1,48 @@
 // To parse this JSON data, do
 //
-//     final favorit = favoritFromJson(jsonString);
+//     final bookFavorit = bookFavoritFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Favorit> favoritFromJson(String str) => List<Favorit>.from(json.decode(str).map((x) => Favorit.fromJson(x)));
+List<BookFavorit> bookFavoritFromJson(String str) => List<BookFavorit>.from(json.decode(str).map((x) => BookFavorit.fromJson(x)));
 
-String favoritToJson(List<Favorit> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String bookFavoritToJson(List<BookFavorit> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Favorit {
-    Model model;
-    int pk;
-    Fields fields;
+class BookFavorit {
+    int user;
+    Book books;
+    String nameCategory;
+    bool isFavorit;
 
-    Favorit({
-        required this.model,
-        required this.pk,
-        required this.fields,
+    BookFavorit({
+        required this.user,
+        required this.books,
+        required this.nameCategory,
+        required this.isFavorit,
     });
 
-    factory Favorit.fromJson(Map<String, dynamic> json) => Favorit(
-        model: modelValues.map[json["model"]]!,
-        pk: json["pk"],
-        fields: Fields.fromJson(json["fields"]),
+    factory BookFavorit.fromJson(Map<String, dynamic> json) => BookFavorit(
+        user: json["user"],
+        books: Book.fromJson(json["books"]),
+        nameCategory: json["name_category"],
+        isFavorit: json["is_favorit"],
     );
 
     Map<String, dynamic> toJson() => {
-        "model": modelValues.reverse[model],
-        "pk": pk,
-        "fields": fields.toJson(),
+        "user": user,
+        "books": books.toJson(),
+        "name_category": nameCategory,
+        "is_favorit": isFavorit,
     };
 }
 
-class Fields {
+class Book {
+    int id;
     String bookAuthors;
-    String? bookDesc;
+    String bookDesc;
     String? bookEdition;
-    BookFormat bookFormat;
-    String? bookIsbn;
+    String bookFormat;
+    String bookIsbn;
     String bookPages;
     double bookRating;
     int bookRatingCount;
@@ -46,7 +51,8 @@ class Fields {
     String genres;
     String imageUrl;
 
-    Fields({
+    Book({
+        required this.id,
         required this.bookAuthors,
         required this.bookDesc,
         required this.bookEdition,
@@ -61,11 +67,12 @@ class Fields {
         required this.imageUrl,
     });
 
-    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+    factory Book.fromJson(Map<String, dynamic> json) => Book(
+        id: json["id"],
         bookAuthors: json["book_authors"],
         bookDesc: json["book_desc"],
         bookEdition: json["book_edition"],
-        bookFormat: bookFormatValues.map[json["book_format"]]!,
+        bookFormat: json["book_format"],
         bookIsbn: json["book_isbn"],
         bookPages: json["book_pages"],
         bookRating: json["book_rating"]?.toDouble(),
@@ -77,10 +84,11 @@ class Fields {
     );
 
     Map<String, dynamic> toJson() => {
+        "id": id,
         "book_authors": bookAuthors,
         "book_desc": bookDesc,
         "book_edition": bookEdition,
-        "book_format": bookFormatValues.reverse[bookFormat],
+        "book_format": bookFormat,
         "book_isbn": bookIsbn,
         "book_pages": bookPages,
         "book_rating": bookRating,
@@ -90,38 +98,4 @@ class Fields {
         "genres": genres,
         "image_url": imageUrl,
     };
-}
-
-enum BookFormat {
-    EBOOK,
-    HARDCOVER,
-    MASS_MARKET_PAPERBACK,
-    PAPERBACK
-}
-
-final bookFormatValues = EnumValues({
-    "ebook": BookFormat.EBOOK,
-    "Hardcover": BookFormat.HARDCOVER,
-    "Mass Market Paperback": BookFormat.MASS_MARKET_PAPERBACK,
-    "Paperback": BookFormat.PAPERBACK
-});
-
-enum Model {
-    BOOK_BOOK
-}
-
-final modelValues = EnumValues({
-    "book.book": Model.BOOK_BOOK
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }
 }

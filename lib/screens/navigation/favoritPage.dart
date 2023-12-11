@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:readhub/models/bookFavorit.dart';
 import 'package:readhub/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/widgets/navbar.dart';
-import 'package:readhub/screens/navigation/home.dart';
-import 'package:readhub/screens/navigation/explore.dart';
-import 'package:readhub/screens/navigation/mybook.dart';
-import 'package:readhub/screens/navigation/profile.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:readhub/models/book.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:readhub/screens/flow/detail_book.dart';
+// import 'package:readhub/widgets/book_widget.dart';
+import 'package:readhub/widgets/favorit_book_widget.dart';
 
 
 class FavoritScreen extends StatefulWidget {
@@ -29,35 +25,31 @@ class FavoritScreen extends StatefulWidget {
 
 
 class _FavoritScreenState extends State<FavoritScreen> {
-  Future<List<Book>> fetchProduct() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-    var url = Uri.parse(
-        'https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
-    var response = await http.get(
-        url,
-        headers: {"Content-Type": "application/json"},
+  List<BookFavorit> myBooks = []; // Deklarasikan variabel di luar ListView.builder
+  Future<List<BookFavorit>> fetchProduct(request) async {
+    var response = await request.get(
+      'http://localhost:8000/category/json/'
     );
+    List<BookFavorit> listProduct = [];
 
-    // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // melakukan konversi data json menjadi object Product
-    List<Book> list_product = [];
-    for (var d in data) {
-        if (d != null) {
-            list_product.add(Book.fromJson(d));
-        }
+    for (var d in response) {
+      if (d != null) {
+        listProduct.add(BookFavorit.fromJson(d));
+      }
     }
-    return list_product;
+    myBooks = listProduct;
+    print(listProduct);
+    return listProduct;
   }
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       backgroundColor: Warna.background,
       bottomNavigationBar: BottomNavBar(index: 1),
       body: FutureBuilder(
-          future: fetchProduct(),
+          future: fetchProduct(request),
           builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                   return const Center(child: CircularProgressIndicator());
@@ -100,14 +92,6 @@ class _FavoritScreenState extends State<FavoritScreen> {
                           // ),
                         ),
                       ),
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: EdgeInsets.all(16.0),
-                    sliver: SliverList(
-                      delegate: SliverChildListDelegate([
-                        // ... (Input dan Tombol Cari)
-                      ]),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -186,142 +170,29 @@ class _FavoritScreenState extends State<FavoritScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 35),
-                        
                         Container(
-                          height: 280, // Sesuaikan tinggi container dengan kebutuhan
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return InkWell(
-                                onTap: () {
-                                  // Get the selected book
-                                    Book selectedBook = snapshot.data![index];
-
-                                    // Navigate to the second page and pass the selected book's data
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DetailScreen(book: selectedBook),
-                                      ),
-                                    );
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.all(8.0),
-                                  width: 152.0,
-                                  decoration: BoxDecoration(
-                                    color: Warna.backgroundlight,
-                                    borderRadius: BorderRadius.circular(18.3132534027),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Color(0x05a3a3a3),
-                                        offset: Offset(3.6626505852, 3.6626505852),
-                                        blurRadius: 9.1566267014,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        height: 200,
-                                        decoration: BoxDecoration(
-                                          color: Warna.backgroundlight,
-                                          borderRadius: BorderRadius.circular(9.99081707),
-                                        ),
-                                        child: Stack(
-                                          children: [
-                                            Positioned(
-                                              left: 0,
-                                              top: 0,
-                                              right: 0,
-                                              bottom: 0,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: SizedBox(
-                                                  width: 137.91,
-                                                  height: 185,
-                                                  child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10.0), // Sesuaikan nilai border radius
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: "${snapshot.data![index].fields.imageUrl}",
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Positioned(
-                                              
-                                              right: 4, // Sesuaikan dengan posisi yang Anda inginkan
-                                              top: 4, // Sesuaikan dengan posisi yang Anda inginkan
-                                              child: Align(
-                                                alignment: Alignment.topRight,
-                                                child: SizedBox(
-                                                  width: 32,
-                                                  height: 32,
-                                                  child: Image.asset(
-                                                    'assets/icons/love.png',
-                                                    width: 32,
-                                                    height: 32,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        width: double.infinity,
-                                        color: Warna.backgroundlight,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 10), // Tambahkan padding di sini
-                                              margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
-                                              constraints: const BoxConstraints(
-                                                maxWidth: 135,
-                                              ),
-                                              child: Text(
-                                                "${snapshot.data![index].fields.bookTitle.length > 25 ? snapshot.data![index].fields.bookTitle.substring(0, 25) + '...' : snapshot.data![index].fields.bookTitle}",
-                                                style: TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                  height: 1.3333333333,
-                                                  color: Color(0xffffffff),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 10), // Tambahkan padding di sini
-                                              child: Text(
-                                                "${snapshot.data![index].fields.bookAuthors.length > 20 ? snapshot.data![index].fields.bookAuthors.substring(0, 20) + '...' : snapshot.data![index].fields.bookAuthors}",
-                                                style: TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.6,
-                                                  color: Color(0xffb6b6b6),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                    ),])
+                        padding: EdgeInsets.symmetric(horizontal: 16.0), // Tambahkan padding ke kanan dan kiri
+                        child: Column(
+                          children: [
+                            Text(
+                              "All Books",
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Warna.white,
+                              )
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              // Container atas
+                              height: 290,
+                              child: BookListView(books: myBooks),
+                            ),
+                        ],
+                        )
                   ),
                 ],
-              );
+              ))],);
                   }
               }
           }));
