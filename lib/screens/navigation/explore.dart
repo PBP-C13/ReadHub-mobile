@@ -22,16 +22,14 @@ class ExploreScreen extends StatefulWidget {
   State<ExploreScreen> createState() => _ExploreScreenState();
 }
 
-// class Favorit {
-//   final Book book; //objek buku yg difavorit
-//   final String description;
-
-//   Favorit(this.book, this.description);
-// }
-
 
 class _ExploreScreenState extends State<ExploreScreen> {
-  List<Book> myBooks = []; // Deklarasikan variabel di luar ListView.builder
+  List<Book> myBooks = [];
+  List<Book> fantasy = []; 
+  List<Book> romance = []; 
+  String selectedGenre = "All Books"; // Nilai default
+  List<String> genres = ["All Books", "Fantasy", "Romance"];
+
 
   Future<List<Book>> fetchProduct() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
@@ -53,6 +51,31 @@ class _ExploreScreenState extends State<ExploreScreen> {
         }
     }
     myBooks = list_product;
+
+    for (var book in list_product) {
+      // Check if the book has at least one common genre with the target book
+      List<String> commonGenres = book.fields.genres.split('|')
+          .where((genre) =>
+              book.fields.genres.split('|').contains("Fantasy"))
+          .toList();
+
+      if (commonGenres.isNotEmpty) {
+        fantasy.add(book);
+      }
+    }
+
+    for (var book in list_product) {
+      // Check if the book has at least one common genre with the target book
+      List<String> commonGenres = book.fields.genres.split('|')
+          .where((genre) =>
+              book.fields.genres.split('|').contains("Romance"))
+          .toList();
+
+      if (commonGenres.isNotEmpty) {
+        romance.add(book);
+      }
+    }
+
     return list_product;
   }
   
@@ -162,8 +185,26 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         ],
                                       ),
                                     ),
-                                    TextButton(
-                                      onPressed: () {},
+                                    Container(
+                                      child: TextButton(
+                                      onPressed: () {
+                                        showMenu(
+                                              context: context,
+                                              position: RelativeRect.fromLTRB(250, 250, 250, 250),
+                                              items: genres.map((String genre) {
+                                                return PopupMenuItem<String>(
+                                                  value: genre,
+                                                  child: Text(genre),
+                                                );
+                                              }).toList(),
+                                            ).then((value) {
+                                              if (value != null) {
+                                                setState(() {
+                                                  selectedGenre = value;
+                                                });
+                                              }
+                                            });
+                                      },
                                       style: TextButton.styleFrom(
                                         padding: EdgeInsets.zero,
                                       ),
@@ -178,6 +219,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         ),
                                       ),
                                     ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -216,9 +258,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             Container(
                               // Container bawah
                               height: 290,
-                              child: BookListView(books: myBooks),
+                              child: BookListView(books: romance),
                             ),
                             SizedBox(height: 40),
+                            
                             Text(
                               "Fantasy",
                               style: GoogleFonts.poppins(
@@ -231,7 +274,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             Container(
                               // Container bawah
                               height: 290,
-                              child: BookListView(books: myBooks),
+                              child: BookListView(books: fantasy),
                             ),
                           ],
                         ),

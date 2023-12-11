@@ -7,6 +7,7 @@ import 'dart:convert';
 //import 'package:readhub/models/book.dart';
 import 'package:readhub/screens/flow/detail_book.dart';
 import 'package:readhub/models/bookFavorit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class BookFavoritWidget extends StatelessWidget {
@@ -76,25 +77,16 @@ class BookFavoritWidget extends StatelessWidget {
                     top: 4,
                     child: Align(
                       alignment: Alignment.topRight,
-                      child: InkWell(
+                      child: GestureDetector(
                         onTap: () {
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return YourLoveFormWidget();
-                          //   },
-                          // );
+                          var url = Uri.parse('https://readhub-c13-tk.pbp.cs.ui.ac.id/delete-favorit-flutter/<int:id>/'); // Ganti dengan URL yang diinginkan
+                          launchUrl(url);
                         },
-                        child: SizedBox(
-                          width: 32,
-                          height: 32,
-                          child: Image.asset(
-                            'assets/icons/love.png',
-                            width: 32,
-                            height: 32,
-                          ),
+                        child: Container(
+                          // Widget atau tampilan tombol
+                          child: Text('Redirect to Website'),
                         ),
-                      ),
+                      )
                     ),
                   ),
                 ],
