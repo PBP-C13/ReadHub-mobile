@@ -290,6 +290,9 @@ class MyBookCard extends StatelessWidget {
                 child: InkResponse(
                   onTap: () {
                     // Handle button press action
+                     ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text("Berhasil mengembalikan buku ${borrowedBook.book.bookTitle}!"),
+                        ));
                     _returnBook(context, request, borrowedBook);
                   },
                   borderRadius: BorderRadius.circular(20),
