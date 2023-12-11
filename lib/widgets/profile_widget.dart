@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readhub/screens/auth/onboarding.dart';
 import 'package:readhub/screens/navigation/explore.dart';
+import 'package:readhub/screens/navigation/favoritPage.dart';
 import 'package:readhub/screens/navigation/home.dart';
 import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/styles/colors.dart';
@@ -58,7 +59,7 @@ class _ProfileSectionState extends State<ProfileSection> {
                   }),
                   SizedBox(height: 24),
                   _buildProfileOption("Favorite Book", "assets/icons/Favorite Book.png", () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ExploreScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => FavoritScreen()));
                   }),
                   SizedBox(height: 24),
                   _buildProfileOption("Privacy Policy", "assets/icons/Privacy Policy.png", () {

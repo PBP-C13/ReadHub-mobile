@@ -4,26 +4,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readhub/styles/colors.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:readhub/models/book.dart';
+// import 'package:readhub/models/book.dart';
 import 'package:readhub/screens/flow/detail_book.dart';
-import 'package:readhub/widgets/favorit_form.dart';
+import 'package:readhub/models/bookFavorit.dart';
 
 
-class BookWidget extends StatelessWidget {
-  final Book book;
+class BookFavoritWidget extends StatelessWidget {
+  final BookFavorit bookFavorit;
 
-  BookWidget({required this.book});
+  BookFavoritWidget({required this.bookFavorit});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailScreen(book: book),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => DetailScreen(book: bookFavorit.books),
+        //   ),
+        // );
       },
       child: Container(
         margin: EdgeInsets.all(8.0),
@@ -64,7 +64,7 @@ class BookWidget extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
                           child: CachedNetworkImage(
-                            imageUrl: "${book.fields.imageUrl}",
+                            imageUrl: "${bookFavorit.books.imageUrl}",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -78,12 +78,12 @@ class BookWidget extends StatelessWidget {
                       alignment: Alignment.topRight,
                       child: InkWell(
                         onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FavoritForm(book: book),
-                              ),
-                            );
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (BuildContext context) {
+                          //     return YourLoveFormWidget();
+                          //   },
+                          // );
                         },
                         child: SizedBox(
                           width: 32,
@@ -113,7 +113,7 @@ class BookWidget extends StatelessWidget {
                       maxWidth: 135,
                     ),
                     child: Text(
-                      "${book.fields.bookTitle.length > 25 ? book.fields.bookTitle.substring(0, 25) + '...' : book.fields.bookTitle}",
+                      "${bookFavorit.books.bookTitle.length > 25 ? bookFavorit.books.bookTitle.substring(0, 25) + '...' : bookFavorit.books.bookTitle}",
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 12,
@@ -126,7 +126,7 @@ class BookWidget extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      "${book.fields.bookAuthors != null && book.fields.bookAuthors!.length > 20 ? book.fields.bookAuthors!.substring(0, 20) + '...' : book.fields.bookAuthors ?? ''}",
+                      "${bookFavorit.books.bookAuthors != null && bookFavorit.books.bookAuthors!.length > 20 ? bookFavorit.books.bookAuthors!.substring(0, 20) + '...' : bookFavorit.books.bookAuthors ?? ''}",
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 10,
@@ -147,7 +147,7 @@ class BookWidget extends StatelessWidget {
 }
 
 class BookListView extends StatelessWidget {
-  final List<Book> books;
+  final List<BookFavorit> books;
 
   BookListView({required this.books});
 
@@ -157,7 +157,7 @@ class BookListView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: books.length,
       itemBuilder: (BuildContext context, int index) {
-        return BookWidget(book: books[index]);
+        return BookFavoritWidget(bookFavorit: books[index]);
       },
     );
   }
