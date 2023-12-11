@@ -92,6 +92,7 @@ flutter:
   - assets/icons/Favorite Book.png
   - assets/icons/Privacy Policy.png
   - assets/icons/Logout.png
+  - assets/icons/Bag.png
 
   # - assets\images\Profile.png
   # - assets\images\Community.png
