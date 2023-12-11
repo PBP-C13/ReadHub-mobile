@@ -28,7 +28,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
   List<BookFavorit> myBooks = []; // Deklarasikan variabel di luar ListView.builder
   Future<List<BookFavorit>> fetchProduct(request) async {
     var response = await request.get(
-      'http://localhost:8000/category/json/'
+      'https://readhub-c13-tk.pbp.cs.ui.ac.id/category/json/'
     );
     List<BookFavorit> listProduct = [];
 

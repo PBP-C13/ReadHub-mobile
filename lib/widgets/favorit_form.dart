@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:readhub/screens/flow/detail_book.dart';
-import 'package:readhub/models/detail.dart';
 import 'package:readhub/models/book.dart';
 import 'package:readhub/screens/navigation/explore.dart';
 import 'package:readhub/styles/colors.dart';
@@ -20,12 +18,12 @@ class FavoritForm extends StatefulWidget {
 class _FavoritFormState extends State<FavoritForm> {
   final _formKey = GlobalKey<FormState>();
   bool _isFavorit = true; // Default to Yes
-  late String _book;
+  late Book _book;
 
   @override
   void initState() {
     super.initState();
-    _book = widget.book.fields.bookTitle;
+    _book = widget.book;
   }
 
   @override
@@ -84,8 +82,8 @@ class _FavoritFormState extends State<FavoritForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final response = await request.postJson(
-                          "http://localhost:8000/category/add-favorit-flutter/${widget.book.pk}/",
-                          jsonEncode(<String, dynamic>{
+                          "https://readhub-c13-tk.pbp.cs.ui.ac.id/category/add-favorit-flutter/${widget.book.pk}/",
+                          jsonEncode(<dynamic, dynamic>{
                             'book': _book,
                             'isFavorit': _isFavorit,
                           }),
@@ -99,11 +97,22 @@ class _FavoritFormState extends State<FavoritForm> {
                             context,
                             MaterialPageRoute(builder: (context) => ExploreScreen()),
                           );
-                        } else {
+                        } else if(response['status'] == 'error'){
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Terdapat kesalahan, silakan coba lagi."),
+                            content: Text("Buku ini sudah berada di list Favorit"),
                           ));
-                        }
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => ExploreScreen()),
+                          );
+                        }else if(response['status'] == 'no'){
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Buku tidak ditambahkan ke list Favorit"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => ExploreScreen()),
+                          );}
                       }
                     },
                     child: const Text(
