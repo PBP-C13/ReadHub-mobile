@@ -10,7 +10,7 @@ import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/styles/colors.dart';
 
 class MyBookCard extends StatelessWidget {
-   final BorrowedBook borrowedBook;
+  final BorrowedBook borrowedBook;
   MyBookCard({Key? key, required this.borrowedBook}) : super(key: key);
 
   Route _createRoute(Widget page) {
