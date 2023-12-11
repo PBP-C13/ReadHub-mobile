@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:readhub/models/book.dart';
+import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/styles/colors.dart';
 
 class BorrowScreen extends StatefulWidget {
@@ -37,7 +42,9 @@ class _BorrowScreenState extends State<BorrowScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
+      
       backgroundColor: Warna.background,
       appBar: AppBar(
         title: Text(
@@ -108,7 +115,11 @@ class _BorrowScreenState extends State<BorrowScreen> {
                               ),
                             ),
                             Text(
-                              'by ${_book.fields.bookAuthors}',
+                              'by ${
+                                (_book.fields.bookAuthors.length) > 18
+                                    ? (_book.fields.bookAuthors.substring(0, 18).replaceAll("|", ", ")) + '...'
+                                    : _book.fields.bookAuthors.replaceAll("|", ", ")
+                              }',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                 fontSize: 14,
@@ -194,7 +205,26 @@ class _BorrowScreenState extends State<BorrowScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final response = await request.postJson(
+                      "https://readhub-c13-tk.pbp.cs.ui.ac.id/borrow_flow/borrow_book_flutter/",
+                      jsonEncode(<String, dynamic>{
+                        'borrow_duration': _days.toString(),
+                        'book_title': _book.fields.bookTitle,
+                        'return_date' : DateTime.now().add(Duration(days: _days)).toString(),
+                      }));
+                    if(response['status'] == 'success'){
+                      ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text("Buku berhasil dipinjam!"),
+                        ));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyBookScreen(),
+                          ),
+                        );   
+                    }
+                  },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                   ),

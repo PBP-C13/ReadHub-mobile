@@ -121,7 +121,11 @@ class MyBookCard extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'by: ${borrowedBook.book.bookAuthors}',
+                                            'by ${
+                                              (borrowedBook.book.bookAuthors.length) > 18
+                                                  ? (borrowedBook.book.bookAuthors.substring(0, 18).replaceAll("|", ", ")) + '...'
+                                                  : borrowedBook.book.bookAuthors.replaceAll("|", ", ")
+                                            }',
                                             style: GoogleFonts.poppins(
                                               fontSize: 12 ,
                                               fontWeight: FontWeight.w500,
