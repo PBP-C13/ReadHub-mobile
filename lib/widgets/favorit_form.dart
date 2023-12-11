@@ -52,7 +52,7 @@ class _FavoritFormState extends State<FavoritForm> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Text("Do you recommend this book?"),
+                    Text("Apakah anda ingin menambahkan buku ini ke list favorit?"),
                     Radio(
                       value: true,
                       groupValue: _isFavorit,

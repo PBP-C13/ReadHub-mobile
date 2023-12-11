@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:readhub/models/bookFavorit.dart';
 import 'package:readhub/styles/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:readhub/widgets/navbar.dart';
-// import 'package:readhub/widgets/book_widget.dart';
 import 'package:readhub/widgets/favorit_book_widget.dart';
-
+import 'package:readhub/widgets/navbar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:readhub/models/bookFavorit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:readhub/screens/flow/detail_book.dart';
 
 class FavoritScreen extends StatefulWidget {
   const FavoritScreen({super.key});
-
   @override
   State<FavoritScreen> createState() => _FavoritScreenState();
 }
-
-// class Favorit {
-//   final Book book; //objek buku yg difavorit
-//   final String description;
-
-//   Favorit(this.book, this.description);
-// }
 
 
 class _FavoritScreenState extends State<FavoritScreen> {
@@ -33,6 +27,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
 
     );
     List<BookFavorit> listProduct = [];
+    print(response);
 
     for (var d in response) {
       if (d != null) {
@@ -70,8 +65,8 @@ class _FavoritScreenState extends State<FavoritScreen> {
               } else {
                 TextEditingController myController = TextEditingController();
                 return CustomScrollView(
-                  slivers:[
-                    SliverToBoxAdapter(
+                  slivers: [
+                   SliverToBoxAdapter(
                     child: Container(
                       height: 280.0,
                       decoration: BoxDecoration(
@@ -95,9 +90,9 @@ class _FavoritScreenState extends State<FavoritScreen> {
                         ),
                       ),
                     ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: Column(
+                    ),
+                    SliverToBoxAdapter(
+                      child: Column(
                       children: [
                         SizedBox(height: 15),
                         Container(
@@ -172,29 +167,25 @@ class _FavoritScreenState extends State<FavoritScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0), // Tambahkan padding ke kanan dan kiri
-                        child: Column(
-                          children: [
-                            Text(
-                              "All Books",
-                              style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Warna.white,
-                              )
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              // Container atas
-                              height: 290,
-                              child: BookListView(books: myBooks),
-                            ),
-                        ],
-                        )
-                  ),
-                ],
-              ))],);
+                        SizedBox(height: 15),
+                        ])
+                    ),
+                    SliverGrid(
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 240.0,
+                          crossAxisSpacing: 1.0,
+                          mainAxisSpacing: 1.0,
+                          childAspectRatio: 0.59,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return BookFavoritWidget(bookFavorit: myBooks[index]);    
+                          },
+                          childCount: snapshot.data!.length,
+                        ),
+                      ),
+                  ],
+                );
                   }
               }
           }));
