@@ -56,18 +56,47 @@ class _MyBookScreenState extends State<MyBookScreen> {
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return const Center(child: CircularProgressIndicator());
-          } else {
-            if (!snapshot.hasData) {
-              return const Column(
+          } else if(snapshot.data!.length == 0){
+            return Stack(
                 children: [
-                  Text(
-                    "You currently have no books",
-                    style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                  ListView(
+                    children: [
+                      Positioned.fill(
+                        child: Image.asset(
+                          'assets/images/YourBook.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      // SizedBox(height: 28.0),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: 1,
+                        itemBuilder: (_, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 56.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Center(
+                                child: Text(
+                                  'You currently have no books.',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.5,
+                                    color: Warna.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 8),
                 ],
               );
-            } else {
+          } else {
               return Stack(
                 children: [
                   ListView(
@@ -84,7 +113,7 @@ class _MyBookScreenState extends State<MyBookScreen> {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) {
-                           return Padding(
+                            return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 12.0),
                           child: MyBookCard(borrowedBook: snapshot.data![index])
                         );
@@ -95,7 +124,6 @@ class _MyBookScreenState extends State<MyBookScreen> {
                 ],
               );
             }
-          }
         },
       ),
       bottomNavigationBar: BottomNavBar(index: 3),
