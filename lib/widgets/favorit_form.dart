@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:readhub/screens/flow/detail_book.dart';
+import 'package:readhub/models/detail.dart';
 import 'package:readhub/models/book.dart';
 import 'package:readhub/screens/navigation/explore.dart';
 import 'package:readhub/styles/colors.dart';
@@ -97,6 +99,7 @@ class _FavoritFormState extends State<FavoritForm> {
                             context,
                             MaterialPageRoute(builder: (context) => ExploreScreen()),
                           );
+
                         } else if(response['status'] == 'error'){
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text("Buku ini sudah berada di list Favorit"),
