@@ -89,9 +89,9 @@ class BookWidget extends StatelessWidget {
                           width: 32,
                           height: 32,
                           child: Image.asset(
-                            'assets/icons/love.png',
-                            width: 32,
-                            height: 32,
+                            'assets/icons/Favorite.png',
+                            width: 36,
+                            height: 36,
                           ),
                         ),
                       ),

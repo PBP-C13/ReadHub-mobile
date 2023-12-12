@@ -151,7 +151,7 @@ class _HomescreenState extends State<Homescreen> {
                               child: Text(
                                 'Explore Buku Favoritmu!',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 26,
+                                  fontSize: 24,
                                   fontWeight: FontWeight.w800,
                                   height: 1.3333333333,
                                   color: Color(0xffffffff),
