@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:readhub/models/user.dart';
 import 'package:readhub/screens/auth/onboarding.dart';
 import 'package:readhub/screens/navigation/explore.dart';
 import 'package:readhub/screens/navigation/favoritPage.dart';
 import 'package:readhub/screens/navigation/home.dart';
 import 'package:readhub/screens/navigation/mybook.dart';
+import 'package:readhub/screens/other/edit_user.dart';
 import 'package:readhub/styles/colors.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -54,8 +56,8 @@ class _ProfileSectionState extends State<ProfileSection> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _buildProfileOption("Edit Profile", "assets/icons/Edit Profile.png", () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Homescreen()));
+                  _buildProfileOption("Edit Display Name", "assets/icons/Edit Profile.png", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>EditProfile(usernameController:  TextEditingController(text: userlogin,))));
                   }),
                   SizedBox(height: 24),
                   _buildProfileOption("Favorite Book", "assets/icons/Favorite Book.png", () {

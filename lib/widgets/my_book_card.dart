@@ -10,7 +10,7 @@ import 'package:readhub/screens/navigation/mybook.dart';
 import 'package:readhub/styles/colors.dart';
 
 class MyBookCard extends StatelessWidget {
-   final BorrowedBook borrowedBook;
+  final BorrowedBook borrowedBook;
   MyBookCard({Key? key, required this.borrowedBook}) : super(key: key);
 
   Route _createRoute(Widget page) {
@@ -121,7 +121,11 @@ class MyBookCard extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'by: ${borrowedBook.book.bookAuthors}',
+                                            'by ${
+                                              (borrowedBook.book.bookAuthors.length) > 18
+                                                  ? (borrowedBook.book.bookAuthors.substring(0, 18).replaceAll("|", ", ")) + '...'
+                                                  : borrowedBook.book.bookAuthors.replaceAll("|", ", ")
+                                            }',
                                             style: GoogleFonts.poppins(
                                               fontSize: 12 ,
                                               fontWeight: FontWeight.w500,
@@ -286,6 +290,9 @@ class MyBookCard extends StatelessWidget {
                 child: InkResponse(
                   onTap: () {
                     // Handle button press action
+                     ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text("Berhasil mengembalikan buku ${borrowedBook.book.bookTitle}!"),
+                        ));
                     _returnBook(context, request, borrowedBook);
                   },
                   borderRadius: BorderRadius.circular(20),
