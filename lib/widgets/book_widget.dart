@@ -8,7 +8,6 @@ import 'package:readhub/models/book.dart';
 import 'package:readhub/screens/flow/detail_book.dart';
 import 'package:readhub/widgets/favorit_form.dart';
 
-
 class BookWidget extends StatelessWidget {
   final Book book;
 

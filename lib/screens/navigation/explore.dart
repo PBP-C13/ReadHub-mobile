@@ -24,15 +24,28 @@ class ExploreScreen extends StatefulWidget {
 
 
 class _ExploreScreenState extends State<ExploreScreen> {
+  TextEditingController searchController = TextEditingController();
+  List<Book> filteredProducts = [];
+  String selectedCategory = 'All Categories';
   List<Book> myBooks = [];
   List<Book> fantasy = []; 
   List<Book> romance = [];
   List<Book> history = [];
   List<Book> classic = [];
   List<Book> childrens = []; 
-  String selectedGenre = "All Books"; // Nilai default
-  List<String> genres = ["All Books", "Fantasy", "Romance", "Childrens", "Historical", "Classics"];
+  List<String> genres = ['All Categories'];
 
+  @override
+  void initState() {
+    super.initState();
+    fetchProduct().then((products) {
+      setState(() {
+        myBooks = products;
+        filteredProducts = myBooks;
+        updateCategories(); // Update the category list
+      });
+    });
+  }
 
   Future<List<Book>> fetchProduct() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
@@ -116,13 +129,62 @@ class _ExploreScreenState extends State<ExploreScreen> {
       }
     }
 
-
     return list_product;
   }
+
+  void filterSearchResults(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        filteredProducts = myBooks;
+      });
+      return;
+    }
+
+    List<Book> dummyListData = [];
+    myBooks.forEach((item) {
+      if (item.fields.bookTitle.toLowerCase().contains(query.toLowerCase()) || item.fields.bookAuthors.toLowerCase().contains(query.toLowerCase())) {
+        dummyListData.add(item);
+      }
+    });
+
+    setState(() {
+      filteredProducts = dummyListData;
+    });
+
+  }
   
+  void updateCategories() {
+    Set<String> uniqueCategories = {'All Categories'};
+    for (var product in myBooks) {
+      for(var gen in product.fields.genres.split('|')){
+        if(gen=="Romance" || gen=="Fantasy" || gen=="Classics" || gen=="Historical" || gen=="Childrens"){
+          uniqueCategories.add(gen);}
+      }
+    }
+    setState(() {
+      genres = uniqueCategories.toList();
+      genres.sort(); // Sort the categories
+    });
+  }
+
+  void filterByCategory() {
+    if (selectedCategory == 'All Categories') {
+      setState(() {
+        filteredProducts = myBooks;
+      });
+    } else {
+      List<Book> categoryProducts = myBooks
+          .where((product) => product.fields.genres.split('|').contains(selectedCategory))
+          .toList();
+      setState(() {
+        filteredProducts = categoryProducts;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Warna.background,
       bottomNavigationBar: BottomNavBar(index: 1),
@@ -144,7 +206,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       ],
                   );
               } else {
-                TextEditingController myController = TextEditingController();
                 return CustomScrollView(
                   slivers:[
                     SliverToBoxAdapter(
@@ -210,6 +271,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                             width: 200,
                                             child: TextField(
                                               style: TextStyle(color: Colors.white), // Atur warna teks menjadi putih
+                                              controller: searchController,
+                                              onChanged: filterSearchResults,
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                                 focusedBorder: InputBorder.none,
@@ -235,13 +298,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                               items: genres.map((String genre) {
                                                 return PopupMenuItem<String>(
                                                   value: genre,
+                                                  
                                                   child: Text(genre),
                                                 );
                                               }).toList(),
                                             ).then((value) {
                                               if (value != null) {
                                                 setState(() {
-                                                  selectedGenre = value;
+                                                  selectedCategory = value;
+                                                  filterByCategory(); // Filter products by category
                                                 });
                                               }
                                             });
@@ -260,6 +325,40 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         ),
                                       ),
                                     ),
+//                                     child: ElevatedButton(
+//   onPressed: () {
+//     // Tampilkan dropdown saat button ditekan
+//     showMenu(
+//       context: context,
+//       position: RelativeRect.fromLTRB(0, 0, 0, 0),
+//       items: genres.map((String value) {
+//         return PopupMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     ).then((value) {
+//       if (value != null) {
+//         setState(() {
+//           selectedCategory = value;
+//           filterByCategory(); // Filter products by category
+//         });
+//       }
+//     });
+//   },
+//   child: Container(
+//     padding: EdgeInsets.symmetric(horizontal: 16.0),
+//     child: Row(
+//       children: [
+//         Text("Category: "),
+//         SizedBox(width: 8.0),
+//         Text(selectedCategory),
+//         Icon(Icons.arrow_drop_down),
+//       ],
+//     ),
+//   ),
+// ),
+
                                     )
                                   ],
                                 ),
@@ -284,7 +383,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             Container(
                               // Container atas
                               height: 290,
-                              child: BookListView(books: myBooks),
+                              child: BookListView(books: filteredProducts),
                             ),
                             SizedBox(height: 40),
                             Text(
@@ -375,4 +474,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
               }
           }));
         }
-      }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+}
