@@ -115,11 +115,7 @@ class BookFavoritWidget extends StatelessWidget {
                         child: SizedBox(
                           width: 32,
                           height: 32,
-                          child: Image.asset(
-                            'assets/icons/Favorite.png',
-                            width: 36,
-                            height: 36,
-                          ),
+                          child: Icon(Icons.delete, color: Colors.red),
                         ),
                       )
                     ),
