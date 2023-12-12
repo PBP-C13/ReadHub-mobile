@@ -170,9 +170,10 @@ class _FavoritScreenState extends State<FavoritScreen> {
                         SizedBox(height: 15),
                         ])
                     ),
+                    
                     SliverGrid(
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 240.0,
+                          maxCrossAxisExtent: 200.0,
                           crossAxisSpacing: 1.0,
                           mainAxisSpacing: 1.0,
                           childAspectRatio: 0.59,

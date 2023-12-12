@@ -8,15 +8,41 @@ import 'dart:convert';
 import 'package:readhub/screens/flow/detail_book.dart';
 import 'package:readhub/models/bookFavorit.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:readhub/screens/navigation/favoritPage.dart';
 
 class BookFavoritWidget extends StatelessWidget {
   final BookFavorit bookFavorit;
 
   BookFavoritWidget({required this.bookFavorit});
 
+  Route _createRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      transitionDuration: Duration(milliseconds: 600), // Durasi transisi
+    );
+  }
+
+  Future<void> _deleteBook(BuildContext context, CookieRequest request, BookFavorit bookFavorit) async {
+    await request.postJson(
+      'https://readhub-c13-tk.pbp.cs.ui.ac.id/category/delete-favorit-flutter/${bookFavorit.books.id}/',
+      jsonEncode({
+        "id": bookFavorit.books.id,
+      }),
+    );
+    Navigator.of(context).push(_createRoute(const FavoritScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return InkWell(
       onTap: () {
         // Navigator.push(
@@ -28,7 +54,8 @@ class BookFavoritWidget extends StatelessWidget {
       },
       child: Container(
         margin: EdgeInsets.all(8.0),
-        width: 152.0,
+        //width: 152.0,
+        height:150,
         decoration: BoxDecoration(
           color: Warna.backgroundlight,
           borderRadius: BorderRadius.circular(18.3132534027),
@@ -79,12 +106,20 @@ class BookFavoritWidget extends StatelessWidget {
                       alignment: Alignment.topRight,
                       child: GestureDetector(
                         onTap: () {
-                          var url = Uri.parse('https://readhub-c13-tk.pbp.cs.ui.ac.id/delete-favorit-flutter/<int:id>/'); // Ganti dengan URL yang diinginkan
-                          launchUrl(url);
+                          // Handle button press action
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text("Berhasil menghapus buku ${bookFavorit.books.bookTitle}!"),
+                              ));
+                          _deleteBook(context, request, bookFavorit);
                         },
-                        child: Container(
-                          // Widget atau tampilan tombol
-                          child: Text('Redirect to Website'),
+                        child: SizedBox(
+                          width: 32,
+                          height: 32,
+                          child: Image.asset(
+                            'assets/icons/Favorite.png',
+                            width: 36,
+                            height: 36,
+                          ),
                         ),
                       )
                     ),
