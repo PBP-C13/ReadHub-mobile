@@ -26,9 +26,12 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   List<Book> myBooks = [];
   List<Book> fantasy = []; 
-  List<Book> romance = []; 
+  List<Book> romance = [];
+  List<Book> history = [];
+  List<Book> classic = [];
+  List<Book> childrens = []; 
   String selectedGenre = "All Books"; // Nilai default
-  List<String> genres = ["All Books", "Fantasy", "Romance"];
+  List<String> genres = ["All Books", "Fantasy", "Romance", "Childrens", "Historical", "Classics"];
 
 
   Future<List<Book>> fetchProduct() async {
@@ -52,6 +55,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     }
     myBooks = list_product;
 
+    //FANTASY BOOK
     for (var book in list_product) {
       // Check if the book has at least one common genre with the target book
       List<String> commonGenres = book.fields.genres.split('|')
@@ -64,8 +68,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
       }
     }
 
+    //ROMANCE
     for (var book in list_product) {
-      // Check if the book has at least one common genre with the target book
       List<String> commonGenres = book.fields.genres.split('|')
           .where((genre) =>
               book.fields.genres.split('|').contains("Romance"))
@@ -75,6 +79,43 @@ class _ExploreScreenState extends State<ExploreScreen> {
         romance.add(book);
       }
     }
+
+    //HISTORICAL
+    for (var book in list_product) {
+      List<String> commonGenres = book.fields.genres.split('|')
+          .where((genre) =>
+              book.fields.genres.split('|').contains("Historical"))
+          .toList();
+
+      if (commonGenres.isNotEmpty) {
+        history.add(book);
+      }
+    }
+
+    //Children
+    for (var book in list_product) {
+      List<String> commonGenres = book.fields.genres.split('|')
+          .where((genre) =>
+              book.fields.genres.split('|').contains("Childrens"))
+          .toList();
+
+      if (commonGenres.isNotEmpty) {
+        childrens.add(book);
+      }
+    }
+
+    //Fiction
+    for (var book in list_product) {
+      List<String> commonGenres = book.fields.genres.split('|')
+          .where((genre) =>
+              book.fields.genres.split('|').contains("Classics"))
+          .toList();
+
+      if (commonGenres.isNotEmpty) {
+        classic.add(book);
+      }
+    }
+
 
     return list_product;
   }
@@ -261,7 +302,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               child: BookListView(books: romance),
                             ),
                             SizedBox(height: 40),
-                            
                             Text(
                               "Fantasy",
                               style: GoogleFonts.poppins(
@@ -276,6 +316,53 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               height: 290,
                               child: BookListView(books: fantasy),
                             ),
+
+                            SizedBox(height: 40),
+                            Text(
+                              "Historical",
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Warna.white,
+                              )
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              // Container bawah
+                              height: 290,
+                              child: BookListView(books: history),
+                            ),
+
+                            SizedBox(height: 40),
+                            Text(
+                              "Childrens",
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Warna.white,
+                              )
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              // Container bawah
+                              height: 290,
+                              child: BookListView(books: childrens),
+                            ),
+                            SizedBox(height: 40),
+                            Text(
+                              "Classics",
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Warna.white,
+                              )
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              // Container bawah
+                              height: 290,
+                              child: BookListView(books: classic),
+                            ),                            
                           ],
                         ),
                       ),

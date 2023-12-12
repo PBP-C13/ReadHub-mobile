@@ -7,6 +7,7 @@ import 'package:readhub/models/detail.dart';
 import 'package:readhub/models/book.dart';
 import 'package:readhub/screens/navigation/explore.dart';
 import 'package:readhub/styles/colors.dart';
+import 'package:readhub/screens/navigation/favoritPage.dart';
 
 class FavoritForm extends StatefulWidget {
   final Book book;
@@ -48,9 +49,12 @@ class _FavoritFormState extends State<FavoritForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                Padding(
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center, // Menengahkan row di dalam Align
                   children: [
                     Text("Apakah anda ingin menambahkan buku ini ke list favorit?"),
                     Radio(
@@ -75,7 +79,7 @@ class _FavoritFormState extends State<FavoritForm> {
                     Text("No"),
                   ],
                 ),
-              ),
+              )),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
