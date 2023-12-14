@@ -6,6 +6,7 @@ import 'package:readhub/screens/flow/detail_book.dart';
 import 'package:readhub/models/book.dart';
 import 'package:readhub/styles/colors.dart';
 
+
 class ReviewForm extends StatefulWidget {
   final Book book;
 
@@ -33,103 +34,90 @@ class _ReviewFormState extends State<ReviewForm> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
+        title: Center(
           child: Text(
-            'Add Review',
+            _book.length > 50 ? _book.substring(0,50) + "..." : _book,
+             style: TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    ),
+        backgroundColor: Warna.white,
+        foregroundColor: Warna.background,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
         ),
-        backgroundColor: Warna.background,
-        foregroundColor: Warna.white,
       ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            height: 812,
-            child: Stack(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Positioned(
-                  left: 115,
-                  top: 63,
-                  child: Align(
-                    child: SizedBox(
-                      width: 145,
-                      height: 32,
-                      child: Text(
-                        widget.book.fields.bookTitle,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color:  Warna.background,
-                        ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    style: TextStyle(color: Warna.background),
+                    decoration: InputDecoration(
+                      hintText: "Add your Review",
+                      labelText: "Review",
+                      hintStyle: TextStyle(color: Warna.abu),
+                      labelStyle: TextStyle(color: Warna.background),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Warna.background),
                       ),
                     ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _review = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return "Review cannot be empty!";
+                      }
+                      return null;
+                    },
                   ),
                 ),
-                
-                Positioned(
-                  left: 0,
-                  top: 137,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(11, 74, 13, 82.5),
-                    width: 376,
-                    height: 675,
-                    decoration: BoxDecoration(
-                      color: Color(0xff161832),
-                      borderRadius: BorderRadius.circular(40),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    style: TextStyle(color: Warna.background),
+                    decoration: InputDecoration(
+                      hintText: "Your Name",
+                      labelText: "Name",
+                      hintStyle: TextStyle(color: Warna.abu),
+                      labelStyle: TextStyle(color: Warna.background),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Warna.background),
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: "Add your Review",
-                              labelText: "Review",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            onChanged: (String? value) {
-                              setState(() {
-                                _review = value!;
-                              });
-                            },
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return "Review cannot be empty!";
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: "Name",
-                              labelText: "Name",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            onChanged: (String? value) {
-                              setState(() {
-                                _username = value!;
-                              });
-                            },
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return "Name cannot be empty!";
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _username = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return "Name cannot be empty!";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
@@ -183,11 +171,9 @@ class _ReviewFormState extends State<ReviewForm> {
                     ),
                   ),
                 ),
-              ],
+            
             ),
-          ),
-        ),
-      ),
-    );
+          );
+        
   }
 }
