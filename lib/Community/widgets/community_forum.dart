@@ -3,9 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:readhub/models/book.dart';
 import 'package:readhub/Community/models/forum.dart';
-import 'package:readhub/Detail/screens/detail_book.dart';
 import 'package:readhub/Community/screens/community.dart';
 import 'package:readhub/together/style/colors.dart';
 
