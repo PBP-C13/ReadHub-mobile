@@ -8,6 +8,9 @@ import 'package:readhub/models/book.dart';
 import 'package:readhub/Explore/screens/explore.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:readhub/Explore/screens/favoritPage.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+
 
 class FavoritForm extends StatefulWidget {
   final Book book;
@@ -34,29 +37,49 @@ class _FavoritFormState extends State<FavoritForm> {
     final request = context.watch<CookieRequest>();
 
     return Scaffold(
+       backgroundColor: Warna.background,
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Favorit',
+        title: Text(
+          'Add Favorit',
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold, // Poppins Bold
           ),
         ),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Warna.background,
+        backgroundColor: Warna.background,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        centerTitle: true, // Center the title
+        foregroundColor: Warna.white,
       ),
-      body: Form(
+        body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center, // Menengahkan row di dalam Align
+          child: Padding(
+            padding: const EdgeInsets.all(28.0),
+            child: Wrap(
+              direction: Axis.horizontal,
+              spacing: 8.0,
+              runSpacing: 8.0,
+              alignment: WrapAlignment.center,
+              children: [
+                Text(
+                  "Apakah anda ingin menambahkan buku ini ke list favorit?",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("Apakah anda ingin menambahkan buku ini ke list favorit?"),
                     Radio(
                       value: true,
                       groupValue: _isFavorit,
@@ -65,8 +88,11 @@ class _FavoritFormState extends State<FavoritForm> {
                           _isFavorit = value!;
                         });
                       },
+                      activeColor: Warna.cyan,
                     ),
-                    Text("Yes"),
+                    Text("Yes",
+                    style: GoogleFonts.poppins(color: Colors.white),
+                    ),
                     Radio(
                       value: false,
                       groupValue: _isFavorit,
@@ -75,16 +101,29 @@ class _FavoritFormState extends State<FavoritForm> {
                           _isFavorit = value!;
                         });
                       },
+                      activeColor: Warna.cyan,
                     ),
-                    Text("No"),
+                    Text("No",
+                    style: GoogleFonts.poppins(color: Colors.white),
+                    ),
                   ],
                 ),
-              )),
+
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Warna.blue),
+                        // Setting the button height and border radius
+                        minimumSize: MaterialStateProperty.all(Size(double.infinity, 56)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), 
+                          ),
+                        ),
+                      ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final response = await request.postJson(
@@ -122,9 +161,17 @@ class _FavoritFormState extends State<FavoritForm> {
                           );}
                       }
                     },
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white),
+                    child: Center( // Center the text within the button
+                      child: Text(
+                        'Add Favorite', // Button text
+                        style: TextStyle( // Adjust the text style
+                          fontFamily: 'Poppins',
+                          fontSize: 16, // Font size
+                          fontWeight: FontWeight.w700, // Bold text
+                          height: 1.5, // Line height
+                          color: Color(0xffffffff), // Text color (white)
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -133,6 +180,7 @@ class _FavoritFormState extends State<FavoritForm> {
           ),
         ),
       ),
+        ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readhub/Home/models/user.dart';
+import 'package:readhub/Home/screens/privacy_policy.dart';
 import 'package:readhub/auth/screens/onboarding.dart';
 import 'package:readhub/Explore/screens/explore.dart';
 import 'package:readhub/Explore/screens/favoritPage.dart';
@@ -65,7 +66,7 @@ class _ProfileSectionState extends State<ProfileSection> {
                   }),
                   SizedBox(height: 24),
                   _buildProfileOption("Privacy Policy", "assets/icons/Privacy Policy.png", () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyBookScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PrivacyPolicy()));
                   }),
                   SizedBox(height: 24),
                   _buildProfileOption("Logout", "assets/icons/Logout.png", () {

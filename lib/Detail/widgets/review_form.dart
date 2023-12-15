@@ -6,7 +6,6 @@ import 'package:readhub/Detail/screens/detail_book.dart';
 import 'package:readhub/models/book.dart';
 import 'package:readhub/together/style/colors.dart';
 
-
 class ReviewForm extends StatefulWidget {
   final Book book;
 
@@ -33,6 +32,7 @@ class _ReviewFormState extends State<ReviewForm> {
     final request = context.watch<CookieRequest>();
 
     return Scaffold(
+      backgroundColor: Warna.background,
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -44,8 +44,8 @@ class _ReviewFormState extends State<ReviewForm> {
         ),
       ),
     ),
-        backgroundColor: Warna.white,
-        foregroundColor: Warna.background,
+        backgroundColor: Warna.background,
+        foregroundColor: Warna.white,
         leading: Padding(
           padding: EdgeInsets.only(left: 20),
           child: IconButton(
@@ -67,12 +67,14 @@ class _ReviewFormState extends State<ReviewForm> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    style: TextStyle(color: Warna.background),
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: "Add your Review",
                       labelText: "Review",
                       hintStyle: TextStyle(color: Warna.abu),
-                      labelStyle: TextStyle(color: Warna.background),
+                      labelStyle: TextStyle(color: Colors.white),
+                      filled: true, // Mengaktifkan latar belakang terisi
+                      fillColor: Warna.background, // Atur warna latar belakang sesuai kebutuhan Anda 
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                         borderSide: BorderSide(color: Warna.background),
@@ -94,12 +96,14 @@ class _ReviewFormState extends State<ReviewForm> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    style: TextStyle(color: Warna.background),
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: "Your Name",
                       labelText: "Name",
                       hintStyle: TextStyle(color: Warna.abu),
-                      labelStyle: TextStyle(color: Warna.background),
+                      labelStyle: TextStyle(color: Colors.white), 
+                      filled: true, // Mengaktifkan latar belakang terisi
+                      fillColor: Warna.background, // Atur warna latar belakang sesuai kebutuhan Anda
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                         borderSide: BorderSide(color: Warna.background),
@@ -120,17 +124,23 @@ class _ReviewFormState extends State<ReviewForm> {
                 ),
                         Align(
                           alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Warna.background),
-                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(Warna.blue),
+                                    // Setting the button height and border radius
+                                    minimumSize: MaterialStateProperty.all(Size(double.infinity, 56)),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20), 
+                                      ),
+                                    ),
+                                  ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   final response = await request.postJson(
-                                    "http://127.0.0.1:8000/category/detail/${widget.book.pk}/create_review_flutter",
+                                    "http://readhub-c13-tk.pbp.cs.ui.ac.id/category/detail/${widget.book.pk}/create_review_flutter",
                                     jsonEncode(<String, String>{
                                       'book': _book,
                                       'review': _review,
@@ -160,20 +170,26 @@ class _ReviewFormState extends State<ReviewForm> {
                                   }
                                 }
                               },
-                              child: const Text(
-                                "Save",
-                                style: TextStyle(color: Colors.white),
+                              child: Center( // Center the text within the button
+                                child: Text(
+                                  'Save', // Button text
+                                  style: TextStyle( // Adjust the text style
+                                    fontFamily: 'Poppins',
+                                    fontSize: 16, // Font size
+                                    fontWeight: FontWeight.w700, // Bold text
+                                    height: 1.5, // Line height
+                                    color: Color(0xffffffff), // Text color (white)
+                                  ),
+                                ),
                               ),
                             ),
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),
                 ),
-            
             ),
           );
-        
   }
 }

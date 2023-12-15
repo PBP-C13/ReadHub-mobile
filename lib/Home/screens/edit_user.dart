@@ -67,6 +67,16 @@ class EditProfile extends StatelessWidget {
           ),
         ),
         backgroundColor: Warna.background,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
         foregroundColor: Warna.white,
         centerTitle: true,
       ),
