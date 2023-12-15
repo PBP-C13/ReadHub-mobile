@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:readhub/screens/auth/splash.dart';
-import 'package:readhub/screens/menu.dart';
-import 'package:readhub/screens/navigation/community.dart';
-import 'package:readhub/screens/navigation/home.dart';
+import 'package:readhub/auth/screens/splash.dart';
+import 'package:readhub/Community/screens/community.dart';
+import 'package:readhub/Home/screens/home.dart';
 
 void main() {
   runApp(const MyApp());
