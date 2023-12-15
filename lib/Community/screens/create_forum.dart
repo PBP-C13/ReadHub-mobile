@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:readhub/together/style/colors.dart';
-import 'package:readhub/models/book.dart';
+import 'package:readhub/together/models/book.dart';
 
 class CreateForum extends StatefulWidget {
   const CreateForum({super.key});

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:readhub/Borrow/screens/borrow.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:readhub/Explore/widgets/favorit_form.dart';
-import 'package:readhub/models/book.dart';
+import 'package:readhub/together/models/book.dart';
 import 'package:readhub/Detail/models/detail.dart';
 import 'package:readhub/Detail/widgets/review_card.dart';
 import 'package:readhub/Detail/widgets/review_form.dart';

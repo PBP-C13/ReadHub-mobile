@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:readhub/models/book.dart';
+import 'package:readhub/together/models/book.dart';
 
 
 class BookSelector extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:readhub/models/book.dart';
+import 'package:readhub/together/models/book.dart';
 import 'package:readhub/Borrow/screens/mybook.dart';
 import 'package:readhub/together/style/colors.dart';
 
