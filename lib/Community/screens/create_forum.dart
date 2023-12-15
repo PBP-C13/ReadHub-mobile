@@ -87,33 +87,7 @@ class _CreateForumState extends State<CreateForum> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Input untuk forum
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Forum",
-                      labelText: "Forum",
-                      hintStyle: TextStyle(color: Warna.abu),
-                      labelStyle: TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _forumText = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Forum tidak boleh kosong!";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
+               
                 // Dropdown untuk buku
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -153,14 +127,48 @@ class _CreateForumState extends State<CreateForum> {
                       ),
                     ),
                   ),
+                   Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: "Forum",
+                      labelText: "Forum",
+                      hintStyle: TextStyle(color: Warna.abu),
+                      labelStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    onChanged: (String? value) {
+                      setState(() {
+                        _forumText = value!;
+                      });
+                    },
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return "Forum tidak boleh kosong!";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
                 // Tombol simpan
-                Align(
-                  alignment: Alignment.bottomCenter,
+                 Align(
+                alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                        backgroundColor: MaterialStateProperty.all(Warna.blue),
+                        // Setting the button height and border radius
+                        minimumSize: MaterialStateProperty.all(Size(double.infinity, 56)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), 
+                          ),
+                        ),
                       ),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
@@ -182,10 +190,18 @@ class _CreateForumState extends State<CreateForum> {
                           }
                         }
                       },
-                      child: const Text(
-                        "Save",
-                        style: TextStyle(color: Colors.white),
+                     child: Center( // Center the text within the button
+                      child: Text(
+                        'Create Forum', // Button text
+                        style: TextStyle( // Adjust the text style
+                          fontFamily: 'Poppins',
+                          fontSize: 16, // Font size
+                          fontWeight: FontWeight.w700, // Bold text
+                          height: 1.5, // Line height
+                          color: Color(0xffffffff), // Text color (white)
+                        ),
                       ),
+                    ),
                     ),
                   ),
                 ),

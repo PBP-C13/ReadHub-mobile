@@ -21,8 +21,15 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  TextEditingController searchController = TextEditingController();
+  String selectedCategory = 'All Categories';
   List<Book> myBooks = []; // Deklarasikan variabel di luar ListView.builder
+  List<Book> filteredProducts = [];
+  List<Book> childrens = []; 
+  List<String> genres = ['All Categories'];
   Future<List<Book>> fetchProduct() async {
+
+
 
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
@@ -48,6 +55,85 @@ class _HomescreenState extends State<Homescreen> {
   
 
   @override
+
+  // void filterByCategory() {
+  //   if (selectedCategory == 'All Categories') {
+  //     setState(() {
+  //       filteredProducts = myBooks;
+  //     });
+  //   } else {
+  //     List<Book> categoryProducts = myBooks
+  //         .where((product) => product.fields.genres.split('|').contains(selectedCategory))
+  //         .toList();
+  //     setState(() {
+  //       filteredProducts = categoryProducts;
+  //     });
+  //   }
+  // }
+
+
+    void initState() {
+    super.initState();
+    fetchProduct().then((products) {
+      setState(() {
+        myBooks = products;
+        filteredProducts = myBooks;
+        updateCategories(); // Update the category list
+      });
+    });
+  }
+
+  
+  void filterSearchResults(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        filteredProducts = myBooks;
+      });
+      return;
+    }
+
+    List<Book> dummyListData = [];
+    myBooks.forEach((item) {
+      if (item.fields.bookTitle.toLowerCase().contains(query.toLowerCase()) || item.fields.bookAuthors.toLowerCase().contains(query.toLowerCase())) {
+        dummyListData.add(item);
+      }
+    });
+
+    setState(() {
+      filteredProducts = dummyListData;
+    });
+
+  }
+  
+  void updateCategories() {
+    Set<String> uniqueCategories = {'All Categories'};
+    for (var product in myBooks) {
+      for(var gen in product.fields.genres.split('|')){
+        if(gen=="Romance" || gen=="Fantasy" || gen=="Classics" || gen=="Historical" || gen=="Childrens"){
+          uniqueCategories.add(gen);}
+      }
+    }
+    setState(() {
+      genres = uniqueCategories.toList();
+      genres.sort(); // Sort the categories
+    });
+  }
+
+  void filterByCategory() {
+    if (selectedCategory == 'All Categories') {
+      setState(() {
+        filteredProducts = myBooks;
+      });
+    } else {
+      List<Book> categoryProducts = myBooks
+          .where((product) => product.fields.genres.split('|').contains(selectedCategory))
+          .toList();
+      setState(() {
+        filteredProducts = categoryProducts;
+      });
+    }
+  } 
+
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -203,44 +289,71 @@ class _HomescreenState extends State<Homescreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Spacer(),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 14, 0),
-                        padding: EdgeInsets.fromLTRB(18, 15, screenWidth/3.5 - 28 - 56- 20, 13),
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0xff292c4f),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              width: 28,
-                              height: 28,
-                               child: Icon(
+                       Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                          padding: EdgeInsets.fromLTRB(13, 15, 36, 13),
+                          // height: double.infinity,
+                          height: 64, // Fixed height of the container
+                          decoration: BoxDecoration(
+                            color: Color(0xff292c4f),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                width: 28,
+                                height: 28,
+                                child: Icon(
                                   Icons.search, 
                                   color: Colors.white, 
                                   size: 28, 
                                 ),
-                            ),
-                            Container(
-                              width: 200,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none,
+                              ),
+                              Container(
+                                width: 200,
+                                child: TextField(
+                                  style: TextStyle(color: Colors.white), // Atur warna teks menjadi putih
+                                  controller: searchController,
+                                  onChanged: filterSearchResults,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0), // Sesuaikan sesuai kebutuhan
+                                    hintText: 'Type here', // Tambahkan teks petunjuk jika diperlukan
+                                    hintStyle: TextStyle(color: Colors.grey),
+                                    alignLabelWithHint: true,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showMenu(
+                                context: context,
+                                position: RelativeRect.fromLTRB(250, 250, 250, 250),
+                                items: genres.map((String genre) {
+                                  return PopupMenuItem<String>(
+                                    value: genre,
+                                    
+                                    child: Text(genre),
+                                  );
+                                }).toList(),
+                              ).then((value) {
+                                if (value != null) {
+                                  setState(() {
+                                    selectedCategory = value;
+                                    filterByCategory(); // Filter products by category
+                                  });
+                                }
+                              });
+                        },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                         ),
@@ -297,7 +410,7 @@ class _HomescreenState extends State<Homescreen> {
                             } else {
                           return Container(// Container bawah
                                 height: 290,
-                                child: BookListView(books: myBooks),);
+                                child: BookListView(books: filteredProducts),);
                         }}}
                   )
                 ),

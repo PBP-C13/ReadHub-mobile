@@ -119,11 +119,11 @@ class _MyBookScreenState extends State<MyBookScreen> {
                         );
                       },
                     ),
-                    ],
-                  ),
-                ],
-              );
-            }
+                  ],
+                ),
+              ],
+            );
+          }
         },
       ),
       bottomNavigationBar: BottomNavBar(index: 3),

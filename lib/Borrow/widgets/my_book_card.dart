@@ -22,7 +22,7 @@ class MyBookCard extends StatelessWidget {
           child: child,
         );
       },
-      transitionDuration: Duration(milliseconds: 600), // Durasi transisi
+      transitionDuration: Duration(milliseconds: 600), 
     );
   }
 
@@ -148,11 +148,11 @@ class MyBookCard extends StatelessWidget {
                                           return Container(
                                             margin: EdgeInsets.only(right: 10),
                                             decoration: BoxDecoration(
-                                              color: Color(0xff3fbcfc),
+                                              color: Warna.cyan,
                                               borderRadius: BorderRadius.circular(999),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0), // Adjust the padding as needed
+                                              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                                               child: Center(
                                                 child: Text(
                                                   genre,
@@ -167,7 +167,7 @@ class MyBookCard extends StatelessWidget {
                                             ),
                                           );
                                         } else {
-                                          return Container(); // Return an empty container for indexes beyond 2 (to show a maximum of 3 genres)
+                                          return Container();
                                         }
                                       },
                                     ),
@@ -310,9 +310,9 @@ class MyBookCard extends StatelessWidget {
                         children: [
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 0, 9.4, 0),
-                            width: 13.5,
-                            height: 13.5,
-                            child: Image.network(
+                            width: 16,
+                            height: 16,
+                            child: Image.asset(
                               'assets/icons/check-square-fill.png',
                               width: 13.5,
                               height: 13.5,

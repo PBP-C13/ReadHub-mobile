@@ -249,7 +249,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                     Container(
                                       margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                       padding: EdgeInsets.fromLTRB(13, 15, 36, 13),
-                                      height: double.infinity,
+                                      // height: double.infinity,
+                                      height: 64, // Fixed height of the container
                                       decoration: BoxDecoration(
                                         color: Color(0xff292c4f),
                                         borderRadius: BorderRadius.circular(15),
@@ -279,7 +280,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                 enabledBorder: InputBorder.none,
                                                 errorBorder: InputBorder.none,
                                                 disabledBorder: InputBorder.none,
-                                                contentPadding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 13.0), // Sesuaikan sesuai kebutuhan
+                                                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0), // Sesuaikan sesuai kebutuhan
                                                 hintText: 'Type here', // Tambahkan teks petunjuk jika diperlukan
                                                 hintStyle: TextStyle(color: Colors.grey),
                                                 alignLabelWithHint: true,

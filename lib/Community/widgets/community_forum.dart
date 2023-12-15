@@ -5,13 +5,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:readhub/Community/models/forum.dart';
 import 'package:readhub/Community/screens/community.dart';
+import 'package:readhub/Detail/screens/detail_book.dart';
+import 'package:readhub/models/book.dart';
 import 'package:readhub/together/style/colors.dart';
+import 'package:http/http.dart' as http;
 
-class CommunityForumWidget extends StatelessWidget {
+class CommunityForumWidget extends StatefulWidget {
   final Forum forum;
 
-  
   CommunityForumWidget({Key? key, required this.forum,}) : super(key: key);
+
+  @override
+  State<CommunityForumWidget> createState() => _CommunityForumWidgetState();
+}
+
+class _CommunityForumWidgetState extends State<CommunityForumWidget> {
+  List<Book> myBooks = [];
+  late Book forumbook;
 
   Route _createRoute(Widget page) {
     return PageRouteBuilder(
@@ -22,7 +32,7 @@ class CommunityForumWidget extends StatelessWidget {
           child: child,
         );
       },
-      transitionDuration: Duration(milliseconds: 600), // Durasi transisi
+      transitionDuration: Duration(milliseconds: 600), 
     );
   }
 
@@ -35,13 +45,52 @@ class CommunityForumWidget extends StatelessWidget {
     );
     Navigator.of(context).push(_createRoute(const CommunityScreen()));
   }
-  
-  @override
+
+  Future<List<Book>>?
+        _listbook;
+
+ Map<int, Book>? _booksMap;
+
+@override
+void initState() {
+  super.initState();
+  fetchbuku().then((map) {
+    if (mounted) {
+      setState(() {
+        _booksMap = map;
+      });
+    }
+  });
+}
+
+
+Future<Map<int, Book>> fetchbuku() async {
+  var url = Uri.parse('https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
+  var response = await http.get(url, headers: {"Content-Type": "application/json"});
+
+  if (response.statusCode == 200) {
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+    Map<int, Book> booksMap = {};
+    for (var d in data) {
+      if (d != null) {
+        Book book = Book.fromJson(d);
+        booksMap[book.pk] = book;  // Assuming 'id' is the unique identifier in your Book model
+      }
+    }
+    return booksMap;
+  } else {
+    throw Exception('Failed to fetch books. Status code: ${response.statusCode}');
+  }
+}
+
+
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final contentWidth = screenWidth - 28 * 2;
     final request = context.watch<CookieRequest>();
+    final Book book;
     
     return InkWell(
       // onTap: () {
@@ -84,7 +133,7 @@ class CommunityForumWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  forum.name,
+                                  widget.forum.name,
                                   style: GoogleFonts.poppins(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
@@ -99,7 +148,7 @@ class CommunityForumWidget extends StatelessWidget {
                               
                               onSelected: (value) {
                                 if (value == 'delete') {
-                                  _deleteforum(context, request, forum);
+                                  _deleteforum(context, request, widget.forum);
                                 }
                               },
                               itemBuilder: (context) {
@@ -127,7 +176,7 @@ class CommunityForumWidget extends StatelessWidget {
                             maxWidth: contentWidth,
                           ),
                           child: Text(
-                            forum.forumText,
+                            widget.forum.forumText,
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -181,7 +230,7 @@ class CommunityForumWidget extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12.0),
                                       image: DecorationImage(
-                                        image: NetworkImage(forum.bookImage),
+                                        image: NetworkImage(widget.forum.bookImage),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -203,7 +252,7 @@ class CommunityForumWidget extends StatelessWidget {
                                           Container(
                                             margin: EdgeInsets.fromLTRB(0, 0, 0, 6),
                                             child: Text(
-                                              forum.bookTitle,
+                                              widget.forum.bookTitle,
                                               style: GoogleFonts.poppins(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
@@ -213,7 +262,7 @@ class CommunityForumWidget extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            'by: ${forum.bookAuthor}',
+                                            'by: ${widget.forum.bookAuthor}',
                                             style: GoogleFonts.poppins(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w500,
@@ -226,12 +275,18 @@ class CommunityForumWidget extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) => DetailScreen(book: books[index]),
-                                        //   ),
-                                        // );
+                                        if (_booksMap?.containsKey(widget.forum.bookId) ?? false) {
+                                          Book? book = _booksMap?[widget.forum.bookId];
+
+                                          if (book != null) {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => DetailScreen(book: book),
+                                              ),
+                                            );
+                                          }
+                                        }
                                       },
                                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                                       child: Container(

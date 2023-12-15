@@ -56,7 +56,7 @@ class _BorrowScreenState extends State<BorrowScreen> {
             color: Warna.white,
           ),
         ),
-        backgroundColor: Warna.blue,
+        backgroundColor: Warna.background,
         foregroundColor: Warna.white,
         centerTitle: true,
       ),
@@ -68,7 +68,7 @@ class _BorrowScreenState extends State<BorrowScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(8.5, 200, 8.5, 52),
+                  margin: EdgeInsets.fromLTRB(8.5, 100, 8.5, 52),
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,8 +229,8 @@ class _BorrowScreenState extends State<BorrowScreen> {
                     padding: EdgeInsets.zero,
                   ),
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(100, 16, 97, 16),
-                    width: 350,
+                    padding: EdgeInsets.fromLTRB(100, 16, 100, 16),
+                    width: 360,
                     height: 56,
                     decoration: BoxDecoration(
                       color: Color(0xff2a4cf1),
@@ -242,16 +242,16 @@ class _BorrowScreenState extends State<BorrowScreen> {
                       children: [
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                          width: 18,
+                          width: 20,
                           height: 20,
-                          child: Image.network(
+                          child: Image.asset(
                             "assets/icons/Bag.png", // Replace with the actual image URL
                             width: 18,
                             height: 20,
                           ),
                         ),
                         Container(
-                          width: 104,
+                          width: 120,
                           height: double.infinity,
                           child: Center(
                             child: Text(

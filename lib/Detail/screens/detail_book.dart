@@ -1,19 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readhub/Borrow/screens/borrow.dart';
 import 'package:readhub/together/style/colors.dart';
-import 'dart:convert';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/Explore/widgets/favorit_form.dart';
-import 'package:readhub/together/widgets/navbar.dart';
-import 'package:readhub/Home/screens/home.dart';
-import 'package:readhub/Explore/screens/explore.dart';
-import 'package:readhub/Borrow/screens/mybook.dart';
-import 'package:readhub/Home/screens/profile.dart';
 import 'package:readhub/models/book.dart';
 import 'package:readhub/Detail/models/detail.dart';
 import 'package:readhub/Detail/widgets/review_card.dart';
@@ -33,7 +26,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Future<List<Detail>> fetchProduct() async {
     // fetch review
     var url = Uri.parse(
-      'http://127.0.0.1:8000/category/detail/${widget.book.pk}/get-item-json-flutter'
+      'http://readhub-c13-tk.pbp.cs.ui.ac.id/detail/${widget.book.pk}/get-item-json-flutter'
       );
     var response = await http.get(
         url,
@@ -95,6 +88,8 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    double screenWidth = MediaQuery.of(context).size.width;
+    double availableWidth = screenWidth - (28*2 + 125 + 16);
 
     return Scaffold(
       backgroundColor: Warna.background,
@@ -190,7 +185,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      width: 300,
+                      width: availableWidth,
                       height: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +225,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Container(
                                   margin: EdgeInsets.fromLTRB(0, 0, 112, 14),
                                   padding: EdgeInsets.fromLTRB(11.33, 8, 10, 8),
-                                  width:70,
+                                  width:90,
                                   height: 32,
                                   decoration: BoxDecoration(
                                     color: Color(0x19ff961b),
@@ -241,10 +236,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                     children: [
                                       Container(
                                         margin: EdgeInsets.fromLTRB(0, 0, 7.33, 0),
-                                        width: 13.33,
-                                        height: 12.67,
-                                        child: Image.network(
-                                          'assets/images/Star.png',
+                                        width: 14,
+                                        height: 14,
+                                        child: Image.asset(
+                                          'assets/icons/Star.png',
                                           width: 13.33,
                                           height: 12.67,
                                         ),
@@ -271,7 +266,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     children: [
                                       Container(
                                         margin: EdgeInsets.only(right: 8), 
-                                        width: 70, 
+                                        width: 75, 
                                         height: double.infinity,
                                         decoration: BoxDecoration(
                                           color: Color(0xff3fbcfc),
@@ -291,7 +286,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         ),
                                       ),
                                       Container(
-                                        width: 60, 
+                                        width: 75, 
                                         height: double.infinity,
                                         decoration: BoxDecoration(
                                           color: Color(0xff3fbcfc),
@@ -356,9 +351,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           margin: EdgeInsets.fromLTRB(0, 0, 9.39, 0),
                           width: 40,
                           height: 15,
-                          child: Icon(
-                            Icons.lock,
-                            size: 15,
+                          child: Image.asset(
+                            'assets/icons/Bag.png', // Ganti dengan path gambar Anda
+                            width: 18,
+                            height: 18,
                             color: Colors.white,
                           ),
                         ),
@@ -401,7 +397,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 ),
               Container(
-                margin: EdgeInsets.fromLTRB(1, 0, 0, 32),
+                margin: EdgeInsets.fromLTRB(1, 0, 28, 32),
                 constraints: const BoxConstraints(
                   maxWidth: 400,
                 ),
@@ -550,7 +546,7 @@ Container(
       ),
       Container(
         width: double.infinity,
-        height: 248,
+        height: 278,
         child: FutureBuilder<List<Book>>(
           future: fetchSimilar(),
           builder: (context, AsyncSnapshot<List<Book>> snapshot2) {
@@ -706,7 +702,6 @@ Container(
         )
             )
               ],
-
                 ),
               ),
             ],

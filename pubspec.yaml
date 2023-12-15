@@ -95,6 +95,7 @@ flutter:
   - assets/icons/Logout.png
   - assets/icons/Favorite.png
   - assets/icons/Bag.png
+  - assets/icons/Star.png
 
   # - assets\images\Profile.png
   # - assets\images\Community.png
