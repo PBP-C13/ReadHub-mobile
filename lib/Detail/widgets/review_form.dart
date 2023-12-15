@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
-import 'package:readhub/models/book.dart';
+import 'package:readhub/together/models/book.dart';
 import 'package:readhub/together/style/colors.dart';
 
 class ReviewForm extends StatefulWidget {

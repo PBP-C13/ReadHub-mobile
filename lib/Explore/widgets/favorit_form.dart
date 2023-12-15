@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
 import 'package:readhub/Detail/models/detail.dart';
-import 'package:readhub/models/book.dart';
+import 'package:readhub/together/models/book.dart';
 import 'package:readhub/Explore/screens/explore.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:readhub/Explore/screens/favoritPage.dart';

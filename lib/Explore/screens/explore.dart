@@ -8,7 +8,7 @@ import 'package:readhub/Borrow/screens/mybook.dart';
 import 'package:readhub/Home/screens/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:readhub/models/book.dart';
+import 'package:readhub/together/models/book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
 import 'package:readhub/Explore/widgets/book_widget.dart';
