@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
+import 'package:readhub/Home/models/user.dart';
 import 'package:readhub/together/models/book.dart';
 import 'package:readhub/together/style/colors.dart';
 
@@ -93,35 +94,6 @@ class _ReviewFormState extends State<ReviewForm> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "Your Name",
-                      labelText: "Name",
-                      hintStyle: TextStyle(color: Warna.abu),
-                      labelStyle: TextStyle(color: Colors.white), 
-                      filled: true, // Mengaktifkan latar belakang terisi
-                      fillColor: Warna.background, // Atur warna latar belakang sesuai kebutuhan Anda
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(color: Warna.background),
-                      ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _username = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Name cannot be empty!";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
                         Align(
                           alignment: Alignment.bottomCenter,
                               child: Padding(
@@ -139,14 +111,15 @@ class _ReviewFormState extends State<ReviewForm> {
                                   ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  final response = await request.postJson(
-                                    "http://readhub-c13-tk.pbp.cs.ui.ac.id/category/detail/${widget.book.pk}/create_review_flutter",
-                                    jsonEncode(<String, String>{
+                                  var data = {
+                                      'user': userlogin,
                                       'book': _book,
                                       'review': _review,
-                                      'user': _username,
-                                    }),
-                                  );
+                                  };
+                                  final response = await request.postJson(
+                                    "https://readhub-c13-tk.pbp.cs.ui.ac.id/detail/${widget.book.pk}/create-product-flutter/",
+                                    jsonEncode(data),
+                                );
                                   if (response['status'] == 'success') {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
