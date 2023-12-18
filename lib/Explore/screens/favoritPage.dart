@@ -114,29 +114,17 @@ class _FavoritScreenState extends State<FavoritScreen> {
     return Scaffold(
       backgroundColor: Warna.background,
       appBar: AppBar(
-        title: Text(
-          'Favorit Book',
-          style: GoogleFonts.poppins(
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-            height: 1.5,
-            color: Warna.white,
-          ),
-        ),
-        backgroundColor: Warna.background,
+        backgroundColor: Warna.blue,
         iconTheme: IconThemeData(color: Colors.white),
         leading: Padding(
         padding: EdgeInsets.only(left: 20),
           child: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              // Kembali ke page sebelumnya (profil) tanpa menambahkannya ke tumpukan navigasi.
               Navigator.of(context).pop();
             },
           ),
         ),
-        foregroundColor: Warna.white,
-        centerTitle: true,
       ),
       body: FutureBuilder(
           future: fetchProduct(request),
@@ -160,17 +148,17 @@ class _FavoritScreenState extends State<FavoritScreen> {
                   slivers: [
                    SliverToBoxAdapter(
                     child: Container(
-                      height: 280.0,
+                      height: 220.0,
                       decoration: BoxDecoration(
-                        color: Warna.blue,
+                        color: Warna.background,
                         image: DecorationImage(
-                          image: AssetImage('assets/images/Explorepage.png'),
+                          image: AssetImage('assets/images/Favorite.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
                       child: Center(
-                        // child: Padding(
-                          // padding: EdgeInsets.only(bottom: 30),
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 60),
                           child: Text(
                             "Favorit",
                             style: GoogleFonts.poppins(
@@ -181,6 +169,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                           // ),
                         ),
                       ),
+                    ),
                     ),
                     ),
                     SliverToBoxAdapter(
@@ -199,7 +188,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                     Container(
                                       margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                       padding: EdgeInsets.fromLTRB(13, 15, 36, 13),
-                                      height: double.infinity,
+                                       height: 64,
                                       decoration: BoxDecoration(
                                         color: Color(0xff292c4f),
                                         borderRadius: BorderRadius.circular(15),
@@ -229,7 +218,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                                 enabledBorder: InputBorder.none,
                                                 errorBorder: InputBorder.none,
                                                 disabledBorder: InputBorder.none,
-                                                contentPadding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 13.0), // Sesuaikan sesuai kebutuhan
+                                                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0), // Sesuaikan sesuai kebutuhan
                                                 hintText: 'Type here', // Tambahkan teks petunjuk jika diperlukan
                                                 hintStyle: TextStyle(color: Colors.grey),
                                                 alignLabelWithHint: true,
@@ -284,24 +273,14 @@ class _FavoritScreenState extends State<FavoritScreen> {
                         ),
                         SizedBox(height: 15),
                         Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0), // Tambahkan padding ke kanan dan kiri
+                        padding: EdgeInsets.symmetric(horizontal: 24.0), // Tambahkan padding ke kanan dan kiri
                         child: Column(
                           children: [
-                            Text(
-                              "Favorit Books",
-                              style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Warna.white,
-                              )
-                            ),
-                            SizedBox(height: 10),
+                            SizedBox(height: 4),
                             Container(
-                              // Container atas
                               height: 400,
                               child: BookListView(books: filteredProducts),
                             ),
-
                         ])
                     ),
                   ],

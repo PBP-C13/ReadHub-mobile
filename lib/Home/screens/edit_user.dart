@@ -15,16 +15,9 @@ class EditProfile extends StatelessWidget {
   }) : super(key: key);
 
   Future<void> _editDisplayname(BuildContext context, request) async {
-    // Assuming you have already checked that usernameController.text is not empty
     final newUsername = usernameController.text;
-
-    // Update the login user locally without making a network request
-    // You can store this information in a global state management solution
-    // or a local storage, depending on your app architecture
-    // For simplicity, let's assume you have a global variable for login user
     userlogin = newUsername;
 
-    // Show success dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -85,17 +78,20 @@ class EditProfile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: usernameController,
-              keyboardType: TextInputType.number,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                labelText: 'Display Name',
-                hintText: 'New Display Name',
-                labelStyle:
-                    TextStyle(color: Colors.white), // Set label text color
-                hintStyle:
-                    TextStyle(color: Colors.white), // Set hint text color
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28.0),
+              child: TextField(
+                controller: usernameController,
+                keyboardType: TextInputType.number,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: 'Display Name',
+                  hintText: 'New Display Name',
+                  labelStyle:
+                      TextStyle(color: Colors.white), // Set label text color
+                  hintStyle:
+                      TextStyle(color: Colors.white), // Set hint text color
+                ),
               ),
             ),
             SizedBox(height: 8),
@@ -105,7 +101,7 @@ class EditProfile extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Color(0xff0056ff)),
+                    color: Warna.blue),
                 height: 50,
                 width: 280,
                 child: Row(
@@ -114,7 +110,7 @@ class EditProfile extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30.0),
-                            color: Color(0xff0056ff)),
+                            color: Warna.blue ),
                         height: 50,
                         child: const Align(
                           child: Text(

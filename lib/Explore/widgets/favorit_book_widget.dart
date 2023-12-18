@@ -132,7 +132,7 @@ Future<void> _deleteBook(BuildContext context, CookieRequest request, BookFavori
                         width: 120,
                         height: 32,
                         decoration: BoxDecoration(
-                          color: Warna.blue,
+                          color: Warna.red,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
