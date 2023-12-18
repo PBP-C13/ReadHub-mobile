@@ -2,6 +2,8 @@
 
 ![Gambar](https://user-images.githubusercontent.com/119391657/284199485-fd78520a-8ad7-4621-9151-47db072df266.png )
 
+<br>
+
 [![Build status](https://build.appcenter.ms/v0.1/apps/90ff8570-7604-4cac-a02f-6cbb4e153ee5/branches/main/badge)](https://appcenter.ms)
 
 ## 🙋🏻‍♀️ Anggota Kelompok	🙋🏻‍♂️
