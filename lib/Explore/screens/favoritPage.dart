@@ -27,7 +27,6 @@ class _FavoritScreenState extends State<FavoritScreen> {
 
     );
     List<BookFavorit> listProduct = [];
-    print(response);
 
     for (var d in response) {
       if (d != null) {
@@ -35,7 +34,6 @@ class _FavoritScreenState extends State<FavoritScreen> {
       }
     }
     myBooks = listProduct;
-    print(listProduct);
     return listProduct;
   }
 
@@ -44,7 +42,31 @@ class _FavoritScreenState extends State<FavoritScreen> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       backgroundColor: Warna.background,
-      bottomNavigationBar: BottomNavBar(index: 1),
+      appBar: AppBar(
+        title: Text(
+          'Favorit Book',
+          style: GoogleFonts.poppins(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            height: 1.5,
+            color: Warna.white,
+          ),
+        ),
+        backgroundColor: Warna.background,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: Padding(
+        padding: EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              // Kembali ke page sebelumnya (profil) tanpa menambahkannya ke tumpukan navigasi.
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        foregroundColor: Warna.white,
+        centerTitle: true,
+      ),
       body: FutureBuilder(
           future: fetchProduct(request),
           builder: (context, AsyncSnapshot snapshot) {
@@ -168,25 +190,30 @@ class _FavoritScreenState extends State<FavoritScreen> {
                           ),
                         ),
                         SizedBox(height: 15),
+                        Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0), // Tambahkan padding ke kanan dan kiri
+                        child: Column(
+                          children: [
+                            Text(
+                              "Favorit Books",
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Warna.white,
+                              )
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              // Container atas
+                              height: 400,
+                              child: BookListView(books: myBooks),
+                            ),
+
                         ])
                     ),
-                    
-                    SliverGrid(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200.0,
-                          crossAxisSpacing: 1.0,
-                          mainAxisSpacing: 1.0,
-                          childAspectRatio: 0.59,
-                        ),
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return BookFavoritWidget(bookFavorit: myBooks[index]);    
-                          },
-                          childCount: snapshot.data!.length,
-                        ),
-                      ),
                   ],
-                );
+                    ))]);
+                
                   }
               }
           }));

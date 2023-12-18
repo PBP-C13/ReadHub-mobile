@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readhub/Explore/screens/favoritPage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BookFavoritWidget extends StatelessWidget {
   final BookFavorit bookFavorit;
@@ -30,18 +31,24 @@ class BookFavoritWidget extends StatelessWidget {
     );
   }
 
-  Future<void> _deleteBook(BuildContext context, CookieRequest request, BookFavorit bookFavorit) async {
-    await request.postJson(
-      'https://readhub-c13-tk.pbp.cs.ui.ac.id/category/delete-favorit-flutter/${bookFavorit.books.id}/',
-      jsonEncode({
-        "id": bookFavorit.books.id,
-      }),
-    );
-    Navigator.of(context).push(_createRoute(const FavoritScreen()));
-  }
+Future<void> _deleteBook(BuildContext context, CookieRequest request, BookFavorit bookFavorit) async {
+  await request.postJson(
+    'https://readhub-c13-tk.pbp.cs.ui.ac.id/category/delete-favorit-flutter/${bookFavorit.books.id}/',
+    jsonEncode({
+      "id": bookFavorit.books.id,
+    }),
+  );
+
+  // Tunggu sampai operasi hapus selesai, kemudian kembali ke page favorit dengan tampilan yang diperbarui.
+  await Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => const FavoritScreen()),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     final request = context.watch<CookieRequest>();
     return InkWell(
       onTap: () {
@@ -53,121 +60,110 @@ class BookFavoritWidget extends StatelessWidget {
         // );
       },
       child: Container(
-        margin: EdgeInsets.all(8.0),
-        //width: 152.0,
-        height:150,
-        decoration: BoxDecoration(
-          color: Warna.backgroundlight,
-          borderRadius: BorderRadius.circular(18.3132534027),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x05a3a3a3),
-              offset: Offset(3.6626505852, 3.6626505852),
-              blurRadius: 9.1566267014,
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Warna.backgroundlight,
-                borderRadius: BorderRadius.circular(9.99081707),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          width: screenWidth,
+          decoration: BoxDecoration(
+            color: Color(0xff23264f),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                decoration: BoxDecoration(
+                  color: Warna.backgroundlight,
+                  borderRadius: BorderRadius.circular(6.0704197884),
+                ),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: 84,
+                    height: 128,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      image: DecorationImage(
+                        image: NetworkImage(bookFavorit.books.imageUrl),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0,
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                        width: 137.91,
-                        height: 185,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: CachedNetworkImage(
-                            imageUrl: "${bookFavorit.books.imageUrl}",
-                            fit: BoxFit.cover,
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                width: screenWidth - screenWidth / 2.3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                      width: screenWidth - 40,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 6),
+                            child: Text(
+                              bookFavorit.books.bookTitle,
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "by: ${bookFavorit.books.bookAuthors != null && bookFavorit.books.bookAuthors!.length > 30 ? bookFavorit.books.bookAuthors!.substring(0, 30) + '...' : bookFavorit.books.bookAuthors ?? ''}",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              height: 1.5,
+                              color: Color(0xff818181),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Handle button press action
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text("Berhasil menghapus buku ${bookFavorit.books.bookTitle}!"),
+                            ));
+                        _deleteBook(context, request, bookFavorit);
+                      },
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(17.5, 8, 17.5, 8),
+                        width: 120,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: Warna.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Delete',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              height: 1.5,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    right: 4,
-                    top: 4,
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          // Handle button press action
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text("Berhasil menghapus buku ${bookFavorit.books.bookTitle}!"),
-                              ));
-                          _deleteBook(context, request, bookFavorit);
-                        },
-                        child: SizedBox(
-                          width: 32,
-                          height: 32,
-                          child: Icon(Icons.delete, color: Colors.red),
-                        ),
-                      )
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              width: double.infinity,
-              color: Warna.backgroundlight,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 4),
-                    constraints: const BoxConstraints(
-                      maxWidth: 135,
-                    ),
-                    child: Text(
-                      "${bookFavorit.books.bookTitle.length > 25 ? bookFavorit.books.bookTitle.substring(0, 25) + '...' : bookFavorit.books.bookTitle}",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        height: 1.3333333333,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      "${bookFavorit.books.bookAuthors != null && bookFavorit.books.bookAuthors!.length > 20 ? bookFavorit.books.bookAuthors!.substring(0, 20) + '...' : bookFavorit.books.bookAuthors ?? ''}",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        height: 1.6,
-                        color: Color(0xffb6b6b6),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    ])));
   }
 }
+
+
 
 class BookListView extends StatelessWidget {
   final List<BookFavorit> books;
@@ -177,11 +173,16 @@ class BookListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.only(top: 8.0, bottom: 16.0), // Menambahkan jarak atas dan bawah pada seluruh ListView
+      scrollDirection: Axis.vertical,
       itemCount: books.length,
       itemBuilder: (BuildContext context, int index) {
-        return BookFavoritWidget(bookFavorit: books[index]);
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0), // Menambahkan jarak atas dan bawah antar item
+          child: BookFavoritWidget(bookFavorit: books[index]),
+        );
       },
     );
   }
 }
+
