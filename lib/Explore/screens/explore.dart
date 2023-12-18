@@ -326,40 +326,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         ),
                                       ),
                                     ),
-//                                     child: ElevatedButton(
-//   onPressed: () {
-//     // Tampilkan dropdown saat button ditekan
-//     showMenu(
-//       context: context,
-//       position: RelativeRect.fromLTRB(0, 0, 0, 0),
-//       items: genres.map((String value) {
-//         return PopupMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         );
-//       }).toList(),
-//     ).then((value) {
-//       if (value != null) {
-//         setState(() {
-//           selectedCategory = value;
-//           filterByCategory(); // Filter products by category
-//         });
-//       }
-//     });
-//   },
-//   child: Container(
-//     padding: EdgeInsets.symmetric(horizontal: 16.0),
-//     child: Row(
-//       children: [
-//         Text("Category: "),
-//         SizedBox(width: 8.0),
-//         Text(selectedCategory),
-//         Icon(Icons.arrow_drop_down),
-//       ],
-//     ),
-//   ),
-// ),
-
                                     )
                                   ],
                                 ),
