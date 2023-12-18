@@ -136,7 +136,7 @@ class _FavoritFormState extends State<FavoritForm> {
                         );
                         if (response['status'] == 'success') {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Item Addition Confirmed!"),
+                            content: Text("Berhasil menambahkan buku ke favorit"),
                           ));
                           Navigator.pushReplacement(
                             context,

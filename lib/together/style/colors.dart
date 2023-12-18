@@ -14,4 +14,7 @@ class Warna {
   static const lightcyan = Color(0xFF1E395A);
   static const line = Color(0xFF35396F);
   static const abu = Color(0xFF818181);
+  static const red = Color(0xFFE41D22);
 }
+
+

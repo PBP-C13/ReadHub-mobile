@@ -12,7 +12,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
 
 class FavoritScreen extends StatefulWidget {
-  const FavoritScreen({super.key});
+  final CookieRequest? request; // Tambahkan parameter request
+  const FavoritScreen({this.request, Key? key}) : super(key: key);
   @override
   State<FavoritScreen> createState() => _FavoritScreenState();
 }
@@ -20,6 +21,12 @@ class FavoritScreen extends StatefulWidget {
 
 class _FavoritScreenState extends State<FavoritScreen> {
   List<BookFavorit> myBooks = []; // Deklarasikan variabel di luar ListView.builder
+  List<String> genres = ['All Categories'];
+  String selectedCategory = 'All Categories';
+  List<BookFavorit> filteredProducts = [];
+  late CookieRequest request; // Deklarasikan variabel request di dalam State
+  TextEditingController searchController  = TextEditingController();
+
   Future<List<BookFavorit>> fetchProduct(request) async {
     var response = await request.get(
 
@@ -27,7 +34,6 @@ class _FavoritScreenState extends State<FavoritScreen> {
 
     );
     List<BookFavorit> listProduct = [];
-    print(response);
 
     for (var d in response) {
       if (d != null) {
@@ -35,16 +41,91 @@ class _FavoritScreenState extends State<FavoritScreen> {
       }
     }
     myBooks = listProduct;
-    print(listProduct);
     return listProduct;
   }
+
+  void updateCategories() {
+    Set<String> uniqueCategories = {'All Categories'};
+    for (var product in myBooks) {
+      for(var gen in product.books.genres.split('|')){
+        if(gen=="Romance" || gen=="Fantasy" || gen=="Classics" || gen=="Historical" || gen=="Childrens"){
+          uniqueCategories.add(gen);}
+      }
+    }
+    setState(() {
+      genres = uniqueCategories.toList();
+      genres.sort(); // Sort the categories
+    });
+  }
+
+ @override
+  void initState() {
+    super.initState();
+     request = widget.request ?? CookieRequest();  // Inisialisasi request dengan nilai dari widget
+    fetchProduct(request).then((products) {
+      setState(() {
+        myBooks = products;
+        filteredProducts = myBooks;
+        updateCategories(); // Update the category list
+      });
+    });
+  }
+  
+  void filterByCategory() {
+    if (selectedCategory == 'All Categories') {
+      setState(() {
+        filteredProducts = myBooks;
+      });
+    } else {
+      List<BookFavorit> categoryProducts = myBooks
+          .where((product) => product.books.genres.split('|').contains(selectedCategory))
+          .toList();
+      setState(() {
+        filteredProducts = categoryProducts;
+      });
+    }
+  }
+
+    void filterSearchResults(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        filteredProducts = myBooks;
+      });
+      return;
+    }
+
+    List<BookFavorit> dummyListData = [];
+    myBooks.forEach((item) {
+      if (item.books.bookTitle.toLowerCase().contains(query.toLowerCase()) || item.books.bookAuthors.toLowerCase().contains(query.toLowerCase())) {
+        dummyListData.add(item);
+      }
+    });
+
+    setState(() {
+      filteredProducts = dummyListData;
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       backgroundColor: Warna.background,
-      bottomNavigationBar: BottomNavBar(index: 1),
+      appBar: AppBar(
+        backgroundColor: Warna.blue,
+        iconTheme: IconThemeData(color: Colors.white),
+        leading: Padding(
+        padding: EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      ),
       body: FutureBuilder(
           future: fetchProduct(request),
           builder: (context, AsyncSnapshot snapshot) {
@@ -63,22 +144,21 @@ class _FavoritScreenState extends State<FavoritScreen> {
                       ],
                   );
               } else {
-                TextEditingController myController = TextEditingController();
                 return CustomScrollView(
                   slivers: [
                    SliverToBoxAdapter(
                     child: Container(
-                      height: 280.0,
+                      height: 220.0,
                       decoration: BoxDecoration(
-                        color: Warna.blue,
+                        color: Warna.background,
                         image: DecorationImage(
-                          image: AssetImage('assets/images/Explorepage.png'),
+                          image: AssetImage('assets/images/Favorite.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
                       child: Center(
-                        // child: Padding(
-                          // padding: EdgeInsets.only(bottom: 30),
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 60),
                           child: Text(
                             "Favorit",
                             style: GoogleFonts.poppins(
@@ -89,6 +169,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                           // ),
                         ),
                       ),
+                    ),
                     ),
                     ),
                     SliverToBoxAdapter(
@@ -107,7 +188,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                     Container(
                                       margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
                                       padding: EdgeInsets.fromLTRB(13, 15, 36, 13),
-                                      height: double.infinity,
+                                       height: 64,
                                       decoration: BoxDecoration(
                                         color: Color(0xff292c4f),
                                         borderRadius: BorderRadius.circular(15),
@@ -129,13 +210,15 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                             width: 200,
                                             child: TextField(
                                               style: TextStyle(color: Colors.white), // Atur warna teks menjadi putih
+                                              controller: searchController,
+                                              onChanged: filterSearchResults,
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                                 focusedBorder: InputBorder.none,
                                                 enabledBorder: InputBorder.none,
                                                 errorBorder: InputBorder.none,
                                                 disabledBorder: InputBorder.none,
-                                                contentPadding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 13.0), // Sesuaikan sesuai kebutuhan
+                                                contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0), // Sesuaikan sesuai kebutuhan
                                                 hintText: 'Type here', // Tambahkan teks petunjuk jika diperlukan
                                                 hintStyle: TextStyle(color: Colors.grey),
                                                 alignLabelWithHint: true,
@@ -145,8 +228,28 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                         ],
                                       ),
                                     ),
-                                    TextButton(
-                                      onPressed: () {},
+                                    Container(
+                                      child: TextButton(
+                                      onPressed: () {
+                                        showMenu(
+                                              context: context,
+                                              position: RelativeRect.fromLTRB(250, 250, 250, 250),
+                                              items: genres.map((String genre) {
+                                                return PopupMenuItem<String>(
+                                                  value: genre,
+                                                  
+                                                  child: Text(genre),
+                                                );
+                                              }).toList(),
+                                            ).then((value) {
+                                              if (value != null) {
+                                                setState(() {
+                                                  selectedCategory = value;
+                                                  filterByCategory(); // Filter products by category
+                                                });
+                                              }
+                                            });
+                                      },
                                       style: TextButton.styleFrom(
                                         padding: EdgeInsets.zero,
                                       ),
@@ -161,6 +264,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                                         ),
                                       ),
                                     ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -168,27 +272,28 @@ class _FavoritScreenState extends State<FavoritScreen> {
                           ),
                         ),
                         SizedBox(height: 15),
+                        Container(
+                        padding: EdgeInsets.symmetric(horizontal: 24.0), // Tambahkan padding ke kanan dan kiri
+                        child: Column(
+                          children: [
+                            SizedBox(height: 4),
+                            Container(
+                              height: 400,
+                              child: BookListView(books: filteredProducts),
+                            ),
                         ])
                     ),
-                    
-                    SliverGrid(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200.0,
-                          crossAxisSpacing: 1.0,
-                          mainAxisSpacing: 1.0,
-                          childAspectRatio: 0.59,
-                        ),
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return BookFavoritWidget(bookFavorit: myBooks[index]);    
-                          },
-                          childCount: snapshot.data!.length,
-                        ),
-                      ),
                   ],
-                );
+                    ))]);
+                
                   }
               }
           }));
         }
-      }
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+}
