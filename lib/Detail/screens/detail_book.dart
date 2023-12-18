@@ -26,7 +26,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Future<List<Detail>> fetchProduct() async {
     // fetch review
     var url = Uri.parse(
-      'http://readhub-c13-tk.pbp.cs.ui.ac.id/detail/${widget.book.pk}/get-item-json-flutter'
+      'https://readhub-c13-tk.pbp.cs.ui.ac.id/detail/${widget.book.pk}/get-item-json-flutter'
       );
     var response = await http.get(
         url,
@@ -46,7 +46,6 @@ class _DetailScreenState extends State<DetailScreen> {
     return list_product;
   }
   Future<List<Book>> fetchSimilar() async {
-    // Fetch all books
     var url = Uri.parse('https://readhub-c13-tk.pbp.cs.ui.ac.id/json/');
     var response = await http.get(
       url,
