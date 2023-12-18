@@ -51,14 +51,6 @@ Future<void> _deleteBook(BuildContext context, CookieRequest request, BookFavori
     final screenWidth = MediaQuery.of(context).size.width;
     final request = context.watch<CookieRequest>();
     return InkWell(
-      onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => DetailScreen(book: bookFavorit.books),
-        //   ),
-        // );
-      },
       child: Container(
           padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           width: screenWidth,
