@@ -11,6 +11,7 @@ import 'package:readhub/together/models/book.dart';
 import 'package:readhub/Detail/models/detail.dart';
 import 'package:readhub/Detail/widgets/review_card.dart';
 import 'package:readhub/Detail/widgets/review_form.dart';
+import 'package:readhub/auth/screens/login.dart';
 
 
 class DetailScreen extends StatefulWidget {
@@ -125,13 +126,31 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FavoritForm(book: widget.book),
-                          ),
-                        );
+                      onTap: () async {
+                        if (request.loggedIn) {
+                          // Jika sudah login, navigasi ke FavoritForm
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FavoritForm(book: widget.book),
+                            ),
+                          );
+                        } else {
+                          // Jika belum login, navigasi ke halaman login
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          ).then((value) {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FavoritForm(book: widget.book),
+                            ),
+                          );
+                          });
+                        }
                       },
                       child: SizedBox(
                         width: 32,
@@ -324,14 +343,32 @@ class _DetailScreenState extends State<DetailScreen> {
                 margin: EdgeInsets.fromLTRB(1, 0, 28, 29),
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BorrowScreen(book: widget.book),
-                      ),
-                    );
-                  },
+                  onPressed: () async {
+                        if (request.loggedIn) {
+                          // Jika sudah login, navigasi ke FavoritForm
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BorrowScreen(book: widget.book),
+                            ),
+                          );
+                        } else {
+                          // Jika belum login, navigasi ke halaman login
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          ).then((value) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BorrowScreen(book: widget.book),
+                              ),
+                            );
+                          });
+                        }
+                      },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                   ),
@@ -622,13 +659,31 @@ Container(
                                   child: Align(
                                     alignment: Alignment.topRight,
                                     child: InkWell(
-                                      onTap: () {
+                                      onTap: () async {
+                                        if (request.loggedIn) {
+                                          // Jika sudah login, navigasi ke FavoritForm
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => FavoritForm(book: book),
                                             ),
                                           );
+                                        } else {
+                                          // Jika belum login, navigasi ke halaman login
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => LoginPage(),
+                                            ),
+                                          ).then((value) {
+                                            Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => FavoritForm(book: book),
+                                            ),
+                                          );
+                                          });
+                                        }
                                       },
                                       child: SizedBox(
                                         width: 32,
