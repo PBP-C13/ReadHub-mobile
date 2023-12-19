@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final privacyp = privacypFromJson(jsonString);
+
 import 'dart:convert';
 
 Privacyp privacypFromJson(String str) => Privacyp.fromJson(json.decode(str));
