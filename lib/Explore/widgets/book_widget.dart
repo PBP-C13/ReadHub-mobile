@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-//import 'your_love_form_widget.dart'; // Sesuaikan dengan nama file yang sesuai
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:readhub/auth/screens/login.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,6 +17,8 @@ class BookWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final request = context.watch<CookieRequest>();
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -76,14 +80,32 @@ class BookWidget extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topRight,
                       child: InkWell(
-                        onTap: () {
+                      onTap: () async {
+                        if (request.loggedIn) {
+                          // Jika sudah login, navigasi ke FavoritForm
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FavoritForm(book: book),
+                            ),
+                          );
+                        } else {
+                          // Jika belum login, navigasi ke halaman login
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          ).then((value) {
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => FavoritForm(book: book),
-                              ),
-                            );
-                        },
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FavoritForm(book: book),
+                            ),
+                          );
+                          });
+                        }
+                      },
                         child: SizedBox(
                           width: 32,
                           height: 32,

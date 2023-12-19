@@ -138,27 +138,19 @@ class _FavoritFormState extends State<FavoritForm> {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text("Berhasil menambahkan buku ke favorit"),
                           ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => ExploreScreen()),
-                          );
+                          Navigator.of(context).pop();
 
                         } else if(response['status'] == 'error'){
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text("Buku ini sudah berada di list Favorit"),
                           ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => ExploreScreen()),
-                          );
+                          Navigator.of(context).pop();
                         }else if(response['status'] == 'no'){
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text("Buku tidak ditambahkan ke list Favorit"),
                           ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => ExploreScreen()),
-                          );}
+                          Navigator.of(context).pop();
+                        }
                       }
                     },
                     child: Center( // Center the text within the button
