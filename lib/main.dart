@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:readhub/Home/screens/profile.dart';
 import 'package:readhub/auth/screens/splash.dart';
 import 'package:readhub/Community/screens/community.dart';
 import 'package:readhub/Home/screens/home.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
           useMaterial3: true,
         ),
-        home:SplashScreen(),
+        home: SplashScreen(),
       ),
     );
   }
