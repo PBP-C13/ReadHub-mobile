@@ -5,6 +5,7 @@
 <br>
 
 [![Build status](https://build.appcenter.ms/v0.1/apps/90ff8570-7604-4cac-a02f-6cbb4e153ee5/branches/main/badge)](https://appcenter.ms)
+[![Release](https://github.com/PBP-C13/ReadHub-mobile/actions/workflows/release.yml/badge.svg)](https://github.com/PBP-C13/ReadHub-mobile/actions/workflows/release.yml)
 
 ## 🙋🏻‍♀️ Anggota Kelompok	🙋🏻‍♂️
 * Aiza Derisyana - 2206082436

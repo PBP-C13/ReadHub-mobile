@@ -1,5 +1,4 @@
 import 'package:readhub/Home/models/user.dart';
-import 'package:readhub/main.dart';
 import 'package:readhub/auth/screens/register.dart';
 import 'package:readhub/Home/screens/home.dart';
 import 'package:readhub/together/style/colors.dart';

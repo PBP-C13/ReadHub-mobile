@@ -4,8 +4,6 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readhub/auth/screens/login.dart';
 import 'package:readhub/together/style/colors.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:readhub/together/models/book.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
 import 'package:readhub/Explore/widgets/favorit_form.dart';
@@ -147,7 +145,7 @@ class BookWidget extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      "${book.fields.bookAuthors != null && book.fields.bookAuthors!.length > 20 ? book.fields.bookAuthors!.substring(0, 20) + '...' : book.fields.bookAuthors ?? ''}",
+                      "${book.fields.bookAuthors.length > 20 ? book.fields.bookAuthors.substring(0, 20) + '...' : book.fields.bookAuthors}",
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 10,

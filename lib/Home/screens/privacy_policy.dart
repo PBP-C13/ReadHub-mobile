@@ -4,7 +4,6 @@ import 'package:readhub/together/style/colors.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:convert'; // Import JSON utilities
 
 class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({super.key});

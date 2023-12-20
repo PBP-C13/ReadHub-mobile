@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:readhub/Home/models/user.dart';
-import 'package:readhub/Community/screens/create_forum.dart';
-import 'package:readhub/together/widgets/navbar.dart';
-import 'package:readhub/Community/widgets/community_forum.dart';
-import 'package:readhub/Community/models/forum.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:readhub/together/style/colors.dart';
 
 class ProfileUpper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
       padding: EdgeInsets.fromLTRB(28.0, 28, 28.0, 0.0),

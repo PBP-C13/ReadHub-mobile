@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-//import 'your_love_form_widget.dart'; // Sesuaikan dengan nama file yang sesuai
 import 'package:readhub/together/style/colors.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 //import 'package:readhub/models/book.dart';
-import 'package:readhub/Detail/screens/detail_book.dart';
 import 'package:readhub/Explore/models/bookFavorit.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readhub/Explore/screens/favoritPage.dart';
@@ -107,7 +102,7 @@ Future<void> _deleteBook(BuildContext context, CookieRequest request, BookFavori
                             ),
                           ),
                           Text(
-                            "by: ${bookFavorit.books.bookAuthors != null && bookFavorit.books.bookAuthors!.length > 30 ? bookFavorit.books.bookAuthors!.substring(0, 30) + '...' : bookFavorit.books.bookAuthors ?? ''}",
+                            "by: ${bookFavorit.books.bookAuthors.length > 30 ? bookFavorit.books.bookAuthors.substring(0, 30) + '...' : bookFavorit.books.bookAuthors}",
                             style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,

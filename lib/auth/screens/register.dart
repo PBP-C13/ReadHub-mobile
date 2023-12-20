@@ -1,11 +1,7 @@
 import 'package:readhub/auth/screens/login.dart';
-import 'package:readhub/main.dart';
 import 'package:http/http.dart' as http;
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:readhub/auth/screens/register.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -45,7 +41,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
