@@ -9,7 +9,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
 void handleLogout(BuildContext context) async {
-  final request = context.watch<CookieRequest>();
+  final request = Provider.of<CookieRequest>(context, listen: false);
   final response = await request.logout("https://readhub-c13-tk.pbp.cs.ui.ac.id/auth/logout/");
   String message = response["message"];
   if (response['status']) {
@@ -42,7 +42,7 @@ class _ProfileSectionState extends State<ProfileSection> {
       body: Container(
         color: Warna.blue, // Set the overall background to blue
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(40), 
             topRight: Radius.circular(40), 
           ),
@@ -98,7 +98,7 @@ class _ProfileSectionState extends State<ProfileSection> {
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Warna.white, // Change text color if needed

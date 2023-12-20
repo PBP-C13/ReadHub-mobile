@@ -11,18 +11,20 @@ import 'package:readhub/together/widgets/notlogin.dart';
 
 // Global variable for screens
 List<Widget> widgetOptions = <Widget>[
-  Homescreen(),
-  ExploreScreen(),
-  CommunityScreen(),
-  MyBookScreen(),
-  ProfileScreen(),
+  const Homescreen(),
+  const ExploreScreen(),
+  const CommunityScreen(),
+  const MyBookScreen(),
+  const ProfileScreen(),
 ];
 
 class BottomNavBar extends StatefulWidget {
   final int index;
+  // ignore: prefer_const_constructors_in_immutables
   BottomNavBar({Key? key, required this.index}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BottomNavBarState createState() => _BottomNavBarState();
 }
 
@@ -39,7 +41,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     if ((index == 2 || index == 3 || index == 4) && !isUserLoggedIn) {
       showDialog(
         context: context,
-        builder: (BuildContext context) => notLogin(),
+        builder: (BuildContext context) => const notLogin(),
       );
     } else {
       setState(() {
@@ -58,7 +60,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           child: child,
         );
       },
-      transitionDuration: Duration(milliseconds: 600),
+      transitionDuration: const Duration(milliseconds: 600),
     );
   }
 
