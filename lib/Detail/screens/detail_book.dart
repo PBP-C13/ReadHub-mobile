@@ -12,6 +12,7 @@ import 'package:readhub/Detail/models/detail.dart';
 import 'package:readhub/Detail/widgets/review_card.dart';
 import 'package:readhub/Detail/widgets/review_form.dart';
 import 'package:readhub/auth/screens/login.dart';
+import 'package:readhub/together/widgets/notLogin.dart';
 
 
 class DetailScreen extends StatefulWidget {
@@ -137,19 +138,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           );
                         } else {
                           // Jika belum login, navigasi ke halaman login
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          ).then((value) {
-                            Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FavoritForm(book: widget.book),
-                            ),
+                         showDialog(
+                            context: context,
+                            builder: (BuildContext context) => notLogin(),
                           );
-                          });
                         }
                       },
                       child: SizedBox(
@@ -354,19 +346,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           );
                         } else {
                           // Jika belum login, navigasi ke halaman login
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          ).then((value) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BorrowScreen(book: widget.book),
-                              ),
-                            );
-                          });
+                         showDialog(
+                          context: context,
+                          builder: (BuildContext context) => notLogin(),
+                        );
                         }
                       },
                   style: TextButton.styleFrom(

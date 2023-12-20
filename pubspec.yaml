@@ -98,6 +98,7 @@ flutter:
   - assets/icons/Bag.png
   - assets/icons/Star.png
   - assets/images/Favorite.png
+  - assets/images/notlogin.png
 
   # - assets\images\Profile.png
   # - assets\images\Community.png
