@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:readhub/auth/screens/login.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:readhub/together/models/book.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
 import 'package:readhub/Explore/widgets/favorit_form.dart';
+import 'package:readhub/together/widgets/notLogin.dart';
 
 class BookWidget extends StatelessWidget {
   final Book book;
@@ -89,19 +89,10 @@ class BookWidget extends StatelessWidget {
                           );
                         } else {
                           // Jika belum login, navigasi ke halaman login
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          ).then((value) {
-                            Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FavoritForm(book: book),
-                            ),
+                         showDialog(
+                            context: context,
+                            builder: (BuildContext context) => notLogin(),
                           );
-                          });
                         }
                       },
                         child: SizedBox(

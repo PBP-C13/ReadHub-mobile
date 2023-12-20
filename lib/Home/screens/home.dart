@@ -52,22 +52,6 @@ class _HomescreenState extends State<Homescreen> {
 
   @override
 
-  // void filterByCategory() {
-  //   if (selectedCategory == 'All Categories') {
-  //     setState(() {
-  //       filteredProducts = myBooks;
-  //     });
-  //   } else {
-  //     List<Book> categoryProducts = myBooks
-  //         .where((product) => product.fields.genres.split('|').contains(selectedCategory))
-  //         .toList();
-  //     setState(() {
-  //       filteredProducts = categoryProducts;
-  //     });
-  //   }
-  // }
-
-
     void initState() {
     super.initState();
     fetchProduct().then((products) {
@@ -175,7 +159,7 @@ class _HomescreenState extends State<Homescreen> {
                                     ),
                                   ),
                                   Text(
-                                    userlogin,
+                                    isUserLoggedIn ? userlogin : "Guest",
                                     style: GoogleFonts.poppins(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w700,

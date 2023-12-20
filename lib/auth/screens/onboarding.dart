@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:readhub/auth/screens/register.dart';
+import 'package:readhub/Home/screens/home.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/auth/screens/login.dart';
@@ -127,7 +127,7 @@ class Onboarding extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => RegisterApp()), 
+                          MaterialPageRoute(builder: (context) => Homescreen()), 
                         );
                       },
                       style: TextButton.styleFrom(
@@ -143,7 +143,7 @@ class Onboarding extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            'Register ReadHub',
+                            'Guest Account',
                             style: GoogleFonts.poppins(
                               fontSize: 16   ,
                               fontWeight: FontWeight.w700,
