@@ -7,7 +7,7 @@ import 'package:readhub/Borrow/screens/mybook.dart';
 import 'package:readhub/Home/screens/profile.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:readhub/together/widgets/notlogin.dart';
+import 'package:readhub/together/widgets/notLogin.dart';
 
 // Global variable for screens
 List<Widget> widgetOptions = <Widget>[
