@@ -61,16 +61,19 @@ class _MyBookScreenState extends State<MyBookScreen> {
                 children: [
                   ListView(
                     children: [
-                      Positioned.fill(
-                        child: Image.asset(
-                          'assets/images/YourBook.png',
-                          fit: BoxFit.fill,
+                      Container(
+                        height: 350,  // Set an appropriate height for the container
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/YourBook.png'),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                       // SizedBox(height: 28.0),
                       ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: 1,
                         itemBuilder: (_, index) {
                           return Padding(
@@ -101,16 +104,19 @@ class _MyBookScreenState extends State<MyBookScreen> {
                 children: [
                   ListView(
                     children: [
-                      Positioned.fill(
-                        child: Image.asset(
-                          'assets/images/YourBook.png',
-                          fit: BoxFit.fill,
+                      Container(
+                        height: 350,  // Set an appropriate height for the container
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/YourBook.png'),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                       // SizedBox(height: 28.0),
                       ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (_, index) {
                             return Padding(
