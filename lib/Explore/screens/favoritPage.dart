@@ -4,12 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/Explore/widgets/favorit_book_widget.dart';
-import 'package:readhub/together/widgets/navbar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:readhub/Explore/models/bookFavorit.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:readhub/Detail/screens/detail_book.dart';
 
 class FavoritScreen extends StatefulWidget {
   final CookieRequest? request; // Tambahkan parameter request

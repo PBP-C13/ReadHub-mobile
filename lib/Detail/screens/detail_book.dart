@@ -713,9 +713,9 @@ Container(
                                     maxWidth: 135,
                                   ),
                                   child: Text(
-                                    (book?.fields?.bookTitle?.length ?? 0) > 18
-                                    ? (book?.fields?.bookTitle?.substring(0, 18) ?? '') + '...'
-                                    : book?.fields?.bookTitle ?? '',
+                                    (book.fields.bookTitle.length) > 18
+                                    ? (book.fields.bookTitle.substring(0, 18)) + '...'
+                                    : book.fields.bookTitle,
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 12,
@@ -729,9 +729,9 @@ Container(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
                                   child: Text(
                                     'by ${
-                                      (book?.fields?.bookAuthors?.length ?? 0) > 18
-                                          ? (book?.fields?.bookAuthors?.substring(0, 18)?.replaceAll("|", ", ") ?? '') + '...'
-                                          : book?.fields?.bookAuthors?.replaceAll("|", ", ") ?? ''
+                                      (book.fields.bookAuthors.length) > 18
+                                          ? (book.fields.bookAuthors.substring(0, 18).replaceAll("|", ", ")) + '...'
+                                          : book.fields.bookAuthors.replaceAll("|", ", ")
                                     }',
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
