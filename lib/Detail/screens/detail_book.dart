@@ -11,7 +11,6 @@ import 'package:readhub/together/models/book.dart';
 import 'package:readhub/Detail/models/detail.dart';
 import 'package:readhub/Detail/widgets/review_card.dart';
 import 'package:readhub/Detail/widgets/review_form.dart';
-import 'package:readhub/auth/screens/login.dart';
 import 'package:readhub/together/widgets/notLogin.dart';
 
 
