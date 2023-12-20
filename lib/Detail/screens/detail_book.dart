@@ -120,9 +120,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 // Add space between the arrow icon and the favorite image
                 Spacer(),
-                Positioned(
-                  right: 4,
-                  top: 4,
+                Container(
+                  // right: 4,
+                  // top: 4,
                   child: Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
