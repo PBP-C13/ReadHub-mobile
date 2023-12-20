@@ -1,42 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readhub/auth/screens/onboarding.dart';
+import 'package:readhub/together/style/colors.dart';
 
+// ignore: camel_case_types
 class notLogin extends StatefulWidget {
+  // ignore: use_super_parameters
   const notLogin({Key? key}) : super(key: key);
 
   @override
   State<notLogin> createState() => _notLoginState();
 }
 
+// ignore: camel_case_types
 class _notLoginState extends State<notLogin> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: EdgeInsets.fromLTRB(12, 32, 12, 32),
+        padding: const EdgeInsets.fromLTRB(12, 32, 12, 32),
         width: 320,
         height: 400,
         decoration: BoxDecoration(
-          color: Color(0xff12132a),
+          color: Warna.backgrounddark,
           borderRadius: BorderRadius.circular(40),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Centers vertically
+          mainAxisAlignment: MainAxisAlignment.center, 
           crossAxisAlignment: CrossAxisAlignment.center, // Centers horizontally
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(2.5, 0, 0, 19),
+              margin: const EdgeInsets.fromLTRB(2.5, 0, 0, 19),
               width: 219,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(59.5, 0, 59.5, 16),
+                    margin: const EdgeInsets.fromLTRB(59.5, 0, 59.5, 16),
                     width: double.infinity,
                     height: 100,
                     decoration: BoxDecoration(
-                      color: Color(0xff2e4ee7),
+                      color: const Color(0xff2e4ee7),
                       borderRadius: BorderRadius.circular(89999),
                     ),
                     child: Center(
@@ -57,12 +61,12 @@ class _notLoginState extends State<notLogin> {
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                       height: 1.5,
-                      color: Color(0xffffffff),
+                      color: const Color(0xffffffff),
                     ),
                   ),
-                  SizedBox(height: 16), // Increased space between "Ayo Login" and description
+                  const SizedBox(height: 16), // Increased space between "Ayo Login" and description
                   Container(
-                    constraints: BoxConstraints(maxWidth: 219),
+                    constraints: const BoxConstraints(maxWidth: 219),
                     child: Text(
                       'Untuk mengakses fitur tersebut kamu harus login terlebih dahulu',
                       textAlign: TextAlign.center,
@@ -70,30 +74,30 @@ class _notLoginState extends State<notLogin> {
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                         height: 2,
-                        color: Color(0xffffffff),
+                        color: Warna.white,
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 0), // Reduced space between description and buttons
+            const SizedBox(height: 0), // Reduced space between description and buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: buttonTemplate('Kembali', Color(0x332a4cf1), Color(0xff2a4cf1)),
+                  child: buttonTemplate('Kembali', Warna.lightblue, Warna.blue),
                 ),
-                SizedBox(width: 8), // Space between buttons
+                const SizedBox(width: 8), // Space between buttons
                 GestureDetector(
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => Onboarding()),
+                      MaterialPageRoute(builder: (context) => const Onboarding()),
                     );
                   },
-                  child: buttonTemplate('Login', Color(0xff2a4cf1), Color(0xffffffff)),
+                  child: buttonTemplate('Login', Warna.blue,Warna.white),
                 ),
               ],
             ),
@@ -105,7 +109,7 @@ class _notLoginState extends State<notLogin> {
 
   Widget buttonTemplate(String text, Color bgColor, Color textColor) {
     return Container(
-      padding: EdgeInsets.fromLTRB(26, 8.5, 26, 8),
+      padding: const EdgeInsets.fromLTRB(26, 8.5, 26, 8),
       width: 130,
       height: 44,
       decoration: BoxDecoration(
