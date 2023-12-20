@@ -642,32 +642,23 @@ Container(
                                   child: Align(
                                     alignment: Alignment.topRight,
                                     child: InkWell(
-                                      onTap: () async {
-                                        if (request.loggedIn) {
-                                          // Jika sudah login, navigasi ke FavoritForm
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => FavoritForm(book: book),
-                                            ),
-                                          );
-                                        } else {
-                                          // Jika belum login, navigasi ke halaman login
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => LoginPage(),
-                                            ),
-                                          ).then((value) {
+                                        onTap: () async {
+                                          if (request.loggedIn) {
+                                            // Jika sudah login, navigasi ke FavoritForm
                                             Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => FavoritForm(book: book),
-                                            ),
-                                          );
-                                          });
-                                        }
-                                      },
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => FavoritForm(book: widget.book),
+                                              ),
+                                            );
+                                          } else {
+                                            // Jika belum login, navigasi ke halaman login
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) => notLogin(),
+                                            );
+                                          }
+                                        },
                                       child: SizedBox(
                                         width: 32,
                                         height: 32,
