@@ -46,8 +46,6 @@ class _CommunityForumWidgetState extends State<CommunityForumWidget> {
     Navigator.of(context).push(_createRoute(const CommunityScreen()));
   }
 
-  Future<List<Book>>?
-        _listbook;
 
  Map<int, Book>? _booksMap;
 
@@ -90,7 +88,6 @@ Future<Map<int, Book>> fetchbuku() async {
     final screenWidth = MediaQuery.of(context).size.width;
     final contentWidth = screenWidth - 28 * 2;
     final request = context.watch<CookieRequest>();
-    final Book book;
     
     return InkWell(
       // onTap: () {

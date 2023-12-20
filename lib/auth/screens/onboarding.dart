@@ -13,7 +13,6 @@ class Onboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double fem = 1.0;
-    const double ffem = 1.0;
     return Scaffold(
       backgroundColor: Warna.blue,
       body: Stack(

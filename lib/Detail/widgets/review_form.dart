@@ -19,7 +19,6 @@ class ReviewForm extends StatefulWidget {
 class _ReviewFormState extends State<ReviewForm> {
   final _formKey = GlobalKey<FormState>();
   String _review = "";
-  String _username = "";
   late String _book;
 
   @override
