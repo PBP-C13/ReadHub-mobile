@@ -17,12 +17,16 @@ void handleLogout(BuildContext context) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text("$message Sampai jumpa, $uname."),
     ));
+    isUserLoggedIn= false;
+    // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
       context,
+      // ignore: prefer_const_constructors
       MaterialPageRoute(builder: (context) => Onboarding()),
     );
   } else {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      // ignore: unnecessary_string_interpolations
       content: Text("$message"),
     ));
   }
