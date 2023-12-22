@@ -38,7 +38,7 @@ class ProfileUpper extends StatelessWidget {
               height: 20  ,
             ),
             Text(
-              userlogin,
+              displayname,
               style: GoogleFonts.poppins(
                 fontSize: 24   ,
                 fontWeight: FontWeight.w700,

@@ -159,7 +159,7 @@ class _HomescreenState extends State<Homescreen> {
                                     ),
                                   ),
                                   Text(
-                                    isUserLoggedIn ? userlogin : "Guest",
+                                    isUserLoggedIn ? displayname : "Guest",
                                     style: GoogleFonts.poppins(
                                       fontSize: 24,
                                       fontWeight: FontWeight.w700,

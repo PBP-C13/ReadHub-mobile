@@ -15,7 +15,7 @@ class EditProfile extends StatelessWidget {
 
   Future<void> _editDisplayname(BuildContext context, request) async {
     final newUsername = usernameController.text;
-    userlogin = newUsername;
+    displayname = newUsername;
 
     showDialog(
       context: context,

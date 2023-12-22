@@ -6,6 +6,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:readhub/Community/models/forum.dart';
 import 'package:readhub/Community/screens/community.dart';
 import 'package:readhub/Detail/screens/detail_book.dart';
+import 'package:readhub/Home/models/user.dart';
 import 'package:readhub/together/models/book.dart';
 import 'package:readhub/together/style/colors.dart';
 import 'package:http/http.dart' as http;
@@ -140,33 +141,33 @@ Future<Map<int, Book>> fetchbuku() async {
                                 ),
                               ],
                             ),
-                            PopupMenuButton<String>(
-                              icon: Icon(Icons.more_vert, color: Colors.white),
-                              
-                              onSelected: (value) {
-                                if (value == 'delete') {
-                                  _deleteforum(context, request, widget.forum);
-                                }
-                              },
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                    value: 'delete',
-                                    child: Container(
-                                      child: Row(
-                                        children: [
-                                          Icon(Icons.delete, color: Colors.red),
-                                          SizedBox(width: 8),
-                                          Text('Delete'),
-                                        ],
+                            widget.forum.name == userlogin // Cek apakah nama forum sama dengan user yang login
+                              ? PopupMenuButton<String>(
+                                  icon: Icon(Icons.more_vert, color: Colors.white),
+                                  onSelected: (value) {
+                                    if (value == 'delete') {
+                                     _deleteforum(context, request, widget.forum);
+                                    }
+                                  },
+                                  itemBuilder: (context) {
+                                    return [
+                                      PopupMenuItem(
+                                        value: 'delete',
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.delete, color: Colors.red),
+                                            SizedBox(width: 8),
+                                            Text('Delete'),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ];
-                              },
-                            ),
-                          ],
-                        ),
+                                    ];
+                                  },
+                                )
+                              : Container(), // Jika tidak sama, tidak menampilkan apa-apa
+                        ],
+                      ),
+
                         SizedBox(height: 16),
                         Container(
                           constraints: BoxConstraints(
